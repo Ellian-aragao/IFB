@@ -1,45 +1,45 @@
-#include<stdio.h>
-void main(void)
+#include <stdio.h>
+int main(void)
 {
     int n;
     do
     {
         printf("digite quantos numeros deseja digitar:\t");
-        scanf("%d",&n);
+        scanf("%d", &n);
 
-        if(n == 0)
+        if (n == 0)
         {
             puts("digite um número válido\n\n\n");
         }
 
-    }while(n <= 0);
+    } while (n <= 0);
 
     putchar('\n');
 
-    int x,maior=0,menor=0,seg_maior=0,seg_menor=0;
-    for(int i=0;i<n;i++)
+    int x, maior = 0, menor = 0, seg_maior = 0, seg_menor = 0;
+    for (int i = 0; i < n; i++)
     {
         printf("digite um número:\t");
-        scanf("%d",&x);
+        scanf("%d", &x);
 
-        if(i == 0)
+        if (i == 0)
         {
             maior = x;
             menor = x;
         }
         else
         {
-            if(i == 1)
+            if (i == 1)
             {
                 seg_maior = x;
                 seg_menor = x;
 
-                if(x > maior)
+                if (x > maior)
                 {
                     seg_maior = maior;
                     maior = x;
                 }
-                if(x < menor)
+                if (x < menor)
                 {
                     seg_menor = menor;
                     menor = x;
@@ -47,7 +47,7 @@ void main(void)
             }
             else
             {
-                if(x > maior)
+                if (x > maior)
                 {
                     seg_maior = maior;
                     maior = x;
@@ -57,7 +57,7 @@ void main(void)
                     seg_maior = x;
                 }
 
-                if(x < menor)
+                if (x < menor)
                 {
                     seg_menor = menor;
                     menor = x;
@@ -74,5 +74,8 @@ void main(void)
             o maior elemento:\t%d\n\
             o segundo maior elemento:\t%d\n\
             o segundo menor elemento:\t%d\n\
-            o menor elemento:\t%d\n\n",maior,seg_maior,seg_menor,menor);
+            o menor elemento:\t%d\n\n",
+           maior, seg_maior, seg_menor, menor);
+    
+    return 0;
 }
