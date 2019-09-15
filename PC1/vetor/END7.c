@@ -1,4 +1,4 @@
-#include <stdio.h>
+ls#include <stdio.h>
 #include <stdlib.h>
 
 void fib(int n)
@@ -28,7 +28,7 @@ void fib(int n)
 
 void somatorio()
 {
-    
+    puts("hello world");
 }
 
 int main(void)
