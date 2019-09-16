@@ -22,7 +22,7 @@ int main(void)
     {
         // 2ª entrada no programa
         int *coeficientes = malloc((n + 1) * sizeof(int)); // aloca memória para os coeficientes da função  "Ai"
-        testeDeAlocacao(coeficientes);
+        testeDeAlocacao(coeficientes);                     // testa se a alocação foi efetiva
         for (int i = 0; i <= n; i++)                       // salva os coeficientes no vetor de coeficientes
         {
             int aux;
@@ -36,11 +36,12 @@ int main(void)
         while (consultas < 0 || consultas > 100) scanf("%d", &consultas); // determina a quantidade de consultas serão feitas
 
         // ultimas entradas dependentes da 3ª
-        float *valoresDeConsulta = malloc(consultas * sizeof(float)); // aloca a memória para os valores de 'x'
+        float *valoresDeConsulta = malloc(consultas * sizeof(float));           // aloca a memória para os valores de 'x'
+        testeDeAlocacao(valoresDeConsulta);                                     // testa se a alocação foi efetiva
         for (int i = 0; i < consultas; i++) scanf("%f", &valoresDeConsulta[i]); // salva os valores a serem testados
 
 
-        //////////////////////////////  começam as saídas do programa   /////////////////////////////////
+        ///////////////////////////////////         saídas do programa        //////////////////////////////////////
 
 
         for (int i = 0; i < consultas; i++) // fazendo os testes em relação a quantidade de X inseridos
