@@ -21,7 +21,7 @@ int main(void)
     if (n >= 0 && n <= 6) // verifica se o grau esta no espaço amostral
     {
         // 2ª entrada no programa
-        int *coeficientes = malloc((n + 1) * sizeof(int)); // aloca memória para os coeficientes da função  "Ai"
+        int *coeficientes = malloc(n * sizeof(int));       // aloca memória para os coeficientes da função  "Ai"
         testeDeAlocacao(coeficientes);                     // testa se a alocação foi efetiva
         for (int i = 0; i <= n; i++)                       // salva os coeficientes no vetor de coeficientes
         {
@@ -50,7 +50,7 @@ int main(void)
             float fdex = FdeX(coeficientes, n, valoresDeConsulta[i]); // valor da função F(x)
             for (int j = 0; j <= n; j++)                              // temporário o parâmetro
             {
-                taylor += Taylor(coeficientes[j], valoresDeConsulta[i], j);
+                taylor += Taylor(coeficientes[j], valoresDeConsulta[i], j); 
                 printf("%d %lf %lf\n", j + 1, taylor, fdex);
 
                 if (taylor - fdex <= ERRO && taylor - fdex > 0) break; // critério de parada quando  > 0
