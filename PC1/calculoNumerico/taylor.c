@@ -65,13 +65,13 @@ int main(void)
 }
 
 // polinomio de Taylor
-float Taylor(int coeficiente, float x, int j)
+float Taylor(int coeficiente, float x, int i)
 {
-    return ((fat(j) * coeficiente) * (pot(x, j) / fat(j)));
+    return ((fat(i) * coeficiente) * (pot(x,  i) / fat( i)));
 }
 
 // calcula a função de X --> F(x)
-float FdeX(int *coeficientes, int n, float X) // ok
+float FdeX(int *coeficientes, int n, float X)
 {
     float FdeX = 0;
     for (int i = 0; i <= n; i++) FdeX += coeficientes[i] * pot(X, i); // produto escalar dos coeficientes e vetorX
@@ -79,7 +79,7 @@ float FdeX(int *coeficientes, int n, float X) // ok
 }
 
 // função de potência
-float pot(double base, int potencia) // ok
+float pot(double base, int potencia)
 {
     if (potencia == 0) return 1;
     else
