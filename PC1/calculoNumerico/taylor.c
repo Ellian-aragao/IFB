@@ -3,13 +3,13 @@
 #define ERRO 1e-3
 
 // calcula a função de X
-float FdeX(int *coeficientes, int n, float X);
+float FdeX(float *coeficientes, int n, float X);
 // função de potência
 float pot(double base, int potencia);
 // função fatorial
 float fat(float n);
 // polinomio de Taylor
-float Taylor(int coeficiente, float x, int j);
+float Taylor(float coeficiente, float x, int j);
 // verifica se a alocação de memória funcionou
 void testeDeAlocacao(void *ptr);
 
@@ -21,12 +21,12 @@ int main(void)
     if (n >= 0 && n <= 6) // verifica se o grau esta no espaço amostral
     {
         // 2ª entrada no programa
-        int *coeficientes = malloc(n * sizeof(int));       // aloca memória para os coeficientes da função  "Ai"
+        float *coeficientes = malloc(n * sizeof(float));       // aloca memória para os coeficientes da função  "Ai"
         testeDeAlocacao(coeficientes);                     // testa se a alocação foi efetiva
         for (int i = 0; i <= n; i++)                       // salva os coeficientes no vetor de coeficientes
         {
-            int aux;
-            scanf("%d", &aux);
+            float aux;
+            scanf("%f", &aux);
             if (aux >= -10 && aux <= 10) coeficientes[i] = aux; // analisa se os coeficientes estão dentro do espaço amostral
             else i--;
         }
@@ -65,13 +65,13 @@ int main(void)
 }
 
 // polinomio de Taylor
-float Taylor(int coeficiente, float x, int i)
+float Taylor(float coeficiente, float x, int i)
 {
     return ((fat(i) * coeficiente) * (pot(x,  i) / fat( i)));
 }
 
 // calcula a função de X --> F(x)
-float FdeX(int *coeficientes, int n, float X)
+float FdeX(float *coeficientes, int n, float X)
 {
     float FdeX = 0;
     for (int i = 0; i <= n; i++) FdeX += coeficientes[i] * pot(X, i); // produto escalar dos coeficientes e vetorX
