@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define ERRO 1e-3
+#define ERRO 1e-5
 
 // executa os testes para atualização dos limites e retorna um valor relativo ao ERRO
-float verificador(float *limite, int *coeficientes, int n);
+float verificador(float *limite, float *coeficientes, int n);
 // faz o calculo do ponto médio
 float pontoMedio(float *limite);
 // calcula a função de X --> F(x)
-float FdeX(int *coeficientes, int n, float X);
+float FdeX(float *coeficientes, int n, float X);
 // função de potência
 float pot(double base, int potencia);
 // verifica se a alocação de memória funcionou
@@ -22,7 +22,7 @@ int main(void)
     if (n >= 0 && n <= 6) // verifica se o grau esta no espaço amostral
     {
         // 2ª entrada no programa
-        int *coeficientes = malloc((n + 1) * sizeof(int)); // aloca memória para os coeficientes da função  "Ai"
+        float *coeficientes = malloc((n + 1) * sizeof(float)); // aloca memória para os coeficientes da função  "Ai"
         testeDeAlocacao(coeficientes);                     // testa se a alocação foi efetiva
         for (int i = 0; i <= n; i++)                       // salva os coeficientes no vetor de coeficientes
         {
@@ -48,7 +48,7 @@ int main(void)
 }
 
 // executa os testes para atualização dos limites e retorna um valor relativo ao ERRO
-float verificador(float *limite, int *coeficientes, int n)
+float verificador(float *limite, float *coeficientes, int n)
 {
     float media = pontoMedio(limite); // ponto médio
     while (1)
@@ -68,7 +68,7 @@ float pontoMedio(float *limite)
 }
 
 // calcula a função de X --> F(x)
-float FdeX(int *coeficientes, int n, float X)
+float FdeX(float *coeficientes, int n, float X)
 {
     float FdeX = 0;
     for (int i = 0; i <= n; i++) FdeX += coeficientes[i] * pot(X, i); // produto escalar dos coeficientes e vetorX
