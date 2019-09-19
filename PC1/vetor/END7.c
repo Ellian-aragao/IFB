@@ -7,14 +7,15 @@ int *fib(int n);
 float somatorio(int limite_inf, int limite_sup, int *fibonacci);
 // atualização do tamanho do vetor
 void realoc_fib(int *fibonacci, int antigo_limitante, int novo_limitante);
+// em caso de erro de alocação encerra o programa
+void problemaDealocacao(int *vetor);
 
 int main(void)
 {
     int n; // pares de inteiros
     scanf("%d", &n);
-    if (n >= 1 && n <= 100)
+    if (n >= 1 && n <= 100) // intervalo para os pares
     {
-        puts("digite o par de inteiros limitantes do somatório, sendo o primeiro limite inferior e o segundo superior");
         int lim_infelior, lim_superior0, lim_superior; // limitantes
         int *fibonacci = NULL;                         // futuro vetor dos nuns de fib
         for (int i = n; i > 0; i--)
@@ -25,14 +26,16 @@ int main(void)
             {
                 lim_superior = lim_superior0;
                 fibonacci = fib(lim_superior);
+                problemaDealocacao(fibonacci);
             }
             else if (lim_superior0 > lim_superior) // verifica se o limite máximo foi alterado
             {
                 realoc_fib(fibonacci, lim_superior, lim_superior0);
+                problemaDealocacao(fibonacci);
                 lim_superior = lim_superior0;
             }
 
-            printf("para o par %d e %d, o somatório e = %.0f\n", lim_infelior, lim_superior, somatorio(lim_infelior, lim_superior, fibonacci));
+            printf("[%d,%d], somatorio = %.0f\n", lim_infelior, lim_superior, somatorio(lim_infelior, lim_superior, fibonacci));
         }
         free(fibonacci);
     }
@@ -50,16 +53,22 @@ int *fib(int limite_sup) // corrigir sistema de alocação de memória para atin
 }
 
 // realiza o somatório da função de fib
-float somatorio(int limite_inf, int limite_sup, int *fibonacci)
+float somatorio(int limite_inf, int limite_sup, int *fibonacci) // função está errada
 {
     float soma = 0;
-    for (int i = limite_inf; i <= limite_sup; i++) soma += fibonacci[i];
+    for (int i = 0;fibonacci[i] >= limite_inf && fibonacci[i] <= limite_sup; i++) soma += fibonacci[i];
     return soma;
 }
 
 // atualização do tamanho do vetor
 void realoc_fib(int *fibonacci, int antigo_limitante, int novo_limitante)
 {
-    fibonacci = (int *)realloc(fibonacci, novo_limitante * sizeof(int));
+    fibonacci = (int*)realloc(fibonacci, novo_limitante * sizeof(int));
     for (int i = antigo_limitante; i < novo_limitante; i++) fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2]; // atualização
+}
+
+// em caso de erro de alocação encerra o programa
+void problemaDealocacao(int *vetor)
+{
+    if (vetor == NULL) exit(0);
 }
