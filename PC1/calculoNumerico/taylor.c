@@ -1,17 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include "funcoes.h"
 #define ERRO 1e-3
-
-// calcula a função de X
-float FdeX(float *coeficientes, int n, float X);
-// função de potência
-float pot(double base, int potencia);
-// função fatorial
-float fat(float n);
-// polinomio de Taylor
-float Taylor(float coeficiente, float x, int j);
-// verifica se a alocação de memória funcionou
-void testeDeAlocacao(void *ptr);
 
 int main(void)
 {
@@ -52,9 +43,7 @@ int main(void)
             {
                 taylor += Taylor(coeficientes[j], valoresDeConsulta[i], j); 
                 printf("%d %lf %lf\n", j + 1, taylor, fdex);
-
-                if (taylor - fdex <= ERRO && taylor - fdex > 0) break; // critério de parada quando  > 0
-                if (taylor == fdex) break;
+                if (fabs(taylor - fdex) <= ERRO && taylor - fdex > 0) break; // critério de parada quando  > 0
             }
             putchar('\n');
         }
@@ -62,42 +51,4 @@ int main(void)
         free(valoresDeConsulta);
     }
     return 0;
-}
-
-// polinomio de Taylor
-float Taylor(float coeficiente, float x, int i)
-{
-    return ((fat(i) * coeficiente) * (pot(x,  i) / fat( i)));
-}
-
-// calcula a função de X --> F(x)
-float FdeX(float *coeficientes, int n, float X)
-{
-    float FdeX = 0;
-    for (int i = 0; i <= n; i++) FdeX += coeficientes[i] * pot(X, i); // produto escalar dos coeficientes e vetorX
-    return FdeX;
-}
-
-// função de potência
-float pot(double base, int potencia)
-{
-    if (potencia == 0) return 1;
-    else
-    {
-        double base_orig = base;
-        for (int i = 1; i < potencia; i++)base *= base_orig;
-        return base;
-    }
-}
-
-// função fatorial
-float fat(float n) // eu sei que não vai estorar a memória porque não passa de 6
-{
-    return (n == 0 ? 1 : n * fat(n - 1));
-}
-
-// verifica se a alocação de memória funcionou
-void testeDeAlocacao(void *ptr)
-{
-    if (ptr == NULL) exit(1);
 }
