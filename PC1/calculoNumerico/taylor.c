@@ -91,7 +91,7 @@ float pot(double base, int potencia)
 }
 
 // função fatorial
-float fat(float n)
+float fat(float n) // eu sei que não vai estorar a memória porque não passa de 6
 {
     return (n == 0 ? 1 : n * fat(n - 1));
 }
