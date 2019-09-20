@@ -9,6 +9,7 @@ F(x) = a0 * x^0 + a1 * x^1+ a2 * x^2 + a3 * x^3 + a4 * x^4 + a5 * x^5 + a6 * x^6
 // função de potência
 float pot(double base, int potencia);
 /*realiza a potenciação de uma certa base em cima da poência dada, sendo assim a base multiplicada por si mesma "potencia" vezes*/
+
 // função fatorial
 float fat(float n);
 /*realiza o cálculo da função fatorial através do método recursivo*/
@@ -31,6 +32,5 @@ seu término ocorre quando o valor da média está dentro da precisão expressa 
 float pontoMedio(float *limite);
 /*realiza o cálculo do ponto médio através do padrão abaixo devolvendo o valor obtido
 limite inferior + (limite superior - limite inferior) / 2 */
-
 
 #endif

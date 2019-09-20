@@ -9,7 +9,7 @@ int main(void)
     while (epsilonF / 2 != 0) epsilonF /= 2;
     while (epsilonD / 2 != 0) epsilonD /= 2;
 
-    // código desenvolvido pelo henrique e gustavo, resultado diferente e muito maior que o obtido no anterior
+    // código desenvolvido pelo henrique e gustavo, resultado diferente e muito maior que o obtido por mim
     //while (epsilonF + 1 != 1) epsilonF /= 2;
     //while (epsilonD + 1 != 1) epsilonD /= 2;
     
