@@ -52,7 +52,7 @@ float verificador(float *limite, float *coeficientes, int n)
                 puts("raiz não encontrada");
                 exit(0);
             }
-*/
+            */
             limite[1] = media; // salva novo limite
         }
         else
@@ -62,7 +62,7 @@ float verificador(float *limite, float *coeficientes, int n)
                 puts("raiz não encontrada");
                 exit(0);
             }
-*/
+            */
             limite[0] = media; // salva novo limite
         }
     }
