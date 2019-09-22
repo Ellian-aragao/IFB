@@ -21,9 +21,8 @@ int main(void)
         }
         
         // 3º entrada do programa
-        float limite[3]; // limites primário, inferior e superior   (l, m, r)
-        scanf("%f %f",&limite[0],&limite[2]);
-        limite[1] = limite[0];
+        float limite[2]; // limites primário, inferior e superior   (l, m, r)
+        scanf("%f %f",&limite[0],&limite[1]);
 
 
         /////////////////////////////////////           saída do programa       /////////////////////////////////////////////

@@ -34,7 +34,7 @@ void testeDeAlocacao(void *ptr)
 
 float pontoMedio(float *limite)
 {
-    return (limite[1] + (limite[2] - limite[1]) / 2);
+    return (limite[0] + (limite[1] - limite[0]) / 2);
 }
 
 float verificador(float *limite, float *coeficientes, int n)
@@ -45,17 +45,7 @@ float verificador(float *limite, float *coeficientes, int n)
         media = pontoMedio(limite); // atribui novo valor ao ponto médio
         if (fabs(FdeX(coeficientes, n, media)) < ERRO) break; // ponto de parada em relação a precisão
 
-        if (FdeX(coeficientes, n, media) * FdeX(coeficientes, n, limite[1]) < 0) // executa o T.V.M
-        {/*
-            if (fabs(media - limite[1]) < ERRO) // valor de erro maior que a diferença do ponto anterior com a média
-            {
-                puts("raiz não encontrada");
-                exit(0);
-            }
-*/
-            limite[2] = media; // salva novo limite
-        }
-        else
+        if (FdeX(coeficientes, n, media) * FdeX(coeficientes, n, limite[0]) < 0) // executa o T.V.M
         {/*
             if (fabs(media - limite[1]) < ERRO) // valor de erro maior que a diferença do ponto anterior com a média
             {
@@ -64,6 +54,16 @@ float verificador(float *limite, float *coeficientes, int n)
             }
 */
             limite[1] = media; // salva novo limite
+        }
+        else
+        {/*
+            if (fabs(media - limite[0]) < ERRO) // valor de erro maior que a diferença do ponto anterior com a média
+            {
+                puts("raiz não encontrada");
+                exit(0);
+            }
+*/
+            limite[0] = media; // salva novo limite
         }
     }
     return media;
