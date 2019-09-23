@@ -7,13 +7,10 @@ def Taylor(coeficientes, x, i):  # função de Taylor
 
 
 # coeficientes dados pela lista
-coeficientes = [- 0.1, - 0.15, - 0.5, - 0.25, 1.2]
+coeficientes = [1.2, -0.25, -0.5, -0.15, -0.1]
 
 # intervalo dado [0,4] que foi dividido em dez partes
 x = [0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4]
-
-# para a função de Taylor fazer o cálculo com os valores corretos
-coeficientes.reverse()
 
 # alterando os valores de x
 for i in x:
