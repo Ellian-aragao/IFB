@@ -7,14 +7,35 @@
 //variáveis autoexplicativas, x sendo uma variável multiuso durante o jogo
 int jogo = 1, tempo, tempoevolucao, tempogestacao, x, fome = 10, felicidade = 10, higiene = 10;
 char nome[26], nome0[26], nivel = 64;
+struct tamagotchi
+{
+    char nome[26];
+    int tempo;
+    int tempoevolucao;
+    int tempogestacao;
+    int fome;
+    int felicidade;
+    int higiene;
+};
 
+//obtém o nome, salva no ponteiro, copia o ponteiro para as auxiliares principais de funções main e display
+void salvarNome()
+{
+    preenchervazio(strcpy(nome0, obternome()));
+}
 //função para limpeza da tela
 void limpartela()
 {
     system("clear");
 }
 
-//função para o dysplay, gerador da linha superior e inferior
+// marcar decorrência de tempo
+void tempoDeEspera(int segundos)
+{
+    sleep(segundos);
+}
+
+//função para o display, gerador da linha superior e inferior
 void hashtag(int num)
 {
     int i;
@@ -45,7 +66,7 @@ char *obternome(void)
         espacos(1);
         puts("digite um nome para o monstrinho ASCII, de até 25 caracteres");
         scanf("%[^\n]s", nome);
-        getchar();
+        setbuf(stdin,NULL);
         if (strlen(nome) > 25)
         {
             espacos(4);
@@ -202,102 +223,102 @@ void interacaousuario()
         scanf("%d", &x);
         switch (x)
         {
-        //alimentar o monstrinho
-        case 1:
-        {
-            limpartela();
-            espacos(3);
-            printf("%s, hora de comer!\n", nome);
-            sleep(2);
-            espacos(3);
-            printf("humm, que delicia mestre!\n");
-            sleep(1);
-            fome = fome - 2;
-            higiene = higiene - 2;
-            break;
-        }
+            //alimentar o monstrinho
+            case 1:
+            {
+                limpartela();
+                espacos(3);
+                printf("%s, hora de comer!\n", nome);
+                sleep(2);
+                espacos(3);
+                printf("humm, que delicia mestre!\n");
+                sleep(1);
+                fome = fome - 2;
+                higiene = higiene - 2;
+                break;
+            }
 
-        //dar atenção ao monstrinho
-        case 2:
-        {
-            limpartela();
-            espacos(3);
-            puts("o carinho do mestre me faz bem :)");
-            sleep(1);
-            felicidade = felicidade + 3;
-            fome = fome + 1;
-            break;
-        }
-        //higienizar o monstrinho
-        case 3:
-        {
-            limpartela();
-            espacos(3);
-            printf("%s, hora do banho!\n", nome);
-            sleep(2);
-            espacos(3);
-            puts("Naooooooooooooooooo...");
-            sleep(1);
-            higiene = higiene + 7;
-            felicidade = felicidade - 4;
-            break;
-        }
-        //fazer absolutamente nada
-        case 4:
-        {
-            break;
-        }
-        //padrão fora das alternativas
-        default:
-        {
-            limpartela();
-            espacos(3);
-            puts("O que foi isso mestre? O que queria de mim?");
-            sleep(2);
-            felicidade = felicidade - 5;
-        }
+            //dar atenção ao monstrinho
+            case 2:
+            {
+                limpartela();
+                espacos(3);
+                puts("o carinho do mestre me faz bem :)");
+                sleep(1);
+                felicidade = felicidade + 3;
+                fome = fome + 1;
+                break;
+            }
+
+            //higienizar o monstrinho
+            case 3:
+            {
+                limpartela();
+                espacos(3);
+                printf("%s, hora do banho!\n", nome);
+                sleep(2);
+                espacos(3);
+                puts("Naooooooooooooooooo...");
+                sleep(1);
+                higiene = higiene + 7;
+                felicidade = felicidade - 4;
+                break;
+            }
+
+            //fazer absolutamente nada
+            case 4:
+            {
+                break;
+            }
+
+            //padrão fora das alternativas
+            default:
+            {
+                limpartela();
+                espacos(3);
+                puts("O que foi isso mestre? O que queria de mim?");
+                sleep(2);
+                felicidade = felicidade - 5;
+            }
         }
     }
 }
-/*
+
 //condições aleatórias
-int condicoesaleatorias()
+void condicoesaleatorias()
 {
     if ( tempo % 5 == 0 && tempogestacao > 9 )
     {
-        //gerador de números aleatórios que vão configurar algum problema a ser sofrido pelo monstrinho 
+        // geração de números aleatórios
+        srand(time(NULL));
+
+        // gerador de números aleatórios que vão configurar algum problema a ser sofrido pelo monstrinho 
         x = rand() % 3;
         switch (x)
         {
-
-            //incrementar fome
+            // incrementar fome
             case 0:
             {
                 fome++;
                 break;
             }
 
-            //decrementar felicidade
+            // decrementar felicidade
             case 1:
             {
                 felicidade--;
                 break;
             }
 
-            //decrementar higiene
+            // decrementar higiene
             case 2:
             {
                 higiene--;
                 break;
             }
-            default:
-            {
-                break;
-            }
         }
     }
 }
-*/
 
 //verificador fatalidades possíveis
 int fatalidades() // necessita do inteiro para terminar o jogo
@@ -383,7 +404,6 @@ int fatalidades() // necessita do inteiro para terminar o jogo
 //operador de nível do monstrinho
 void niveldomonstrinho()
 {
-
     if (tempoevolucao == nivel)
     {
         nivel++;
