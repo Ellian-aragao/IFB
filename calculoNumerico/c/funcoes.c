@@ -40,6 +40,7 @@ float pontoMedio(float *limite)
 float verificador(float *limite, float *coeficientes, int n)
 {
     float media; // ponto médio
+    int cont = 0; //  contador
     while (1) // loop infinito
     {
         media = pontoMedio(limite); // atribui novo valor ao ponto médio
@@ -64,6 +65,14 @@ float verificador(float *limite, float *coeficientes, int n)
             }
             */
             limite[0] = media; // salva novo limite
+        }
+
+        // contador para tempo de execusão do algorítmo
+        cont++;
+        if (cont >= 1e4)
+        {
+            puts("raiz nao encontrada");
+            exit(0);
         }
     }
     return media;
