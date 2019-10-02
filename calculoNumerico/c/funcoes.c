@@ -78,7 +78,7 @@ float verificador(float *limite, float *coeficientes, int n)
     return media;
 }
 
-void bisseccao(void)
+void bisseccao()
 {
     // 1ª entrada no programa
     int n; // grau do polinomio
@@ -109,7 +109,7 @@ void bisseccao(void)
     }
 }
 
-void taylor(void)
+void taylor()
 {
     // 1ª entrada no programa
     int n; // grau do polinomio
@@ -157,7 +157,7 @@ void taylor(void)
     }
 }
 
-void epsilon(void)
+void epsilon()
 {
     float epsilonF = 1;
     double epsilonD = 1;
