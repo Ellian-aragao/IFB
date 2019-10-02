@@ -12,6 +12,7 @@ int main()
         puts("1 - epsilon da maquina");
         puts("2 - Taylor");
         puts("3 - bisseccao");
+        puts("4 - limpar tela");
         puts("0 - sair");
         putchar('\n');
         int opcao;
@@ -28,6 +29,10 @@ int main()
             
             case 3:
                 bisseccao();
+                break;
+
+            case 4:
+                limpartela();
                 break;
             
             case 0:

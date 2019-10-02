@@ -33,4 +33,16 @@ float pontoMedio(float *limite);
 /*realiza o cálculo do ponto médio através do padrão abaixo devolvendo o valor obtido
 limite inferior + (limite superior - limite inferior) / 2 */
 
+// limpa a tela para execusão das funções
+void limpartela();
+
+// executa o algoritmo da bisseccao
+void bisseccao(void);
+
+// executa o algoritmo de taylor
+void taylor(void);
+
+// realiza o teste para encontrar o epsilon da máquina
+void epsilon(void);
+
 #endif
