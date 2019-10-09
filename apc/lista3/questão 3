@@ -1,0 +1,33 @@
+início
+	repita
+		exiba("digite um número a ser decomposto")
+		leia(n)
+		se n<0
+			exiba("digite um número válido")
+	até n<0
+		resultado<-n+"="
+		x<-2
+		grau<-0
+		enquanto n<>1 faca
+			se x=2 faca
+				enquanto n mod x = 0 faca
+					n<-n/x
+					grau<-grau+1
+					resultado<-resultado+x+"("+grau+")"
+				fim-enquanto
+			senao
+				se n<3
+					x<-3
+				fim-se
+			fim-se
+			grau<-0
+			enquanto n mod x = 0 faca
+					n<-n/x
+					grau<-grau+1
+					resultado<-resultado+x+"("+grau+")"
+			fim-enquanto
+			x<-x+2
+		fim-enquanto
+	fim-se
+	exiba(resultado)
+fim

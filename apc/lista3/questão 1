@@ -1,0 +1,26 @@
+Algoritmo "calcular o tempo de decorrimento de uma palestra"
+
+Var
+Hi,Mi,Si,Hf,Mf,Sf,Ds,Ph,Pm,Ps,dm:real
+Inicio
+   escreva("digite a hora inicial")
+   leia(Hi)
+   escreva("digite o minuto inicial")
+   leia(Mi)
+   escreva("digite o segundo inicial")
+   leia(Si)
+   escreva("digite a hora final")
+   leia(Hf)
+   escreva("digite o minuto final")
+   leia(Mf)
+   escreva("digite o segundo final")
+   leia(Sf)
+   Si<-si+Hi*120+mi*60
+   sf<-sf+hf*120+mf*60
+   ds<-sf-si
+   pm<-ds div 60
+   ps<-ds-pm*60
+   ph<-pm div 60
+   pm<-pm-ph*60
+   escreva(ph," ",pm," ",ps,"s")
+Fimalgoritmo

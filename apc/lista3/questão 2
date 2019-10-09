@@ -1,0 +1,39 @@
+inicio
+	leia(N)
+	I ← 0
+	Y ← 0
+	enquanto I<>N faça
+		leia(X)
+		se X<0 entao
+			Y ← Y+1
+		fim-se
+	I ← I+1
+	fim-enquanto
+	exiba(Y)
+fim
+
+inicio
+	leia(N)
+	I ← 0
+	Y ← 0
+	repita
+		leia(X)
+		se X<0 entao
+			Y ← Y+1
+		fim-se
+		I ← I+1
+	até I=N
+	exiba(Y)
+fim
+
+inicio
+	leia(N)
+	Y ← 0
+	para I ← 1 até N faça
+		leia(X)
+		se X<0 entao
+			Y ← Y+1
+		fim-se
+	fim-para
+	exiba(Y)
+fim

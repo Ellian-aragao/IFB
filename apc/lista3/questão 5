@@ -1,0 +1,26 @@
+início
+	din<-1000
+	x<-0
+	enquanto x<>3
+		exiba("	   ########################
+			   # 1 - saque		  #
+			   # 2 - depósito	  #
+			   # 3 - sair do programa #
+			   ########################")
+		leia(x)
+		caso 1 x=1
+			exiba("digite um valor a ser sacado")
+			leia(y)
+			se y<din
+				exiba("erro")
+			senao
+				din<-din-y
+			fim-se
+		caso 2 x=2
+			exiba("digite um valor a ser depositado")
+		caso 3 x=3
+			exiba(din)
+		outrocaso
+			exiba("erro, digite um valor válido")
+	fim-enquanto
+fim

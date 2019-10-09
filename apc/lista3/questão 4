@@ -1,0 +1,11 @@
+início
+	exiba("digite um valor x para a série S")
+	leia(x)
+	exiba("digite um valor n para a série S")
+	leia(n)
+	s<-ln(x)
+	para i <- 1 até n faca
+		s<-s+(x^i)/i
+	fim-para
+	exiba(s)
+fim
