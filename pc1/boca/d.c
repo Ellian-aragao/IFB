@@ -1,22 +1,18 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <math.h>
 void linha(int x)
 {
-    for(int i = 1;i <= x; i++) putchar('*');
+    for (int i = 1; i <= x; i++) putchar('*');
 }
-int main (int argc,char** argv)
+int main()
 {
-    int x = atoi(argv[1]);
-
-    for(int i=1; i < x; i++)
+    int x;
+    scanf("%d", &x);
+    for (int linhas = 0; linhas < x; linhas ++)
     {
-        linha(i);
+        if (linhas < x / 2) linha(linhas + 1);
+        else linha(fabs(linhas - x));
         putchar('\n');
     }
-     for(int i=x; i > 0 ; i--)
-    {
-        linha(i);
-        putchar('\n');
-    }
-
     return 0;
 }
