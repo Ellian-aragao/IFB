@@ -5,7 +5,15 @@
 void concatenacao(char *destino, int tamanho_concat, char *str_concat)
 {
     int i, j;
-    for (i = tamanho_concat, j = 0; str_concat[j] != '\0'; i++, j++)
+    for (i = tamanho_concat - 1, j = 0; str_concat[j] != '\0'; i++, j++)
+    {
+        destino[i] = str_concat[j];
+    }
+}
+void concatenacao_lim(char *destino, int tamanho_concat, char *str_concat, int limite_concat)
+{
+    int i, j;
+    for (i = tamanho_concat, j = 0; j < limite_concat ; i++, j++)
     {
         destino[i] = str_concat[j];
     }
@@ -36,33 +44,47 @@ int main()
         }
         else if (i % 3 == 1)
         {
-            // puts("mod 3 = 1");
+            // puts("primeiro parametro");
             pri_parametro = atoi(substring); // salvar o número da codificação
         }
         else if (i % 3 == 2)
         {
-            // puts("mod 3 = 2");
+            // puts("segundo parametro");
             seg_parametro = atoi(substring); // salvar o número da codificação
         }
         else if (i % 3 == 0 && i > 3)
         {
-            //puts("entrou na i \% 3 == 0");
+            // puts("letra");
 
-            char *ptr_str = malloc(pri_parametro * sizeof(char));
-            int diferenca = str_tam - pri_parametro;
-            for (int j = 0; j < pri_parametro; j++, diferenca++)
+
+            if (pri_parametro > 0)
             {
-                ptr_str[j] = str_final[diferenca];
-            }
-            for (int j = 0; j < seg_parametro; j++)
-            {
-                for (int t = 0; t < pri_parametro - 1; t++)
+                char *ptr_str = malloc(pri_parametro * sizeof(char));   // armazena o tamanho do parametro 'x'
+                int diferenca = str_tam - pri_parametro;                // ponto de inicio para cópia
+
+
+                for (int j = 0; j < pri_parametro; j++, diferenca++)    // realiza a cópia dos caracteres do parametro 'x
                 {
-                    concatenacao(str_final, str_tam + 1, ptr_str);
-                    str_tam++;
+                    ptr_str[j] = str_final[diferenca];
+                }
+                printf("copia ->%s\n",ptr_str);
+
+
+                if ()
+                {
+                    strcat
+                }
+                for (int j = 0; j < seg_parametro; j++)
+                {
+                    for (int t = 0; t < pri_parametro - 1; t++)
+                    {
+                        str_tam++;
+                        str_final[str_tam] = ptr_str[t];
+                        //concatenacao_lim(str_final, str_tam, ptr_str,seg_parametro);
+                    }
                 }
             }
-            strcat(str_final,substring);
+            
 
             /*                              copia através do ponteiro que percorre a str_final                 */
             // if (seg_parametro > 0)
@@ -82,11 +104,13 @@ int main()
             //         seg_parametro--;
             //     }
             // }
-            // strcat(str_final, substring);
-            // str_tam++;
+
+
+            strcat(str_final, substring);
+            str_tam++;
         }
 
-        // printf("%s\n", substring);
+        printf("%s\n", substring);
         substring = strtok(NULL, "(,)"); // atualização do ponteiro com a substring atual
     }
 
