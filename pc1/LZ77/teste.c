@@ -2,21 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void concatenacao(char *destino, int tamanho_concat, char *str_concat)
-{
-    int i, j;
-    for (i = tamanho_concat - 1, j = 0; str_concat[j] != '\0'; i++, j++)
-    {
-        destino[i] = str_concat[j];
-    }
-}
-void concatenacao_lim(char *destino, int tamanho_concat, char *str_concat, int limite_concat)
-{
-    int i;
-    for (i = tamanho_concat; i;)
-        ;
-}
-
 int main()
 {
     char str[100];    // char para receber string
@@ -52,29 +37,30 @@ int main()
         }
         else if (i % 3 == 0 && i > 3)
         {
-
             if (pri_parametro > 0)
             {
-                char *ptr_str = malloc((pri_parametro + 1) * sizeof(char)); // armazena o tamanho do parametro 'x'
+                char *ptr_str = malloc((pri_parametro) * sizeof(char)); // armazena o tamanho do parametro 'x'
                 int diferenca = str_tam - pri_parametro;              // ponto de inicio para cópia
 
-                for (int j = 0; j <= pri_parametro; j++, diferenca++) // realiza a cópia dos caracteres do parametro 'x'
+                for (int j = 0; j < pri_parametro; j++, diferenca++) // realiza a cópia dos caracteres do parametro 'x'
                 {
                     ptr_str[j] = str_final[diferenca];
                 }
                 printf("copia ->%s\n", ptr_str);
 
-                while (seg_parametro - pri_parametro >= 0)
+                while (seg_parametro - pri_parametro >= 0)  // caso a string a ser copiada seja do tamanho que voltou
                 {
                     strcat(str_final, ptr_str);
                     str_tam += seg_parametro;
                     seg_parametro -= pri_parametro;
                 }
 
-                for (int j = 0; j < seg_parametro; j++)
+                for (int j = 0; j < seg_parametro; j++)  // caso ainda restam letras menores que o tamanho da string auxiliar, copia só estas letras
                 {
                     str_final[str_tam] = ptr_str[j];
+                    str_tam++;
                 }
+                free(ptr_str);
 
                 // for (int j = 0; j < seg_parametro; j++)
                 // {
@@ -110,6 +96,7 @@ int main()
             strcat(str_final, substring);
             str_tam++;
             puts(str_final);
+            printf("str_tam %d\n",str_tam);
         }
         substring = strtok(NULL, "(,)"); // atualização do ponteiro com a substring atual
     }
