@@ -5,7 +5,7 @@
 int main()
 {
     char str[100];    // char para receber string
-    scanf("%s", str); // recebimento da string
+    scanf("%[^\n]s", str); // recebimento da string
 
     char *substring;                // ponteiro para função strtok
     substring = strtok(str, "(,)"); // operação de iniciação de leitura da string
@@ -37,44 +37,66 @@ int main()
         }
         else if (i % 3 == 0 && i > 3)
         {
+            // para quando não houver que repetir nada
             if (pri_parametro > 0)
             {
+
                 char *ptr_str = malloc((pri_parametro) * sizeof(char)); // armazena o tamanho do parametro 'x'
-                int diferenca = str_tam - pri_parametro;                // ponto de inicio para cópia
+                int diferenca = str_tam - pri_parametro;                // ponto de início para cópia da string
+                
+                // realiza a cópia dos caracteres do parametro 'x'
+                for (int j = 0; j < pri_parametro; j++, diferenca++) ptr_str[j] = str_final[diferenca];
 
-                for (int j = 0; j < pri_parametro; j++, diferenca++) // realiza a cópia dos caracteres do parametro 'x'
-                {
-                    ptr_str[j] = str_final[diferenca];
-                }
-                printf("copia ->%s\n", ptr_str);
 
-                while (seg_parametro - pri_parametro >= 0) // caso a string a ser copiada seja do tamanho que voltou
+                /***********************************    debug string de cópia  ***************************************************/
+                // printf("copia ->%s\n", ptr_str);
+
+
+                // caso a string a ser copiada seja do tamanho que voltou, ou que tenha pedaços grandes
+                while (seg_parametro % pri_parametro == 0 && seg_parametro - pri_parametro >= 0) 
                 {
-                    strcat(str_final, ptr_str);
-                    str_tam += seg_parametro;
-                    seg_parametro -= pri_parametro;
+                    strcat(str_final, ptr_str);      // append a string quando o auxiliar e do tamanho a ser add
+                    str_tam += seg_parametro;        // add do tamanho segundo o valor len do ptr_str --> segundo parâmetro
+                    seg_parametro -= pri_parametro;  // redução do segundo parâmetro através do valor da copia --> primeiro parâmetro
+
+
+                    /********************************   debugger de parametros por iteração *************************************/
+                    // printf("%d primeiro = %d, segundo %d\n", str_tam, pri_parametro, seg_parametro);
+                }
+                
+                // aux = parâmetro de seleção do caractere; j = cálculo do andamento repetitivo segundo segundo parametro
+                int aux = 0, j = 0;
+                // caso ainda restam letras menores que o tamanho da string auxiliar, copia só estas letras que faltam
+                for (j = 0, aux = 0; j < seg_parametro; j++, aux++)
+                {
+                    if (aux >= pri_parametro) aux = 0; // critério cíclico do algorítmo de descompressão --> estouro len do ptr_str
+                    str_final[str_tam] = ptr_str[aux]; // caractere em append
+                    str_tam++;                         // acrecimo por caractere add em append
+
+                    /********************************   debugger de parametros por iteração *****************************************/
+                    // printf("aux = %c\n", ptr_str[aux]);  // qual caractere para append
+                    // printf("%d primeiro = %d, segundo %d\n", str_tam, pri_parametro, seg_parametro);  // valores dos parametros e len
                 }
 
-                for (int j = 0; j < seg_parametro; j++) // caso ainda restam letras menores que o tamanho da string auxiliar, copia só estas letras
-                {
-                    str_final[str_tam] = ptr_str[j];
-                    str_tam++;
-                }
-                free(ptr_str);
+                str_final[str_tam] = '\0'; // encerra para cópia funcionar-->não faço ideia do porque ter funcionado
+                free(ptr_str);             // liberar vetor para próxima iteração
             }
 
-            printf("3º parametro = %s\n", substring);
-            strcat(str_final, substring);
-            str_tam++;
-            puts(str_final);
-            printf("str_tam %d\n", str_tam);
+            strcat(str_final, substring); // adicionando o último parâmetro passado
+            str_tam++;                    // incluindo letra a contagem
+
+            /*****************************************  debugger de resultados  ****************************************************/
+            // printf("3 parametro = %s\n", substring);        // exibição do terceiro parametro
+            // puts(str_final);                                // resultado obtido pela iteração
+            // for (int j = 0; j < str_tam; j++) putchar('A'); // parametro comparativo da quantidade de caracteres segundo str_tam
+            // printf("  str_tam %d\n", str_tam);              // exibição do tamanho da string final e da comparativa
         }
+
         substring = strtok(NULL, "(,)"); // atualização do ponteiro com a substring atual
     }
 
-    putchar('\n');
-    puts(str_final);
-    puts("ababcbababaaaaaa\\0");
+    puts(str_final); // impressão da descompressão
+    // puts("aacaacabcabaaac"); // realização dos comparativos da decodificação com string resultado
 
     return 0;
 }
