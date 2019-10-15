@@ -43,6 +43,7 @@ int main()
                 printf("opcao invalida\n\n");
                 break;
         }
+	printf("\n\n");
     }
     return 0;
 }
