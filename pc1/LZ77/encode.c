@@ -10,10 +10,10 @@ void compress(char *str, int k)
     {
         for (int i = 0; i <= k && str_tam - i >= 0; i++)
         {
-                        
         }
     }
 }
+
 int main()
 {
     char str[100]; // string a ser capturada para codificação
