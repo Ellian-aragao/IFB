@@ -73,7 +73,6 @@ int main()
     }
 
     putchar('\n');
-    //strcat(str_final, "\0");
     puts(str_final);
     puts("ababcbababaaaaaa\\0");
 
