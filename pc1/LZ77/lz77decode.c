@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int main()
+void decompress(char* str)
 {
-    char str[100];    // char para receber string
-    scanf("%[^\n]s", str); // recebimento da string
-
     char *substring;                // ponteiro para função strtok
     substring = strtok(str, "(,)"); // operação de iniciação de leitura da string
 
-    char str_final[100]; // string decodificada
-    int str_tam = 0;     // tamanho da str_final
+    char str_final[100000]; // string decodificada
+    int str_tam = 0;        // tamanho da str_final
 
     for (int i = 1; substring != NULL; i++)
     {
@@ -37,7 +33,7 @@ int main()
         }
         else if (i % 3 == 0 && i > 3)
         {
-            // para quando não houver que repetir nada
+            // para quando não houver que repetir nada, apenas append a substring
             if (pri_parametro > 0)
             {
 
@@ -96,11 +92,8 @@ int main()
     }
 
     puts(str_final); // impressão da descompressão
-    // puts("aacaacabcabaaac"); // realização dos comparativos da decodificação com string resultado
-
-    return 0;
+    // puts("ababcbababaaaaaa\0"); // realização dos comparativos da decodificação com string resultado
 }
-
 /*
 (-1,0,a)(0,0,b)(2,2,c)(4,3,a)(2,2,a)(1,4,\0)
 ababcbababaaaaaa\0
