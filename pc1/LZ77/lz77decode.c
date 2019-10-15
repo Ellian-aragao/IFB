@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "lz77decode.h"
 void decompress(char* str)
 {
     char *substring;                // ponteiro para função strtok
