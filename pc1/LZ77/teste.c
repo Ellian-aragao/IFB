@@ -40,7 +40,7 @@ int main()
             if (pri_parametro > 0)
             {
                 char *ptr_str = malloc((pri_parametro) * sizeof(char)); // armazena o tamanho do parametro 'x'
-                int diferenca = str_tam - pri_parametro;              // ponto de inicio para cópia
+                int diferenca = str_tam - pri_parametro;                // ponto de inicio para cópia
 
                 for (int j = 0; j < pri_parametro; j++, diferenca++) // realiza a cópia dos caracteres do parametro 'x'
                 {
@@ -48,55 +48,26 @@ int main()
                 }
                 printf("copia ->%s\n", ptr_str);
 
-                while (seg_parametro - pri_parametro >= 0)  // caso a string a ser copiada seja do tamanho que voltou
+                while (seg_parametro - pri_parametro >= 0) // caso a string a ser copiada seja do tamanho que voltou
                 {
                     strcat(str_final, ptr_str);
                     str_tam += seg_parametro;
                     seg_parametro -= pri_parametro;
                 }
 
-                for (int j = 0; j < seg_parametro; j++)  // caso ainda restam letras menores que o tamanho da string auxiliar, copia só estas letras
+                for (int j = 0; j < seg_parametro; j++) // caso ainda restam letras menores que o tamanho da string auxiliar, copia só estas letras
                 {
                     str_final[str_tam] = ptr_str[j];
                     str_tam++;
                 }
                 free(ptr_str);
-
-                // for (int j = 0; j < seg_parametro; j++)
-                // {
-                //     for (int t = 0; t < pri_parametro - 1; t++)
-                //     {
-                //         str_tam++;
-                //         str_final[str_tam] = ptr_str[t];
-                //         //concatenacao_lim(str_final, str_tam, ptr_str,seg_parametro);
-                //     }
-                // }
             }
-
-            /*                              copia através do ponteiro que percorre a str_final                 */
-            // if (seg_parametro > 0)
-            // {
-            //     int diferenca = str_tam - pri_parametro; // número que vai iniciar o ponto de cópia da string
-            //     while (seg_parametro > 0)                // cópia dos ciclos dentro do parâmetro 'y'
-            //     {
-            //         char *ptr_str;
-            //         ptr_str = &str_final[diferenca];            // ponteiro apontado para início do ponto de cópia
-            //         for (int j = 0; j < pri_parametro - 1; j++) // cópia dos ciclos dentro do parâmetro 'x'
-            //         {
-            //             printf("ptr_str = %s", ptr_str);
-            //             concatenacao(str_final, str_tam, ptr_str);
-            //             str_tam++;
-            //         }
-
-            //         seg_parametro--;
-            //     }
-            // }
 
             printf("3º parametro = %s\n", substring);
             strcat(str_final, substring);
             str_tam++;
             puts(str_final);
-            printf("str_tam %d\n",str_tam);
+            printf("str_tam %d\n", str_tam);
         }
         substring = strtok(NULL, "(,)"); // atualização do ponteiro com a substring atual
     }
@@ -113,3 +84,22 @@ int main()
 (-1,0,a)(0,0,b)(2,2,c)(4,3,a)(2,2,a)(1,4,\0)
 ababcbababaaaaaa\0
 */
+
+/*                              copia através do ponteiro que percorre a str_final                 */
+// if (seg_parametro > 0)
+// {
+//     int diferenca = str_tam - pri_parametro; // número que vai iniciar o ponto de cópia da string
+//     while (seg_parametro > 0)                // cópia dos ciclos dentro do parâmetro 'y'
+//     {
+//         char *ptr_str;
+//         ptr_str = &str_final[diferenca];            // ponteiro apontado para início do ponto de cópia
+//         for (int j = 0; j < pri_parametro - 1; j++) // cópia dos ciclos dentro do parâmetro 'x'
+//         {
+//             printf("ptr_str = %s", ptr_str);
+//             concatenacao(str_final, str_tam, ptr_str);
+//             str_tam++;
+//         }
+
+//         seg_parametro--;
+//     }
+// }
