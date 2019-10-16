@@ -10,6 +10,7 @@ void compress(char *str, int k)
     {
         for (int i = 0; i <= k && str_tam - i >= 0; i++)
         {
+            
         }
     }
 }
