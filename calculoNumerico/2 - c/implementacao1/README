@@ -1,0 +1,18 @@
+trabalho de calculo numerico, lista de implementacao 1 feita em conjunto com a materia de programacao de computadores 1. este trabalho contempla 3 implementacoes sendo elas, metodo da bissecao, polinomio de taylor e epsilon da maquina.
+
+
+funcoes.c:
+contem todas as funcoes necessárias para o programa rodar de forma integral, as quais estao documentadas para um estudo do que acontece
+
+
+funcoes.h:
+explicacao do que está acontecendo dentro dos prototipos, sendo mais claro e objetivo o que cada uma faz sem necessidade de ler cada codigo per si
+
+
+main.c:
+interface que trará a interacao usuario programa
+
+
+COMO COMPILAR:
+
+gcc main.c funcoes.c -o <nome_que_desejar>

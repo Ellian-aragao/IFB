@@ -4,6 +4,15 @@
 #include "lz77decode.h"
 void decompress(char* str)
 {
+    // char *str_orig = str;
+    // while (*str != '\\')
+    // {
+    //     str++;
+    // }
+    // // str = str_orig;
+    // puts(str);
+    // exit(0);
+
     char *substring;                // ponteiro para função strtok
     substring = strtok(str, "(,)"); // operação de iniciação de leitura da string
 
@@ -34,6 +43,9 @@ void decompress(char* str)
         }
         else if (i % 3 == 0 && i > 3)
         {
+            if(substring[0] == '\\')
+                puts("achei \\");
+
             // para quando não houver que repetir nada, apenas append a substring
             if (pri_parametro > 0)
             {
