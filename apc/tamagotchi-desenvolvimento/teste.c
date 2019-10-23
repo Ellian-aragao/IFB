@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct tamagotchi{
+    int fome, felicidade, higiene;
+    char nome[26], nivel;
+}tamagotchi;
+
+
 //variáveis autoexplicativas, x sendo uma variável multiuso durante o jogo
 int jogo = 1, tempo, tempoevolucao, tempogestacao, fome = 10, felicidade = 10, higiene = 10;
 char nome[26], nome0[26], nivel = 64;
@@ -36,7 +42,7 @@ void espacos(int num)
 }
 
 
-/*                          alterar de modo que o nome nunca passa do limite logo não precisa do loop
+//*                          alterar de modo que o nome nunca passa do limite logo não precisa do loop
 //obtém o nome a ser usado no jogo
 char *obternome(void) 
 {
@@ -46,8 +52,8 @@ char *obternome(void)
     {
         espacos(1);
         puts("digite um nome para o monstrinho ASCII, de até 25 caracteres");
-        fgets(stdin,25,nome);
-        setbuff(stdin,NULL);
+        fgets(nome,25,stdin);
+        setbuf(stdin,NULL);
         if (strlen(nome) > 25)
         {
             espacos(4);
@@ -59,7 +65,7 @@ char *obternome(void)
     }
 
     return nome;
-}*/
+}
 
 //prenche o espaço vazio da string auxiliar para função display com ' '
 void preenchervazio(char *nome)
@@ -403,6 +409,13 @@ void niveldomonstrinho()
 
 int main()
 {
+    tamagotchi tamagotchi = {10,10,10,"",64};
+
+    scanf("%25[^\n]s",tamagotchi.nome);
+    printf("%s %ld",tamagotchi.nome, strlen(tamagotchi.nome));
+    
+
+    /*
     //obtém o nome, salva no ponteiro, copia o ponteiro para as auxiliares principais de funções main e display
     preenchervazio(strcpy(nome0, obternome()));
 
@@ -422,4 +435,5 @@ int main()
     //limpar a tela pós-jogo
     limpartela();
     return 0;
+    */
 }
