@@ -1,10 +1,6 @@
 #ifndef STATICLIST_H
 #define STATICLIST_H
 #define TAM 30
-typedef struct turma{
-    int quantidade;
-    aluno alunos[TAM];
-}turma;
 typedef struct aluno{
     int matricula;
     char nome[20];
