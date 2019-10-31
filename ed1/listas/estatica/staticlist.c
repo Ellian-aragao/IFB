@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "staticlist.h"
+
 typedef struct turma{
     int quantidade;
     aluno alunos[TAM];

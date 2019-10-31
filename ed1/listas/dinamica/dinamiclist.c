@@ -12,4 +12,3 @@ elemento* elemento_cria()
     return el;
 }
 
-

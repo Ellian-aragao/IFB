@@ -1,5 +1,6 @@
 #ifndef DINAMICLIST_H
 #define DINAMICLIST_H
+
 typedef struct aluno{
     int matricula;
     char nome[30];
