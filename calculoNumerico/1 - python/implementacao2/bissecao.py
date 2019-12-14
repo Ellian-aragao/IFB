@@ -7,6 +7,7 @@ def Taylor(coeficientes, x, limite_i):  # função de Taylor por cálculo direto
     # cálculo completo da função
     for i in coeficientes:
         taylor += (coeficientes * x ** i)
+        
     return taylor
 
 
