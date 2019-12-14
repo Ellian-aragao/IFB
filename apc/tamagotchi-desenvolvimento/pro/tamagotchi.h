@@ -1,19 +1,22 @@
 #ifndef TAMAGOTCH_H
 #define TAMAGOTCH_H
+#define TRUE  1
+#define FALSE 0
 
-int jogo = 1, tempo, tempoevolucao, tempogestacao, x, fome = 10, felicidade = 10, higiene = 10;
-char nome[26], nome0[26], nivel = 64;
-struct tamagotchi
-{
+typedef struct Tamagotchi {
     char nome[26];
+    char nivel = '@';
+    int status;
     int tempo;
     int tempoevolucao;
     int tempogestacao;
     int fome;
     int felicidade;
     int higiene;
-};
+} Tamagotchi;
 
+// execulta a rotina do jogo
+void tamagotchiGame();
 //função para limpeza da tela
 void limpartela();
 // marcar decorrência de tempo
@@ -40,6 +43,5 @@ int fatalidades(); // necessita do inteiro para terminar o jogo
 void niveldomonstrinho();
 //obtém o nome, salva no ponteiro, copia o ponteiro para as auxiliares principais de funções main e display
 void salvarNome();
-
 
 #endif
