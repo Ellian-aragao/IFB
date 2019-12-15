@@ -73,17 +73,17 @@ void display(char *nome0,int tempo,int fome,int felicidade,int higiene,char nive
     espacos(3);
 }
 
-void main(void)
+int main(void)
 {
 
     //variáveis autoexplicativas, x sendo uma variável multiuso durante o jogo
     int tempo,tempoevolucao,tempogestacao,x,fome=10,felicidade=10,higiene=10;
-    struct tamagotchi
-    {
-        int tempo,tempoevolucao,tempogestacao,x,fome,higiene,felicidade,higiene;
-        int time,gest_time,hungry,happy;
-        char name[25], level;
-    };
+    // struct tamagotchi
+    // {
+    //     int tempo,tempoevolucao,tempogestacao,x,fome,higiene,felicidade;
+    //     int time,gest_time,hungry,happy;
+    //     char name[25], level;
+    // };
     
     char nome[25],nome0[25],nivel=64;
 
@@ -334,4 +334,5 @@ void main(void)
     }
     //limpar a tela pós-jogo
     limpartela();
+    return 0;
 }
