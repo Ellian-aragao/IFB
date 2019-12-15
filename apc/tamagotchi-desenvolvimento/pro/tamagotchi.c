@@ -5,77 +5,151 @@
 #include <string.h>
 #include "tamagotchi.h"
 
-//obtém o nome, salva no ponteiro, copia o ponteiro para as auxiliares principais de funções main e display
-void salvarNome()
+// salva o nome do tamagotchi
+void gravaNome(Tamagotchi *tamagotchi)
 {
-    preenchervazio(strcpy(, obternome()));
+    printf("digite um nome para o monstrinho: ");
+    scanf("%[^\n]s",tamagotchi->nome);
+    gravaNomeDisplay(tamagotchi);
 }
 
-//obtém o nome a ser usado no jogo
-char *obternome(void)
+// salva nome para exibir no display
+void gravaNomeDisplay(Tamagotchi *tamagotchi)
 {
-    int boleano = 1;
-    limpartela();
-    while (boleano == 1)
-    {
-        espacos(1);
-        puts("digite um nome para o monstrinho ASCII, de até 25 caracteres");
-        scanf("%[^\n]s", nome);
-        setbuf(stdin,NULL);
-        if (strlen(nome) > 25)
-        {
-            espacos(4);
-            puts("TENTE NOVAMENTE");
-            hashtag(79);
-            espacos(0);
-        }
-        else
-        {
-            boleano = 0;
-        }
+    strcpy(tamagotchi->nomeDisplay,tamagotchi->nome);
+    int tam = strlen(tamagotchi->nomeDisplay);
+    int i;
+    for(i = tam; i < 31; i++){
+        tamagotchi->nomeDisplay[i] = ' ';
     }
-
-    return nome;
+    tamagotchi->nomeDisplay[i] = '\0';
 }
 
-//prenche o espaço vazio da string auxiliar para função display com ' '
-void preenchervazio(char *nome)
+//imagem de interação com o usuário e animação pós-nascimento
+void display(Tamagotchi *tamagotchi)
 {
-    if (strlen(nome) < 25)
-    {
-        for (x = strlen(nome); x < 25; x++)
-        {
-            nome0[x] = ' ';
-        }
-        nome0[x] = '\0';
-    }
-}
-
-
-
-//função para iniciação do tamagotchi a vida emfim
-void nascimento()
-{
-    //controlador da mudança de nível de gestação para operante
-    if (tempogestacao == 10)
+    //condição para quando esta a nascer o monstrinho
+    if (tamagotchi->tempogestacao < 10)
     {
         limpartela();
         espacos(3);
-        printf("%s nasceu\n", nome);
+        hashtag(40);
+        espacos(3);
+        hashtag(0);
+        printf(" nome: %s #", tamagotchi->nomeDisplay);
+        espacos(3);
+        hashtag(0);
+        printf(" tempo de vida: %d segundos\t\t#", tamagotchi->tempo);
+        espacos(3);
+        hashtag(0);
+        printf(" fome: %d,", tamagotchi->fome);
+        printf("felicidade: %d,", tamagotchi->felicidade);
+        printf("higiene: %d", tamagotchi->higiene);
+        printf("\t#");
+        espacos(3);
+        hashtag(0);
+        printf("\t\t\t\t\t#");
+        espacos(3);
+        hashtag(0);
+        printf("\t\t %c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+        espacos(3);
+        hashtag(0);
+        printf("\t\t %c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+        espacos(3);
+        hashtag(40);
+        espacos(3);
+    }
+
+    //animação do monstrinho quando operante
+    else
+    {
+        if (tamagotchi->tempo % 2 == 0)
+        {
+            limpartela();
+            espacos(3);
+            hashtag(40);
+            espacos(3);
+            hashtag(0);
+            printf(" nome: %s \t#", tamagotchi->nomeDisplay);
+            espacos(3);
+            hashtag(0);
+            printf(" tempo de vida: %d segundos\t\t#", tamagotchi->tempo);
+            espacos(3);
+            hashtag(0);
+            printf(" fome: %d,", tamagotchi->fome);
+            printf("felicidade: %d,", tamagotchi->felicidade);
+            printf("higiene: %d", tamagotchi->higiene);
+            printf("\t#");
+            espacos(3);
+            hashtag(0);
+            printf("\t\t\t\t\t#");
+            espacos(3);
+            hashtag(0);
+            printf("\t\t%c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+            espacos(3);
+            hashtag(0);
+            printf("\t\t%c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+            espacos(3);
+            hashtag(40);
+            espacos(3);
+        }
+        else
+        {
+            limpartela();
+            espacos(3);
+            hashtag(40);
+            espacos(3);
+            hashtag(0);
+            printf(" nome: %s \t#", tamagotchi->nomeDisplay);
+            espacos(3);
+            hashtag(0);
+            printf(" tempo de vida: %d segundos\t\t#", tamagotchi->tempo);
+            espacos(3);
+            hashtag(0);
+            printf(" fome: %d,", tamagotchi->fome);
+            printf("felicidade: %d,", tamagotchi->felicidade);
+            printf("higiene: %d", tamagotchi->higiene);
+            printf("\t#");
+            espacos(3);
+            hashtag(0);
+            printf("\t\t\t\t\t#");
+            espacos(3);
+            hashtag(0);
+            printf("\t\t %c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+            espacos(3);
+            hashtag(0);
+            printf("\t\t %c%c\t\t\t#", tamagotchi->nivel, tamagotchi->nivel);
+            espacos(3);
+            hashtag(40);
+            espacos(3);
+        }
+    }
+}
+
+//função para iniciação do tamagotchi a vida emfim
+void nascimento(Tamagotchi *tamagotchi)
+{
+    //controlador da mudança de nível de gestação para operante
+    if (tamagotchi->tempogestacao == 10)
+    {
+        limpartela();
+        espacos(3);
+        printf("%s nasceu\n", tamagotchi->nome);
         sleep(2);
-        tempo = 1;
-        nivel++;
+        tamagotchi->tempo = 1;
+        tamagotchi->nivel++;
     }
 }
 
 //loop de interação maquina-usuário
-void interacaousuario()
+void interacaousuario(Tamagotchi *tamagotchi)
 {
-    if (tempo % 10 == 0 && tempogestacao > 9)
+    if (tamagotchi->tempo % 10 == 0 && tamagotchi->tempogestacao > 9)
     {
         puts("(1) comida  (2) carinho  (3) banho  (4) ...");
         espacos(3);
         puts("digite uma opcao...");
+        int x;
         scanf("%d", &x);
         switch (x)
         {
@@ -84,13 +158,13 @@ void interacaousuario()
             {
                 limpartela();
                 espacos(3);
-                printf("%s, hora de comer!\n", nome);
+                printf("%s, hora de comer!\n", tamagotchi->nome);
                 sleep(2);
                 espacos(3);
                 printf("humm, que delicia mestre!\n");
                 sleep(1);
-                fome = fome - 2;
-                higiene = higiene - 2;
+                tamagotchi->fome -= 2;
+                tamagotchi->higiene -= 2;
                 break;
             }
 
@@ -101,8 +175,8 @@ void interacaousuario()
                 espacos(3);
                 puts("o carinho do mestre me faz bem :)");
                 sleep(1);
-                felicidade = felicidade + 3;
-                fome = fome + 1;
+                tamagotchi->felicidade += 3;
+                tamagotchi->fome += 1;
                 break;
             }
 
@@ -111,13 +185,13 @@ void interacaousuario()
             {
                 limpartela();
                 espacos(3);
-                printf("%s, hora do banho!\n", nome);
+                printf("%s, hora do banho!\n", tamagotchi->nome);
                 sleep(2);
                 espacos(3);
                 puts("Naooooooooooooooooo...");
                 sleep(1);
-                higiene = higiene + 7;
-                felicidade = felicidade - 4;
+                tamagotchi->higiene += 7;
+                tamagotchi->felicidade -= 4;
                 break;
             }
 
@@ -134,42 +208,42 @@ void interacaousuario()
                 espacos(3);
                 puts("O que foi isso mestre? O que queria de mim?");
                 sleep(2);
-                felicidade = felicidade - 5;
+                tamagotchi->felicidade -= 5;
             }
         }
     }
 }
 
 //condições aleatórias
-void condicoesaleatorias()
+void condicoesaleatorias(Tamagotchi *tamagotchi)
 {
-    if ( tempo % 5 == 0 && tempogestacao > 9 )
+    if ( tamagotchi->tempo % 5 == 0 && tamagotchi->tempogestacao > 9 )
     {
         // geração de números aleatórios
         srand(time(NULL));
 
         // gerador de números aleatórios que vão configurar algum problema a ser sofrido pelo monstrinho 
-        x = rand() % 3;
+        int x = rand() % 3;
         switch (x)
         {
             // incrementar fome
             case 0:
             {
-                fome++;
+                tamagotchi->fome++;
                 break;
             }
 
             // decrementar felicidade
             case 1:
             {
-                felicidade--;
+                tamagotchi->felicidade--;
                 break;
             }
 
             // decrementar higiene
             case 2:
             {
-                higiene--;
+                tamagotchi->higiene--;
                 break;
             }
         }
@@ -177,7 +251,7 @@ void condicoesaleatorias()
 }
 
 //verificador fatalidades possíveis
-int fatalidades(Tamagotchi *tamagotchi)
+void fatalidades(Tamagotchi *tamagotchi)
 {
     //fome chega a 15 - máximo
     if (tamagotchi->fome >= 15)
@@ -186,7 +260,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu de fome! :(\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
 
     //fome chega a 0 - mínimo
@@ -196,7 +270,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu de bucho cheio!\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
 
     //felicidade chegou a 0 - mínimo
@@ -206,7 +280,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu de desgosto\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
 
     //felicidade chega a 15 - máximo
@@ -216,7 +290,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu de rir :D ops... :(\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
 
     //higiene chega a 0 - mínimo
@@ -226,7 +300,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu de doença infecciosa!\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
 
     //higiene chega a 15 - máximo
@@ -236,7 +310,7 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s morreu por falta de anticorpos!\n", tamagotchi->nome);
         sleep(3);
-        
+        tamagotchi->status = FALSE;
     }
     //verificar se chegou a nível máximo do jogo
     if (tamagotchi->nivel == 90)
@@ -245,39 +319,33 @@ int fatalidades(Tamagotchi *tamagotchi)
         espacos(3);
         printf("%s teve uma bela vida...\n", tamagotchi->nome);
         sleep(3);
+        tamagotchi->status = FALSE;
         
     }
-    return 1;
 }
 
 //operador de nível do monstrinho
-void niveldomonstrinho()
+void niveldomonstrinho(Tamagotchi *tamagotchi)
 {
-    if (tempoevolucao == nivel)
+    if (tamagotchi->tempoevolucao == tamagotchi->nivel)
     {
-        nivel++;
-        jogo = fatalidades(jogo);
-        tempoevolucao = 0;
-        if (jogo != 0)
+        tamagotchi->nivel++;
+        fatalidades(tamagotchi);
+        tamagotchi->tempoevolucao = 0;
+        if (tamagotchi->status != 0)
         {
             limpartela();
             espacos(3);
-            printf("parabens, '%s' evoluiu\n", nome);
+            printf("parabens, '%s' evoluiu\n", tamagotchi->nome);
             sleep(2);
         }
     }
 }
 
 //função para limpeza da tela
-void limpartela()
+void limpartela(void)
 {
     system("clear");
-}
-
-// marcar decorrência de tempo
-void tempoDeEspera(int segundos)
-{
-    sleep(segundos);
 }
 
 //função para o display, gerador da linha superior e inferior
@@ -301,20 +369,43 @@ void espacos(int num)
     }
 }
 
-// execulta a rotina do jogo
-void tamagotchiGame()
+// inicia as variáveis do tamagotchi
+void construtorTamagotchi(Tamagotchi *tamagotchi)
 {
-    struct Tamagotchi tamagotchi;
-    salvarNome();
+    tamagotchi->felicidade    =  10;
+    tamagotchi->fome          =  10;
+    tamagotchi->higiene       =  10;
+    tamagotchi->tempo         =   0;
+    tamagotchi->tempoevolucao =   0;
+    tamagotchi->tempogestacao =   0; 
+    tamagotchi->nivel         = '@';
+    tamagotchi->status        =  TRUE;
+}
+
+// faz a contagem do tempo do tamagotchi
+void countTamagotchi(Tamagotchi *tamagotchi)
+{
+    tamagotchi->tempo++; 
+    tamagotchi->tempoevolucao++;
+    tamagotchi->tempogestacao++;
+}
+
+// execulta a rotina do jogo
+void tamagotchiGame(void)
+{
+    Tamagotchi tamagotchi;
+    gravaNome(&tamagotchi);
+    construtorTamagotchi(&tamagotchi);
     while (tamagotchi.status)
     {
-        niveldomonstrinho();
-        nascimento();
-        display();
-        interacaousuario();
-        condicoesaleatorias();
-        tamagotchi.status = fatalidades();
-        tempoDeEspera(1);
+        niveldomonstrinho(&tamagotchi);
+        nascimento(&tamagotchi);
+        display(&tamagotchi);
+        interacaousuario(&tamagotchi);
+        condicoesaleatorias(&tamagotchi);
+        fatalidades(&tamagotchi);
+        countTamagotchi(&tamagotchi);
+        sleep(1);
     }
     limpartela();
 }
