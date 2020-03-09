@@ -1,0 +1,11 @@
+questão 1 - letra A
+questão 2 - short, String, int, double, long, String, String, respectivamente
+questão 3 - float, float, float, boolean, float
+questão 4 {
+    A: false, porque não recebe int
+    B: float, float(3.4e38 - 1) > int(2^63) 
+    C: false, char é unsigned
+    D: true, a JVM que vai decidir o tamanho a ser utilizado, sendo que vai ver o tamanho aceito pelo computador e o SO
+    E: false, char só pode representar 1 caractere
+    F: true, long advém de int, logo é subconjunto dos floats
+}
