@@ -2,6 +2,6 @@
 
 int main()
 {
-    tamagotchiGame();
+    initTamagotchiGame();
     return 0;
 }

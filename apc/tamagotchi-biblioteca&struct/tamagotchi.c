@@ -17,8 +17,7 @@ void gravaNome(Tamagotchi *tamagotchi)
 void gravaNomeDisplay(Tamagotchi *tamagotchi)
 {
     strcpy(tamagotchi->nomeDisplay,tamagotchi->nome);
-    int tam = strlen(tamagotchi->nomeDisplay);
-    int i;
+    int i, tam = strlen(tamagotchi->nomeDisplay);
     for(i = tam; i < 31; i++){
         tamagotchi->nomeDisplay[i] = ' ';
     }
@@ -323,7 +322,6 @@ void fatalidades(Tamagotchi *tamagotchi)
         
     }
 }
-
 //operador de nível do monstrinho
 void niveldomonstrinho(Tamagotchi *tamagotchi)
 {
@@ -391,11 +389,12 @@ void countTamagotchi(Tamagotchi *tamagotchi)
 }
 
 // execulta a rotina do jogo
-void tamagotchiGame(void)
+void initTamagotchiGame(void)
 {
     Tamagotchi tamagotchi;
     gravaNome(&tamagotchi);
     construtorTamagotchi(&tamagotchi);
+
     while (tamagotchi.status)
     {
         niveldomonstrinho(&tamagotchi);

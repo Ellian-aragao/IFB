@@ -17,7 +17,7 @@ typedef struct Tamagotchi {
 } Tamagotchi;
 
 // execulta a rotina do jogo
-void tamagotchiGame(void);
+void initTamagotchiGame(void);
 // função para limpeza da tela
 void limpartela(void);
 // marcar decorrência de tempo
@@ -35,7 +35,7 @@ void interacaousuario(Tamagotchi *tamagotchi);
 // condições aleatórias
 void condicoesaleatorias(Tamagotchi *tamagotchi);
 // verificador fatalidades possíveis
-void fatalidades(Tamagotchi *tamagotchi); // necessita do inteiro para terminar o jogo
+void fatalidades(Tamagotchi *tamagotchi);
 // operador de nível do monstrinho
 void niveldomonstrinho(Tamagotchi *tamagotchi);
 // salva o nome do tamagotchi
