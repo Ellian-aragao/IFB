@@ -1,37 +1,34 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "staticlist.h"
 
-typedef struct turma{
-    int quantidade;
-    aluno alunos[TAM];
-}turma;
-turma* turma_cria()
+TURMA* turma_cria()
 {
-    turma* t1 = malloc(sizeof(turma));
+    TURMA* t1 = malloc(sizeof(TURMA));
     if (t1 != NULL) t1->quantidade = 0;
     else puts("ERROR");
     return t1;
 }
-void turma_libera(turma* t1)
+void turma_libera(TURMA* t1)
 {
     free(t1);
 }
-int turma_tamanho(turma* t1)
+int turma_tamanho(TURMA* t1)
 {
     if(t1 == NULL) return -1;
     return t1->quantidade;
 }
-int turma_cheia(turma* t1)
+int turma_cheia(TURMA* t1)
 {
     if (t1 == NULL) return -1;
     return (t1->quantidade == TAM);
 }
-int turma_vazia(turma* t1)
+int turma_vazia(TURMA* t1)
 {
     if (t1 == NULL) return -1;
     return (t1->quantidade == 0);
 }
-int turma_insere_ordenado(turma* t1, aluno a1)
+int turma_insere_ordenado(TURMA* t1, ALUNO a1)
 {
     if (t1 == NULL) return -1;
     else if (turma_cheia(t1)) return 0;
@@ -45,7 +42,7 @@ int turma_insere_ordenado(turma* t1, aluno a1)
     t1->quantidade++;
     return 1;
 }
-int turma_remove_ordenado(turma* t1, aluno a1)
+int turma_remove_ordenado(TURMA* t1, ALUNO a1)
 {
     if (t1 == NULL) return -1;
     else if (turma_vazia(t1)) return 0;
@@ -63,13 +60,13 @@ int turma_remove_ordenado(turma* t1, aluno a1)
     t1->quantidade--;
     return 1;
 }
-int turma_consulta_posicao(turma* t1, int posicao, aluno* a1)
+int turma_consulta_posicao(TURMA* t1, int posicao, ALUNO* a1)
 {
     if (t1 == NULL || posicao <= 0 ||t1->quantidade > posicao) return 0;
     *a1 = t1->alunos[posicao - 1];
     return 1;
 }
-int turma_consulta_busca_matricula(turma* t1,int matricula, aluno* a1)
+int turma_consulta_busca_matricula(TURMA* t1,int matricula, ALUNO* a1)
 {
     if (t1 == NULL) return 0;
     int i = 0;
