@@ -16,7 +16,7 @@ typedef struct Tamagotchi {
     int higiene;
 } Tamagotchi;
 
-// execulta a rotina do jogo
+// executa a rotina do jogo
 void initTamagotchiGame(void);
 // função para limpeza da tela
 void limpartela(void);

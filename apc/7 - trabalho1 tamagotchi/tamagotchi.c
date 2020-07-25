@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-    //obtém o nome do do monstrinho
+//obtém o nome do do monstrinho
 void name(char *nome)
 {
     limpartela();
