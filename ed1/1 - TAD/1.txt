@@ -1,0 +1,1 @@
+Tad trata-se de uma forma de juntar dados ao contexto que pertence, deste modo reduzindo complexidade do entendimento e facilidade de manipulação dos mesmos.
