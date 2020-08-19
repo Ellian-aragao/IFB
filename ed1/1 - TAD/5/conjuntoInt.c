@@ -1,9 +1,7 @@
 #include "conjuntoInt.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-#define TRUE 1
-#define FALSE 0
+#define DEBUG(x) printf("%ld\n", x);
 
 struct conjuntoInt
 {
@@ -59,7 +57,7 @@ CONJUNTO *insere(CONJUNTO *conjunto, long valorAdicionar)
     long *tmp = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
     if (tmp == NULL)
     {
-      fprintf(stderr, "Erro na inserção de item no conjunto\n");
+      fprintf(stderr, "Erro na alocacao do conjunto\n");
       return NULL;
     }
     conjunto->vetor = tmp;
@@ -76,14 +74,6 @@ CONJUNTO *finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, 
   return conjuntoUniao;
 }
 
-void printConjunto(CONJUNTO *conj)
-{
-  for (unsigned long i = 0; i < conj->tam; i++)
-  {
-    printf("%ld,", conj->vetor[i]);
-  }
-}
-
 CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
 {
   CONJUNTO *uniaoConjuntos = criaConjuntoVazio();
@@ -97,7 +87,7 @@ CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
   return uniaoConjuntos;
 }
 
-CONJUNTO *removeItemConjunto(CONJUNTO *conj, long itemRetirar)
+int removeItemConjunto(CONJUNTO *conj, long itemRetirar)
 {
   unsigned long index;
   if (testaSePertence(conj, itemRetirar, &index))
@@ -111,68 +101,103 @@ CONJUNTO *removeItemConjunto(CONJUNTO *conj, long itemRetirar)
     if (tmp == NULL)
     {
       fprintf(stderr, "Erro na remoção do item '%ld' no conjunto\n", itemRetirar);
-      return NULL;
+      return FALSE;
     }
     conj->vetor = tmp;
-    return conj;
+    return TRUE;
   }
-  return NULL;
+  return FALSE;
 }
 
 CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2)
 {
   CONJUNTO *interseccaoConjuntos = criaConjuntoVazio();
-
   for (unsigned long i = 0; i < conj1->tam; i++)
   {
-    if (testaSePertence(conj2, conj1->vetor[i], NULL))
+    unsigned long tmp;
+    if (testaSePertence(conj2, conj1->vetor[i], &tmp))
+    {
       insere(interseccaoConjuntos, conj1->vetor[i]);
-  }
-
-  if (interseccaoConjuntos->tam == 0)
-  {
-    perror("Não existe interseccao entre os conjuntos\n");
-    liberaConjunto(interseccaoConjuntos);
-    return NULL;
+    }
   }
   return interseccaoConjuntos;
 }
 
-// CONJUNTO* diferenca() {}
+CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2)
+{
+  CONJUNTO *conjDiferenca = uniao(conj1, conj2),
+           *conjInterseccao = interseccao(conj1, conj2);
+
+  for (unsigned long i = 0; i < conjInterseccao->tam; i++)
+  {
+    removeItemConjunto(conjDiferenca, conjInterseccao->vetor[i]);
+  }
+  liberaConjunto(conjInterseccao);
+  return conjDiferenca;
+}
 
 // tentativa de algoritmo bisseccao baseado em calculo numérico 2ºsem 2019
 int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *index)
 {
   unsigned long
       limiteInferior = 0,
-      LimiteSuperior = conjunto->tam,
-      mediana = (unsigned long)1 + conjunto->tam / 2;
-
-  if (conjunto->vetor[0] > numeroProcurado || conjunto->vetor[conjunto->tam] < numeroProcurado)
+      LimiteSuperior = conjunto->tam;
+  if (numeroProcurado < conjunto->vetor[limiteInferior] || conjunto->vetor[LimiteSuperior] < numeroProcurado)
     return FALSE;
 
-  while (TRUE)
+  if (conjunto->vetor[limiteInferior] == numeroProcurado)
   {
-    printf("%ld %ld %ld --> %ld\n", limiteInferior, mediana, LimiteSuperior, numeroProcurado);
-    getchar();
-    if (numeroProcurado < conjunto->vetor[mediana])
-    {
-      puts("encontrado");
-      LimiteSuperior = mediana;
-    }
-    else if (conjunto->vetor[mediana] < numeroProcurado)
-    {
-      limiteInferior = mediana;
-    }
-    else if (conjunto->vetor[mediana] == numeroProcurado)
-    {
-      *index = mediana;
-      return TRUE;
-    }
-    else if ((limiteInferior + 1) == LimiteSuperior)
-      return FALSE;
-    mediana = (unsigned long)limiteInferior + (LimiteSuperior - limiteInferior) / 2;
+    *index = limiteInferior;
+    return TRUE;
   }
+  else if (conjunto->vetor[LimiteSuperior] == numeroProcurado)
+  {
+    *index = LimiteSuperior;
+    return TRUE;
+  }
+  else
+  {
+    while (TRUE)
+    {
+      unsigned long mediana = limiteInferior + (LimiteSuperior - limiteInferior) / 2;
+      if (numeroProcurado < conjunto->vetor[mediana])
+      {
+        LimiteSuperior = mediana;
+      }
+      else if (conjunto->vetor[mediana] < numeroProcurado)
+      {
+        limiteInferior = mediana;
+      }
+      else if (conjunto->vetor[mediana] == numeroProcurado)
+      {
+        *index = mediana;
+        return TRUE;
+      }
+      else if ((limiteInferior + 1) == LimiteSuperior)
+        return FALSE;
+    }
+  }
+}
+
+int main(int argc, char const *argv[])
+{
+  CONJUNTO *ptr = criaConjuntoVazio(),
+           *ptr2 = criaConjuntoVazio(),
+           *ptrDiferenca;
+
+  for (long i = 0; i < 5; i++)
+  {
+    ptr = insere(ptr, i);
+    ptr2 = insere(ptr2, i + 4);
+  }
+
+  printConjunto(ptr);
+  printConjunto(ptr2);
+
+  ptrDiferenca = uniao(ptr, ptr2);
+  printConjunto(ptrDiferenca);
+
+  return 0;
 }
 
 long menor(CONJUNTO *conjunto)
@@ -220,25 +245,11 @@ void liberaConjunto(CONJUNTO *conj)
   free(conj);
 }
 
-int main(int argc, char const *argv[])
+void printConjunto(CONJUNTO *conj)
 {
-  CONJUNTO *ptr = criaConjuntoVazio(),
-           *ptr2 = criaConjuntoVazio();
-
-  for (long i = 0; i < 5; i++)
+  for (unsigned long i = 0; i < conj->tam; i++)
   {
-    ptr = insere(ptr, i);
-    ptr2 = insere(ptr2, i + 2);
+    printf("%ld,", conj->vetor[i]);
   }
-
-  printConjunto(ptr);
   putchar('\n');
-
-  printConjunto(ptr2);
-  putchar('\n');
-
-  printConjunto(interseccao(ptr, ptr2));
-  putchar('\n');
-
-  return 0;
 }
