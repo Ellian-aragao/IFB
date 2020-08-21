@@ -9,73 +9,61 @@ struct conjuntoInt
   u_long tam;
 };
 
-// tentativa de algoritmo bisseccao baseado em calculo numérico 2ºsem 2019
-u_long retornaIndexDoVetor(long *vetor, u_long limiteSuperior, long numeroProcurado)
+// algoritmo copiado para auxiliar mexer com conjunto
+void insertionSort(CONJUNTO *conjunto)
 {
-  u_long limiteInferior = 0;
-  if (numeroProcurado < vetor[limiteInferior] || vetor[limiteSuperior] < numeroProcurado)
-    return 0;
-  else if (vetor[limiteInferior] == numeroProcurado)
-    return limiteInferior;
-  else if (vetor[limiteSuperior] == numeroProcurado)
-    return limiteSuperior;
-  else
+  long n = conjunto->tam;
+  long *arr = conjunto->vetor;
+  long i, key, j;
+  for (i = 1; i < n; i++)
   {
-    while (TRUE)
+    key = arr[i];
+    j = i - 1;
+    while (j >= 0 && arr[j] > key)
     {
-      u_long mediana = limiteInferior + (limiteSuperior - limiteInferior) / 2;
-      if (numeroProcurado < vetor[mediana] && vetor[limiteInferior] != numeroProcurado)
-        limiteSuperior = mediana;
-      else if (vetor[mediana] < numeroProcurado && vetor[limiteSuperior] != numeroProcurado)
-        limiteInferior = mediana;
-      else if (vetor[mediana] == numeroProcurado)
-        return mediana;
-      if ((limiteInferior + 1) == limiteSuperior)
-        return 0;
+      arr[j + 1] = arr[j];
+      j = j - 1;
     }
+    arr[j + 1] = key;
   }
-}
-
-void insertVector(long *vector, u_long tam, long *item)
-{
-  u_long index = retornaIndexDoVetor(vector, tam, *item);
-  printf("tam vector %ld index %ld vector value %ld value add %ld\n", tam, index, vector[index], *item);
-  if (tam > 1)
-  {
-    for (u_long i = tam; index < i; i--)
-    {
-      vector[i] = vector[1 - i];
-    }
-    vector[index] = *item;
-  }
-  else
-  {
-    vector[0] = *item;
-  }
-}
-
-void insere(CONJUNTO *conjunto, long valorAdicionar)
-{
-  conjunto->vetor = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
-  if (conjunto->vetor == NULL)
-  {
-    perror("Erro na alocacao do conjunto\n");
-    exit(EXIT_FAILURE);
-  }
-  insertVector(conjunto->vetor, conjunto->tam++, &valorAdicionar);
 }
 
 CONJUNTO *criaConjuntoVazio()
 {
   CONJUNTO *ptr = malloc(sizeof(CONJUNTO));
-  ptr->vetor = malloc(sizeof(long));
-  if (ptr == NULL || ptr->vetor == NULL)
+  if (ptr == NULL)
   {
-    perror("Erro na criação do conjunto");
-    exit(EXIT_FAILURE);
+    fprintf(stderr, "erro na criação do conjunto");
+    return NULL;
   }
+  ptr->vetor = NULL;
   ptr->tam = 0;
   return ptr;
+}
+
+void insere(CONJUNTO *conjunto, long valorAdicionar)
+{
+  if (conjunto->tam == 0)
+  {
+    conjunto->vetor = malloc(sizeof(long));
+    if (conjunto->vetor == NULL)
+    {
+      fprintf(stderr, "Erro na inserção de item no conjunto vazio\n");
+      return NULL;
+    }
+  }
+  else
+  {
+    long *tmp = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
+    if (tmp == NULL)
+    {
+      fprintf(stderr, "Erro na alocacao do conjunto\n");
+      return NULL;
+    }
+    conjunto->vetor = tmp;
+  }
+  conjunto->vetor[conjunto->tam++] = valorAdicionar;
+  insertionSort(conjunto);
 }
 
 void finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, u_long indice)
@@ -99,8 +87,8 @@ CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
 
 int removeItemConjunto(CONJUNTO *conj, long itemRetirar)
 {
-  u_long index = retornaIndexDoVetor(conj->vetor, conj->tam, itemRetirar);
-  if (index)
+  u_long index;
+  if (testaSePertence(conj, itemRetirar, &index))
   {
     while (index < conj->tam)
     {
@@ -124,8 +112,8 @@ CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2)
   CONJUNTO *interseccaoConjuntos = criaConjuntoVazio();
   for (u_long i = 0; i < conj1->tam; i++)
   {
-    u_long tmp = retornaIndexDoVetor(conj2->vetor, conj2->tam, conj1->vetor[i]);
-    if (tmp)
+    u_long tmp;
+    if (testaSePertence(conj2, conj1->vetor[i], &tmp))
     {
       insere(interseccaoConjuntos, conj1->vetor[i]);
     }
@@ -146,23 +134,66 @@ CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2)
   return conjDiferenca;
 }
 
+// tentativa de algoritmo bisseccao baseado em calculo numérico 2ºsem 2019
+int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *index)
+{
+  unsigned long
+      limiteInferior = 0,
+      LimiteSuperior = conjunto->tam;
+  if (numeroProcurado < conjunto->vetor[limiteInferior] || conjunto->vetor[LimiteSuperior] < numeroProcurado)
+    return FALSE;
+
+  if (conjunto->vetor[limiteInferior] == numeroProcurado)
+  {
+    *index = limiteInferior;
+    return TRUE;
+  }
+  else if (conjunto->vetor[LimiteSuperior] == numeroProcurado)
+  {
+    *index = LimiteSuperior;
+    return TRUE;
+  }
+  else
+  {
+    while (TRUE)
+    {
+      unsigned long mediana = limiteInferior + (LimiteSuperior - limiteInferior) / 2;
+      if (numeroProcurado < conjunto->vetor[mediana])
+      {
+        LimiteSuperior = mediana;
+      }
+      else if (conjunto->vetor[mediana] < numeroProcurado)
+      {
+        limiteInferior = mediana;
+      }
+      else if (conjunto->vetor[mediana] == numeroProcurado)
+      {
+        *index = mediana;
+        return TRUE;
+      }
+      else if ((limiteInferior + 1) == LimiteSuperior)
+        return FALSE;
+    }
+  }
+}
+
 int main(int argc, char const *argv[])
 {
   CONJUNTO *ptr = criaConjuntoVazio(),
            *ptr2 = criaConjuntoVazio(),
-           *ptrDiferenca = NULL;
+           *ptrDiferenca;
 
   for (long i = 0; i < 5; i++)
   {
     insere(ptr, i);
-    // insere(ptr2, i + 4);
+    insere(ptr2, i + 4);
   }
 
   printConjunto(ptr);
-  // printConjunto(ptr2);
+  printConjunto(ptr2);
 
-  // ptrDiferenca = uniao(ptr, ptr2);
-  // printConjunto(ptrDiferenca);
+  ptrDiferenca = uniao(ptr, ptr2);
+  printConjunto(ptrDiferenca);
 
   return 0;
 }
