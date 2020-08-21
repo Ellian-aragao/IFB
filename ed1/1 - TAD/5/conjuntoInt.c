@@ -206,9 +206,16 @@ void liberaConjunto(CONJUNTO *conj)
 
 void printConjunto(CONJUNTO *conj)
 {
-  for (u_long i = 0; i < conj->tam; i++)
+  if (isConjuntoVazio(conj))
   {
-    printf("%ld,", conj->vetor[i]);
+    puts("{}");
+  }
+  else
+  {
+    for (u_long i = 0; i < conj->tam; i++)
+  {
+      printf("%ld,", conj->vetor[i]);
+    putchar('\n');
   }
   putchar('\n');
 }
