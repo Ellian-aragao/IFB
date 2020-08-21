@@ -251,3 +251,28 @@ void printConjunto(CONJUNTO *conj)
   }
   putchar('\n');
 }
+
+void isNullPointer(void *ptr, const char *strError)
+{
+  if (ptr == NULL)
+  {
+    perror(strError);
+    exit(EXIT_FAILURE);
+  }
+}
+
+// algoritmo copiado para auxiliar mexer com conjunto
+void insertionSort(long *vector, u_long tam)
+{
+  for (u_long i = 1; i < tam; i++)
+  {
+    long key = vector[i];
+    u_long j = i - 1;
+    while (j >= 0 && vector[j] > key)
+    {
+      vector[j + 1] = vector[j];
+      j--;
+    }
+    vector[j + 1] = key;
+  }
+}
