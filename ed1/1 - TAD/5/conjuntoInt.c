@@ -24,13 +24,13 @@ u_long retornaIndexDoVetor(long *vetor, u_long limiteSuperior, long numeroProcur
     while (TRUE)
     {
       u_long mediana = limiteInferior + (limiteSuperior - limiteInferior) / 2;
-      if (numeroProcurado < vetor[mediana])
+      if (numeroProcurado < vetor[mediana] && vetor[limiteInferior] != numeroProcurado)
         limiteSuperior = mediana;
-      else if (vetor[mediana] < numeroProcurado)
+      else if (vetor[mediana] < numeroProcurado && vetor[limiteSuperior] != numeroProcurado)
         limiteInferior = mediana;
       else if (vetor[mediana] == numeroProcurado)
         return mediana;
-      else if ((limiteInferior + 1) == limiteSuperior)
+      if ((limiteInferior + 1) == limiteSuperior)
         return 0;
     }
   }
@@ -38,63 +38,44 @@ u_long retornaIndexDoVetor(long *vetor, u_long limiteSuperior, long numeroProcur
 
 void insertVector(long *vector, u_long tam, long *item)
 {
-  if (tam == 0)
+  u_long index = retornaIndexDoVetor(vector, tam, *item);
+  printf("tam vector %ld index %ld vector value %ld value add %ld\n", tam, index, vector[index], *item);
+  if (tam > 1)
   {
-    vector[0] = *item;
-    puts("primeira insersao");
+    for (u_long i = tam; index < i; i--)
+    {
+      vector[i] = vector[1 - i];
+    }
+    vector[index] = *item;
   }
   else
   {
-    u_long index = retornaIndexDoVetor(vector, tam, *item);
-    if (vector[index] == *item)
-    {
-      for (u_long i = tam; index < i; i--)
-      {
-        vector[i] = vector[1 - i];
-      }
-      vector[index] = *item;
-    }
-    else
-      puts("erro na ordenação");
+    vector[0] = *item;
   }
+}
+
+void insere(CONJUNTO *conjunto, long valorAdicionar)
+{
+  conjunto->vetor = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
+  if (conjunto->vetor == NULL)
+  {
+    perror("Erro na alocacao do conjunto\n");
+    exit(EXIT_FAILURE);
+  }
+  insertVector(conjunto->vetor, conjunto->tam++, &valorAdicionar);
 }
 
 CONJUNTO *criaConjuntoVazio()
 {
   CONJUNTO *ptr = malloc(sizeof(CONJUNTO));
-  if (ptr == NULL)
+  ptr->vetor = malloc(sizeof(long));
+  if (ptr == NULL || ptr->vetor == NULL)
   {
     perror("Erro na criação do conjunto");
     exit(EXIT_FAILURE);
   }
-  ptr->vetor = NULL;
   ptr->tam = 0;
   return ptr;
-}
-
-void insere(CONJUNTO *conjunto, long valorAdicionar)
-{
-  printf("%ld\n", conjunto->tam);
-  if (conjunto->tam == 0)
-  {
-    conjunto->vetor = malloc(sizeof(long));
-    if (conjunto->vetor == NULL)
-    {
-      perror("Erro na inserção de item no conjunto vazio\n");
-      exit(EXIT_FAILURE);
-    }
-  }
-  else
-  {
-    long *tmp = realloc(conjunto->vetor, (1 + conjunto->tam) * sizeof(long));
-    if (tmp == NULL)
-    {
-      perror("Erro na alocacao do conjunto\n");
-      exit(EXIT_FAILURE);
-    }
-    conjunto->vetor = tmp;
-  }
-  insertVector(conjunto->vetor, conjunto->tam++, &valorAdicionar);
 }
 
 void finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, u_long indice)
@@ -167,25 +148,21 @@ CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2)
 
 int main(int argc, char const *argv[])
 {
-  // CONJUNTO *ptr = criaConjuntoVazio(),
-  //          *ptr2 = criaConjuntoVazio(),
-  //          *ptrDiferenca = NULL;
+  CONJUNTO *ptr = criaConjuntoVazio(),
+           *ptr2 = criaConjuntoVazio(),
+           *ptrDiferenca = NULL;
 
-  // for (long i = 0; i < 5; i++)
-  // {
-  //   insere(ptr, i);
-  //   insere(ptr2, i + 4);
-  // }
+  for (long i = 0; i < 5; i++)
+  {
+    insere(ptr, i);
+    // insere(ptr2, i + 4);
+  }
 
-  // printConjunto(ptr);
+  printConjunto(ptr);
   // printConjunto(ptr2);
 
   // ptrDiferenca = uniao(ptr, ptr2);
   // printConjunto(ptrDiferenca);
-
-  u_long vetor[10] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
-  short x = 80;
-  printf("index %ld value %ld\n", retornaIndexDoVetor(vetor, 9, x), vetor[retornaIndexDoVetor(vetor, 9, x)]);
 
   return 0;
 }
