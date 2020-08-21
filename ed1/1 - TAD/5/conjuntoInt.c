@@ -144,10 +144,10 @@ int main(int argc, char const *argv[])
            *ptr2 = criaConjuntoVazio(),
            *ptrDiferenca;
 
-  for (long i = 0; i < 6; i++)
+  for (long i = 0; i < 11; i++)
   {
     insereItemConjunto(ptr, i);
-    insereItemConjunto(ptr2, i + 50);
+    insereItemConjunto(ptr2, i + 10);
   }
 
   printConjunto(ptr);
@@ -222,13 +222,13 @@ void isNullPointer(void *ptr, const char *strError)
   }
 }
 
-// algoritmo copiado para auxiliar mexer com conjunto
+// algoritmo copiado para auxiliar mexer com conjunto, não corrigido para tamanho u_long
 void insertionSort(long *vector, u_long tam)
 {
   for (u_long i = 1; i < tam; i++)
   {
     long key = vector[i];
-    u_long j = i - 1;
+    long j = i - 1;
     while (j >= 0 && vector[j] > key)
     {
       vector[j + 1] = vector[j];
