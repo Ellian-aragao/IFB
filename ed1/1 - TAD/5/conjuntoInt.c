@@ -9,8 +9,6 @@ struct conjuntoInt
   u_long tam;
 };
 
-
-
 CONJUNTO *criaConjuntoVazio()
 {
   CONJUNTO *ptr = malloc(sizeof(CONJUNTO));
@@ -20,13 +18,19 @@ CONJUNTO *criaConjuntoVazio()
   return ptr;
 }
 
-void insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar)
+int insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar)
 {
-  conjunto->vetor = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
-  isNullPointer(conjunto->vetor, "Erro na inserção do conjunto");
+  u_long tmp;
+  if (!testaSePertence(conjunto, valorAdicionar, &tmp))
+  {
+    conjunto->vetor = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
+    isNullPointer(conjunto->vetor, "Erro na inserção do conjunto");
 
-  conjunto->vetor[conjunto->tam++] = valorAdicionar;
-  insertionSort(conjunto->vetor, conjunto->tam);
+    conjunto->vetor[conjunto->tam++] = valorAdicionar;
+    insertionSort(conjunto->vetor, conjunto->tam);
+    return TRUE;
+  }
+  return FALSE;
 }
 
 void finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, u_long indice)
@@ -93,11 +97,10 @@ CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2)
 }
 
 // tentativa de algoritmo bisseccao baseado em calculo numérico 2ºsem 2019
-int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *index)
+int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, u_long *index)
 {
-  unsigned long
-      limiteInferior = 0,
-      LimiteSuperior = conjunto->tam;
+  u_long limiteInferior = 0,
+         LimiteSuperior = conjunto->tam == 0 ? 0 : conjunto->tam - 1;
   if (numeroProcurado < conjunto->vetor[limiteInferior] || conjunto->vetor[LimiteSuperior] < numeroProcurado)
     return FALSE;
 
@@ -115,7 +118,7 @@ int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *ind
   {
     while (TRUE)
     {
-      unsigned long mediana = limiteInferior + (LimiteSuperior - limiteInferior) / 2;
+      u_long mediana = limiteInferior + (LimiteSuperior - limiteInferior) / 2;
       if (numeroProcurado < conjunto->vetor[mediana])
       {
         LimiteSuperior = mediana;
@@ -129,7 +132,7 @@ int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *ind
         *index = mediana;
         return TRUE;
       }
-      else if ((limiteInferior + 1) == LimiteSuperior)
+      if ((limiteInferior + 1) == LimiteSuperior)
         return FALSE;
     }
   }
@@ -141,20 +144,17 @@ int main(int argc, char const *argv[])
            *ptr2 = criaConjuntoVazio(),
            *ptrDiferenca;
 
-  for (long i = 0; i < 5; i++)
+  for (long i = 0; i < 6; i++)
   {
     insereItemConjunto(ptr, i);
-    insereItemConjunto(ptr2, i + 4);
+    insereItemConjunto(ptr2, i + 50);
   }
 
   printConjunto(ptr);
-  removeItemConjunto(ptr,2);
-  removeItemConjunto(ptr,3);
-  printConjunto(ptr);
-  // printConjunto(ptr2);
+  printConjunto(ptr2);
 
-  // ptrDiferenca = uniao(ptr, ptr2);
-  // printConjunto(ptrDiferenca);
+  ptrDiferenca = uniao(ptr, ptr2);
+  printConjunto(ptrDiferenca);
 
   return 0;
 }

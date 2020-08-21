@@ -21,7 +21,7 @@ CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2);
 CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2);
 int removeItemConjunto(CONJUNTO *conj, long itemRetirar);
 CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2);
-void insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar);
+int insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar);
 CONJUNTO *criaConjuntoVazio();
 
 
