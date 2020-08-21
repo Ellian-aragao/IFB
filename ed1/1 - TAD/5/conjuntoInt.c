@@ -9,67 +9,30 @@ struct conjuntoInt
   u_long tam;
 };
 
-// algoritmo copiado para auxiliar mexer com conjunto
-void insertionSort(CONJUNTO *conjunto)
-{
-  long n = conjunto->tam;
-  long *arr = conjunto->vetor;
-  long i, key, j;
-  for (i = 1; i < n; i++)
-  {
-    key = arr[i];
-    j = i - 1;
-    while (j >= 0 && arr[j] > key)
-    {
-      arr[j + 1] = arr[j];
-      j = j - 1;
-    }
-    arr[j + 1] = key;
-  }
-}
+
 
 CONJUNTO *criaConjuntoVazio()
 {
   CONJUNTO *ptr = malloc(sizeof(CONJUNTO));
-  if (ptr == NULL)
-  {
-    fprintf(stderr, "erro na criação do conjunto");
-    return NULL;
-  }
-  ptr->vetor = NULL;
+  ptr->vetor = malloc(sizeof(long));
+  isNullPointer(ptr->vetor, "Erro na criação do conjunto");
   ptr->tam = 0;
   return ptr;
 }
 
-void insere(CONJUNTO *conjunto, long valorAdicionar)
+void insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar)
 {
-  if (conjunto->tam == 0)
-  {
-    conjunto->vetor = malloc(sizeof(long));
-    if (conjunto->vetor == NULL)
-    {
-      fprintf(stderr, "Erro na inserção de item no conjunto vazio\n");
-      return NULL;
-    }
-  }
-  else
-  {
-    long *tmp = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
-    if (tmp == NULL)
-    {
-      fprintf(stderr, "Erro na alocacao do conjunto\n");
-      return NULL;
-    }
-    conjunto->vetor = tmp;
-  }
+  conjunto->vetor = realloc(conjunto->vetor, (conjunto->tam + 1) * sizeof(long));
+  isNullPointer(conjunto->vetor, "Erro na inserção do conjunto");
+
   conjunto->vetor[conjunto->tam++] = valorAdicionar;
-  insertionSort(conjunto);
+  insertionSort(conjunto->vetor, conjunto->tam);
 }
 
 void finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, u_long indice)
 {
   while (indice < aFinalizar->tam)
-    insere(conjuntoUniao, aFinalizar->vetor[indice++]);
+    insereItemConjunto(conjuntoUniao, aFinalizar->vetor[indice++]);
 }
 
 CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
@@ -78,8 +41,8 @@ CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
   u_long i, tam = conj1->tam < conj2->tam ? conj1->tam : conj2->tam;
   for (i = 0; i < tam; i++)
   {
-    insere(uniaoConjuntos, conj1->vetor[i]);
-    insere(uniaoConjuntos, conj2->vetor[i]);
+    insereItemConjunto(uniaoConjuntos, conj1->vetor[i]);
+    insereItemConjunto(uniaoConjuntos, conj2->vetor[i]);
   }
   conj1->tam > conj2->tam ? finalizaCopiaParaUniao(uniaoConjuntos, conj1, i) : finalizaCopiaParaUniao(uniaoConjuntos, conj2, i);
   return uniaoConjuntos;
@@ -95,13 +58,8 @@ int removeItemConjunto(CONJUNTO *conj, long itemRetirar)
       conj->vetor[index] = conj->vetor[index + 1];
       index++;
     }
-    long *tmp = realloc(conj->vetor, (--conj->tam) * sizeof(long));
-    if (tmp == NULL)
-    {
-      fprintf(stderr, "Erro na remoção do item '%ld' no conjunto\n", itemRetirar);
-      exit(EXIT_FAILURE);
-    }
-    conj->vetor = tmp;
+    conj->vetor = realloc(conj->vetor, (--conj->tam) * sizeof(long));
+    isNullPointer(conj->vetor, "Erro na remoção de item no conjunto");
     return TRUE;
   }
   return FALSE;
@@ -115,7 +73,7 @@ CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2)
     u_long tmp;
     if (testaSePertence(conj2, conj1->vetor[i], &tmp))
     {
-      insere(interseccaoConjuntos, conj1->vetor[i]);
+      insereItemConjunto(interseccaoConjuntos, conj1->vetor[i]);
     }
   }
   return interseccaoConjuntos;
@@ -185,15 +143,18 @@ int main(int argc, char const *argv[])
 
   for (long i = 0; i < 5; i++)
   {
-    insere(ptr, i);
-    insere(ptr2, i + 4);
+    insereItemConjunto(ptr, i);
+    insereItemConjunto(ptr2, i + 4);
   }
 
   printConjunto(ptr);
-  printConjunto(ptr2);
+  removeItemConjunto(ptr,2);
+  removeItemConjunto(ptr,3);
+  printConjunto(ptr);
+  // printConjunto(ptr2);
 
-  ptrDiferenca = uniao(ptr, ptr2);
-  printConjunto(ptrDiferenca);
+  // ptrDiferenca = uniao(ptr, ptr2);
+  // printConjunto(ptrDiferenca);
 
   return 0;
 }

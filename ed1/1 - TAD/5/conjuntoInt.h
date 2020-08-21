@@ -5,17 +5,24 @@
 #define FALSE 0
 
 typedef struct conjuntoInt CONJUNTO;
+typedef unsigned long u_long;
 
-// long menor(CONJUNTO *conjunto);
-// long maior(CONJUNTO *conjunto);
-// int testaSeOsConjuntosSaoIguais(CONJUNTO *conjunto1, CONJUNTO *conjunto2);
-// u_long tamanho(CONJUNTO *conjunto);
-// int testaSeoConjuntoVazio(CONJUNTO *conjunto);
-// void liberaConjunto(CONJUNTO *conj);
+int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, unsigned long *index);
+void insertionSort(long *vector, u_long tam);
 void printConjunto(CONJUNTO *conj);
-// u_long testaSePertence(long *vetor, u_long limiteInferior, u_long limiteSuperior, long numeroProcurado);
-/**
- * caso encontre, retorna 1, caso não retorna 0
-*/
 void liberaConjunto(CONJUNTO *conj);
+void isNullPointer(void *ptr, const char *strError);
+int testaSeoConjuntoVazio(CONJUNTO *conjunto);
+u_long tamanho(CONJUNTO *conjunto);
+int testaSeOsConjuntosSaoIguais(CONJUNTO *conjunto1, CONJUNTO *conjunto2);
+long maior(CONJUNTO *conjunto);
+long menor(CONJUNTO *conjunto);
+CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2);
+CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2);
+int removeItemConjunto(CONJUNTO *conj, long itemRetirar);
+CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2);
+void insereItemConjunto(CONJUNTO *conjunto, long valorAdicionar);
+CONJUNTO *criaConjuntoVazio();
+
+
 #endif
