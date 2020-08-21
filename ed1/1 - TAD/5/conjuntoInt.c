@@ -1,7 +1,9 @@
 #include "conjuntoInt.h"
 #include <stdio.h>
 #include <stdlib.h>
-#define DEBUG(x) printf("%ld\n", x);
+
+#define TRUE 1
+#define FALSE 0
 
 struct conjuntoInt
 {
@@ -9,7 +11,33 @@ struct conjuntoInt
   u_long tam;
 };
 
-CONJUNTO *criaConjuntoVazio()
+void isNullPointer(void *ptr, const char *strError)
+{
+  if (ptr == NULL)
+  {
+    perror(strError);
+    exit(EXIT_FAILURE);
+  }
+}
+
+// algoritmo copiado para auxiliar mexer com conjunto, não corrigido para tamanho u_long
+void insertionSort(long *vector, u_long tam)
+{
+  for (u_long i = 1; i < tam; i++)
+  {
+    long key = vector[i];
+    long j = i - 1;
+    while (j >= 0 && vector[j] > key)
+    {
+      vector[j + 1] = vector[j];
+      j--;
+    }
+    vector[j + 1] = key;
+  }
+}
+
+
+CONJUNTO *newConjuntoVazio()
 {
   CONJUNTO *ptr = malloc(sizeof(CONJUNTO));
   ptr->vetor = malloc(sizeof(long));
@@ -39,9 +67,9 @@ void finalizaCopiaParaUniao(CONJUNTO *conjuntoUniao, CONJUNTO *aFinalizar, u_lon
     insereItemConjunto(conjuntoUniao, aFinalizar->vetor[indice++]);
 }
 
-CONJUNTO *uniao(CONJUNTO *conj1, CONJUNTO *conj2)
+CONJUNTO *uniaoConjunto(CONJUNTO *conj1, CONJUNTO *conj2)
 {
-  CONJUNTO *uniaoConjuntos = criaConjuntoVazio();
+  CONJUNTO *uniaoConjuntos = newConjuntoVazio();
   u_long i, tam = conj1->tam < conj2->tam ? conj1->tam : conj2->tam;
   for (i = 0; i < tam; i++)
   {
@@ -76,9 +104,9 @@ int removeItemConjunto(CONJUNTO *conj, long itemRetirar)
   return FALSE;
 }
 
-CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2)
+CONJUNTO *interseccaoConjunto(CONJUNTO *conj1, CONJUNTO *conj2)
 {
-  CONJUNTO *interseccaoConjuntos = criaConjuntoVazio();
+  CONJUNTO *interseccaoConjuntos = newConjuntoVazio();
   for (u_long i = 0; i < conj1->tam; i++)
   {
     u_long tmp;
@@ -90,16 +118,16 @@ CONJUNTO *interseccao(CONJUNTO *conj1, CONJUNTO *conj2)
   return interseccaoConjuntos;
 }
 
-CONJUNTO *diferenca(CONJUNTO *conj1, CONJUNTO *conj2)
+CONJUNTO *diferencaConjunto(CONJUNTO *conj1, CONJUNTO *conj2)
 {
-  CONJUNTO *conjDiferenca = uniao(conj1, conj2),
-           *conjInterseccao = interseccao(conj1, conj2);
+  CONJUNTO *conjDiferenca = uniaoConjunto(conj1, conj2),
+           *conjInterseccao = interseccaoConjunto(conj1, conj2);
 
   for (u_long i = 0; i < conjInterseccao->tam; i++)
   {
     removeItemConjunto(conjDiferenca, conjInterseccao->vetor[i]);
   }
-  liberaConjunto(conjInterseccao);
+  freeConjunto(conjInterseccao);
   return conjDiferenca;
 }
 
@@ -145,27 +173,6 @@ int testaSePertence(CONJUNTO *conjunto, long numeroProcurado, u_long *index)
   }
 }
 
-int main(int argc, char const *argv[])
-{
-  CONJUNTO *ptr = criaConjuntoVazio(),
-           *ptr2 = criaConjuntoVazio(),
-           *ptrDiferenca;
-
-  for (long i = 0; i < 11; i++)
-  {
-    insereItemConjunto(ptr, i);
-    insereItemConjunto(ptr2, i + 10);
-  }
-
-  printConjunto(ptr);
-  printConjunto(ptr2);
-
-  ptrDiferenca = uniao(ptr, ptr2);
-  printConjunto(ptrDiferenca);
-
-  return 0;
-}
-
 long menor(CONJUNTO *conjunto)
 {
   return conjunto->vetor[0];
@@ -176,7 +183,7 @@ long maior(CONJUNTO *conjunto)
   return conjunto->vetor[conjunto->tam];
 }
 
-int testaSeOsConjuntosSaoIguais(CONJUNTO *conjunto1, CONJUNTO *conjunto2)
+int isEqualConjuntos(CONJUNTO *conjunto1, CONJUNTO *conjunto2)
 {
   long tam;
   if ((tam = conjunto1->tam) == conjunto2->tam)
@@ -191,7 +198,7 @@ int testaSeOsConjuntosSaoIguais(CONJUNTO *conjunto1, CONJUNTO *conjunto2)
   return FALSE;
 }
 
-u_long tamanho(CONJUNTO *conjunto)
+u_long lenConjunto(CONJUNTO *conjunto)
 {
   return conjunto->tam;
 }
@@ -205,7 +212,7 @@ int isConjuntoVazio(CONJUNTO *conjunto)
   return FALSE;
 }
 
-void liberaConjunto(CONJUNTO *conj)
+void freeConjunto(CONJUNTO *conj)
 {
   free(conj->vetor);
   free(conj);
@@ -220,34 +227,7 @@ void printConjunto(CONJUNTO *conj)
   else
   {
     for (u_long i = 0; i < conj->tam; i++)
-  {
       printf("%ld,", conj->vetor[i]);
     putchar('\n');
-  }
-  putchar('\n');
-}
-
-void isNullPointer(void *ptr, const char *strError)
-{
-  if (ptr == NULL)
-  {
-    perror(strError);
-    exit(EXIT_FAILURE);
-  }
-}
-
-// algoritmo copiado para auxiliar mexer com conjunto, não corrigido para tamanho u_long
-void insertionSort(long *vector, u_long tam)
-{
-  for (u_long i = 1; i < tam; i++)
-  {
-    long key = vector[i];
-    long j = i - 1;
-    while (j >= 0 && vector[j] > key)
-    {
-      vector[j + 1] = vector[j];
-      j--;
-    }
-    vector[j + 1] = key;
   }
 }
