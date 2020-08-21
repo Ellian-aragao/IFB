@@ -63,7 +63,7 @@ int removeItemConjunto(CONJUNTO *conj, long itemRetirar)
       index++;
     }
     conj->vetor = realloc(conj->vetor, (--conj->tam) * sizeof(long));
-    isNullPointer(conj->vetor, "Erro na remoção de item no conjunto");
+      isNullPointer(conj->vetor, "Erro na remoção de item no conjunto");
     return TRUE;
   }
   return FALSE;
