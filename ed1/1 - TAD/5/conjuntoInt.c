@@ -189,7 +189,7 @@ u_long tamanho(CONJUNTO *conjunto)
   return conjunto->tam;
 }
 
-int testaSeoConjuntoVazio(CONJUNTO *conjunto)
+int isConjuntoVazio(CONJUNTO *conjunto)
 {
   if (!conjunto->tam)
   {
