@@ -2,6 +2,8 @@
 #define REMOVENPRIMEIROSITENSLISTA_H
 
 typedef struct structExemplo ListaDinamica;
-typedef struct itemQualquer{} DADO;
+typedef struct itemQualquer{
+  char valor;
+} DADO;
 
 #endif
