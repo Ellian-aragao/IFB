@@ -1,0 +1,1 @@
+alocação sequencial traz um acesso direto a itens por estar armazenada em local especifico e de melhor acessibilidade, já no caso da encadeada os dados encontram-se em posições diversas da memória por ser alocada conforme o momento e a alocação de dados feito por outros programas

@@ -1,0 +1,1 @@
+estática não permite mudança da locação dos dados, sendo desde que criada, detentora de um valor máximo de bytes para armazenar os dados, diferentemente da dinâmica que pode alterar conforme o caso, e disponibilidade do hardware
