@@ -1,4 +1,4 @@
-#include "concatenaLista.h"
+#include "concatenaListaSequencial.h"
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,5 +1,5 @@
-#ifndef CONCATENALISTA_H
-#define CONCATENALISTA_H
+#ifndef CONCATENALISTASEQUENCIAL_H
+#define CONCATENALISTASEQUENCIAL_H
 
 typedef struct structExemplo ListaDinamica;
 typedef struct itemQualquer{} DADO;
