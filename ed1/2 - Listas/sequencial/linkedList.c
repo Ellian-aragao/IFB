@@ -36,6 +36,10 @@ void destroyNodeLinkedList(NodeLinkedList *node)
 {
   free(node->item);
   free(node);
+  node->backNode = NULL;
+  node->item = NULL;
+  node->nextNode = NULL;
+  node = NULL;
 }
 
 void destroyLinkedList(LinkedList *list)
@@ -43,15 +47,19 @@ void destroyLinkedList(LinkedList *list)
   if (list->tam > 0)
   {
     NodeLinkedList *node = list->nodeInicial;
-    while (list->tam-- && node->nextNode != NULL)
+    while (list->tam--)
     {
       void *nextNode = node->nextNode;
       destroyNodeLinkedList(node);
       node = nextNode;
     }
-    free(node);
+    if (node != NULL)
+    {
+      free(node);
+    }
   }
   free(list);
+  list = NULL;
 }
 
 void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
@@ -70,6 +78,8 @@ NodeLinkedList *createNodeLinkedList(void *itemOfNode)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
   isNull(node, "Erro ao criar node ao fim da LinkedList");
+  node->backNode = NULL;
+  node->nextNode = NULL;
   node->item = itemOfNode;
   return node;
 }
