@@ -8,9 +8,9 @@ int main()
   float *item = malloc(sizeof(float));
   *item = 3.141592;
   appendLinkedList(list, item);
-  // float *item2 = malloc(sizeof(float));
-  // *item2 = 2.7182;
-  // appendLinkedList(list,&item2);
+  float *item2 = malloc(sizeof(float));
+  *item2 = 2.7182;
+  appendLinkedList(list, item2);
   forEach(list);
   destroyLinkedList(list);
   return 0;

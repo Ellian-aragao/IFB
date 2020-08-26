@@ -74,9 +74,9 @@ NodeLinkedList *createNodeLinkedList(void *itemOfNode)
   return node;
 }
 
-void appendLinkedList(LinkedList *list, void *item)
+void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
 {
-  NodeLinkedList *nextNode = createNodeLinkedList(item);
+  NodeLinkedList *nextNode = createNodeLinkedList(ptrAllocatedItem);
   if (!list->tam)
     addPrimaryNodeItemLinkedList(list, nextNode);
   else
