@@ -148,5 +148,4 @@ void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, v
     }
     node = nextNode;
   }
-  putchar('\n');
 }
