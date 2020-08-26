@@ -28,35 +28,70 @@ void isNull(void *pointer, const char *str)
 LinkedList *createLinkedList()
 {
   LinkedList *list = malloc(sizeof(LinkedList));
-  list->nodeInicial = malloc(sizeof(NodeLinkedList));
-  list->nodeFinal = list->nodeInicial;
-  const char error[] = "Erro na criação da LinkedList";
-  isNull(list, error);
-  isNull(list->nodeInicial, error);
+  isNull(list, "Erro na criação da LinkedList");
   return list;
 }
 
-void destroyNodeLinkedList(NodeLinkedList* node)
+void destroyNodeLinkedList(NodeLinkedList *node)
 {
   free(node->item);
   free(node);
 }
 
-void destroyLinkedList(LinkedList* list)
+void destroyLinkedList(LinkedList *list)
 {
-  NodeLinkedList* pointer = list->nodeInicial;
-  for (u_long i = 0; i < list->tam; i++)
+  if (list->tam > 0)
   {
-    void* nextNode = pointer->nextNode;
-    destroyNodeLinkedList(pointer);
+    NodeLinkedList *node = list->nodeInicial;
+    while (list->tam-- && node->nextNode != NULL)
+    {
+      void *nextNode = node->nextNode;
+      destroyNodeLinkedList(node);
+      node = nextNode;
+    }
+    free(node);
   }
   free(list);
 }
 
-
-
-int main(int argc, char const *argv[])
+void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
 {
-  
-  return 0;
+  list->nodeInicial = node;
+  list->nodeFinal = node;
+}
+
+void setNewItemNodeLinkedList(NodeLinkedList *oldFinalNode, NodeLinkedList *newFinalNode)
+{
+  oldFinalNode->nextNode = newFinalNode;
+  newFinalNode->backNode = oldFinalNode;
+}
+
+NodeLinkedList *createNodeLinkedList(void *itemOfNode)
+{
+  NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
+  isNull(node, "Erro ao criar node ao fim da LinkedList");
+  node->item = itemOfNode;
+  return node;
+}
+
+void appendLinkedList(LinkedList *list, void *item)
+{
+  NodeLinkedList *nextNode = createNodeLinkedList(item);
+  if (!list->tam)
+    addPrimaryNodeItemLinkedList(list, nextNode);
+  else
+    setNewItemNodeLinkedList(list->nodeFinal, nextNode);
+  list->tam++;
+}
+
+void forEach(LinkedList *list)
+{
+  NodeLinkedList *node = list->nodeInicial;
+  for (u_long i = 0; i < list->tam; i++)
+  {
+    NodeLinkedList *nextNode = node->nextNode;
+    printf("%f ,", *(float *)node->item);
+    node = nextNode;
+  }
+  putchar('\n');
 }
