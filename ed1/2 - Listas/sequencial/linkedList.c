@@ -94,13 +94,57 @@ void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
   list->tam++;
 }
 
-void forEach(LinkedList *list)
+void forEach(LinkedList *list, void (*externFunction)(void *))
 {
   NodeLinkedList *node = list->nodeInicial;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
-    printf("%f ,", *(float *)node->item);
+    externFunction(node->item);
+    node = nextNode;
+  }
+}
+
+void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
+{
+  isNull(list, "Lista nula passada como argumento para remover nó");
+  isNull(node, "Nó nulo passado para ser removido da LinkedList");
+  if (list->tam > 1)
+  {
+    if (list->nodeInicial == node)
+    {
+      NodeLinkedList *nextNode = node->nextNode;
+      list->nodeInicial = nextNode;
+      nextNode->backNode = NULL;
+    }
+    else if (list->nodeFinal == node)
+    {
+      NodeLinkedList *backNode = node->backNode;
+      list->nodeFinal = backNode;
+      backNode->nextNode = NULL;
+    }
+  }
+  else
+  {
+    list->nodeInicial = NULL;
+    list->nodeFinal = NULL;
+  }
+
+  list->tam--;
+  destroyNodeLinkedList(node);
+}
+
+void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
+{
+  NodeLinkedList *node = list->nodeInicial;
+  for (u_long i = 0; i < list->tam; i++)
+  {
+    NodeLinkedList *nextNode = node->nextNode;
+    if (compareItem(node->item, item))
+    {
+      removeNodeLinkedList(list, node);
+      return;
+    }
     node = nextNode;
   }
   putchar('\n');
