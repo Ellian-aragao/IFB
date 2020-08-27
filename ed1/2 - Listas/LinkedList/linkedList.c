@@ -95,15 +95,35 @@ void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
   list->tam++;
 }
 
-void forEach(LinkedList *list, void (*externFunction)(void *))
+void *getNodeLinkedList(NodeLinkedList *node)
+{
+  return node;
+}
+
+void *getItemNodeLinkedList(NodeLinkedList *node)
+{
+  return node->item;
+}
+
+void forEach(LinkedList *list, void *(*returnSomething)(NodeLinkedList *), void (*externFunction)(void *))
 {
   NodeLinkedList *node = list->nodeInicial;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
-    externFunction(node->item);
+    externFunction(returnSomething(node));
     node = nextNode;
   }
+}
+
+void forEachItem(LinkedList *list, void (*externFunction)(void *))
+{
+  forEach(list, getItemNodeLinkedList, externFunction);
+}
+
+void forEachNode(LinkedList *list, void (*externFunction)(void *))
+{
+  forEach(list, getNodeLinkedList, externFunction);
 }
 
 void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
