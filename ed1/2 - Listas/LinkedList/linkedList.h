@@ -14,7 +14,10 @@ void destroyLinkedList(LinkedList *list);
 void appendLinkedList(LinkedList *list, void *item);
 
 // itera sobre todos os nós da lista passando como argumento para função enviada
-void forEach(LinkedList *list, void (*externFunction)(void *));
+void forEachItem(LinkedList *list, void (*externFunction)(void *));
+
+// itera sobre todos os nós retornando um ponteiro para eles
+void forEachNode(LinkedList *list, void (*externFunction)(void *));
 
 // remove um nó da memória conforme o item passado e a função de comparação dos itens
 void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
