@@ -69,10 +69,12 @@ void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
   list->finalNode = node;
 }
 
-void setNewItemNodeLinkedList(NodeLinkedList *oldFinalNode, NodeLinkedList *newFinalNode)
+void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
 {
+  NodeLinkedList* oldFinalNode = list->finalNode;
   oldFinalNode->nextNode = newFinalNode;
   newFinalNode->backNode = oldFinalNode;
+  list->finalNode = newFinalNode;
 }
 
 NodeLinkedList *createNodeLinkedList(void *itemOfNode)
@@ -91,7 +93,7 @@ void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
   if (!list->tam)
     addPrimaryNodeItemLinkedList(list, nextNode);
   else
-    setNewItemNodeLinkedList(list->nodeFinal, nextNode);
+    setNewItemNodeLinkedList(list, nextNode);
   list->tam++;
 }
 
