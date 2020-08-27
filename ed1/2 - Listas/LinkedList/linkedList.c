@@ -5,8 +5,8 @@
 typedef struct itemListaEncadeada NodeLinkedList;
 struct listaDinamicaEncadeada
 {
-  NodeLinkedList *nodeInicial;
-  NodeLinkedList *nodeFinal;
+  NodeLinkedList *inicialNode;
+  NodeLinkedList *finalNode;
   u_long tam;
 };
 
@@ -47,7 +47,7 @@ void destroyLinkedList(LinkedList *list)
 {
   if (list->tam > 0)
   {
-    NodeLinkedList *node = list->nodeInicial;
+    NodeLinkedList *node = list->inicialNode;
     while (list->tam--)
     {
       void *nextNode = node->nextNode;
@@ -65,8 +65,8 @@ void destroyLinkedList(LinkedList *list)
 
 void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
 {
-  list->nodeInicial = node;
-  list->nodeFinal = node;
+  list->inicialNode = node;
+  list->finalNode = node;
 }
 
 void setNewItemNodeLinkedList(NodeLinkedList *oldFinalNode, NodeLinkedList *newFinalNode)
@@ -107,7 +107,7 @@ void *getItemNodeLinkedList(NodeLinkedList *node)
 
 void forEach(LinkedList *list, void *(*returnSomething)(NodeLinkedList *), void (*externFunction)(void *))
 {
-  NodeLinkedList *node = list->nodeInicial;
+  NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
@@ -132,23 +132,23 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
   isNull(node, "Nó nulo passado para ser removido da LinkedList");
   if (list->tam > 1)
   {
-    if (list->nodeInicial == node)
+    if (list->inicialNode == node)
     {
       NodeLinkedList *nextNode = node->nextNode;
-      list->nodeInicial = nextNode;
+      list->inicialNode = nextNode;
       nextNode->backNode = NULL;
     }
-    else if (list->nodeFinal == node)
+    else if (list->finalNode == node)
     {
       NodeLinkedList *backNode = node->backNode;
-      list->nodeFinal = backNode;
+      list->finalNode = backNode;
       backNode->nextNode = NULL;
     }
   }
   else
   {
-    list->nodeInicial = NULL;
-    list->nodeFinal = NULL;
+    list->inicialNode = NULL;
+    list->finalNode = NULL;
   }
   list->tam--;
   destroyNodeLinkedList(node);
@@ -156,7 +156,7 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
-  NodeLinkedList *node = list->nodeInicial;
+  NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
