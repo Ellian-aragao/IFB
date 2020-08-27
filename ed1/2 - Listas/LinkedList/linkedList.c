@@ -13,6 +13,7 @@ struct listaDinamicaEncadeada
 struct itemListaEncadeada
 {
   NodeLinkedList *backNode;
+  u_long id;
   void *item;
   NodeLinkedList *nextNode;
 };
@@ -77,19 +78,20 @@ void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
   list->finalNode = newFinalNode;
 }
 
-NodeLinkedList *createNodeLinkedList(void *itemOfNode)
+NodeLinkedList *createNodeLinkedList(void *itemOfNode, u_long id)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
   isNull(node, "Erro ao criar node ao fim da LinkedList");
   node->backNode = NULL;
   node->nextNode = NULL;
   node->item = itemOfNode;
+  node->id = id;
   return node;
 }
 
 void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
 {
-  NodeLinkedList *nextNode = createNodeLinkedList(ptrAllocatedItem);
+  NodeLinkedList *nextNode = createNodeLinkedList(ptrAllocatedItem, list->tam);
   if (!list->tam)
     addPrimaryNodeItemLinkedList(list, nextNode);
   else
@@ -130,7 +132,6 @@ void forEachNode(LinkedList *list, void (*externFunction)(void *))
 
 void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 {
-  isNull(list, "Lista nula passada como argumento para remover nó");
   isNull(node, "Nó nulo passado para ser removido da LinkedList");
   if (list->tam > 1)
   {
@@ -158,6 +159,7 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
+  isNull(list, "Lista nula passada como argumento para remover item");
   NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
