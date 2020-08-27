@@ -1,0 +1,20 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    { 
+      "label": "Compile debuggerFile",
+      "type": "shell", 
+      "command": "gcc -g '/home/ellian/code/faculdade/ed1/2 - Listas/LinkedList/linkedList.c' '/home/ellian/code/faculdade/ed1/2 - Listas/LinkedList/testeLinkedList.c' -o '/home/ellian/code/faculdade/ed1/2 - Listas/LinkedList/a.out'",
+      "presentation": {
+        "echo": false,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    }
+  ]
+}
