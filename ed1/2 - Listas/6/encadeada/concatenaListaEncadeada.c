@@ -1,4 +1,5 @@
 #include "concatenaListaEncadeada.h"
+#include "../../sequencial/linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 

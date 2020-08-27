@@ -130,7 +130,6 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
     list->nodeInicial = NULL;
     list->nodeFinal = NULL;
   }
-
   list->tam--;
   destroyNodeLinkedList(node);
 }
