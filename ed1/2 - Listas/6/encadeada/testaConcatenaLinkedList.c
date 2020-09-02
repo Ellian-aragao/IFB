@@ -13,12 +13,17 @@ int main()
     testForEachPrintItensInt(listas[i]);
 
   for (int i = 0; i < 14; i++)
-  {
     testRemoveItemLinkedList(listas[2], i);
-  }
+
+  testForEachPrintItensInt(listas[2]);
 
   for (int i = 0; i < 3; i++)
     destroyLinkedList(listas[i]);
 
   return 0;
 }
+/*
+[0,1,2,3,4,5,6,7,8,9,]
+[10,11,12,13,14,15,16,17,18,19,20,]
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,]
+*/
