@@ -1,6 +1,7 @@
 #include "linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 
 typedef struct itemListaEncadeada NodeLinkedList;
@@ -8,13 +9,13 @@ struct listaDinamicaEncadeada
 {
   NodeLinkedList *inicialNode;
   NodeLinkedList *finalNode;
+  u_long sizeofItens;
   u_long tam;
 };
 
 struct itemListaEncadeada
 {
   NodeLinkedList *backNode;
-  u_long id;
   void *item;
   NodeLinkedList *nextNode;
 };
@@ -28,10 +29,16 @@ void isNull(void *pointer, const char *str)
   }
 }
 
-LinkedList *createLinkedList()
+u_long getSizeofItensLinkedList(LinkedList* list)
+{
+  return list->sizeofItens;
+}
+
+LinkedList *createLinkedList(u_long sizeofItens)
 {
   LinkedList *list = malloc(sizeof(LinkedList));
   isNull(list, "Erro na criação da LinkedList");
+  list->sizeofItens = sizeofItens;
   return list;
 }
 
@@ -69,6 +76,9 @@ void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
 {
   list->inicialNode = node;
   list->finalNode = node;
+
+  node->backNode = NULL;
+  node->nextNode = NULL;
 }
 
 void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
@@ -79,20 +89,19 @@ void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
   list->finalNode = newFinalNode;
 }
 
-NodeLinkedList *createNodeLinkedList(void *itemOfNode, u_long id)
+NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
+  node->item = malloc(list->sizeofItens);
   isNull(node, "Erro ao criar node ao fim da LinkedList");
-  node->backNode = NULL;
-  node->nextNode = NULL;
-  node->item = itemOfNode;
-  node->id = id;
+  isNull(node->item, "Erro ao criar item");
+  memcpy(node->item, itemOfNode, list->sizeofItens);
   return node;
 }
 
 void appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
 {
-  NodeLinkedList *nextNode = createNodeLinkedList(ptrAllocatedItem, list->tam);
+  NodeLinkedList *nextNode = createNodeLinkedList(list, ptrAllocatedItem);
   if (!list->tam)
     addPrimaryNodeItemLinkedList(list, nextNode);
   else

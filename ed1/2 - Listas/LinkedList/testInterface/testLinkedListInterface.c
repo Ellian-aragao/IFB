@@ -36,13 +36,19 @@ LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem)
     exit(EXIT_FAILURE);
   }
 
-  LinkedList *list = createLinkedList();
+  LinkedList *list = createLinkedList(sizeof(int));
   int *item;
   for (int i = minItem; i <= maxItem; i++)
   {
     item = malloc(sizeof(int));
+    if (item == NULL)
+    {
+      perror("erro na alocação do item para criar linkedlist");
+      exit(EXIT_FAILURE);
+    }
     *item = i;
     appendLinkedList(list, item);
+    free(item);
   }
   return list;
 }

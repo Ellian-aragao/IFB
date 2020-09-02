@@ -4,8 +4,8 @@
 typedef unsigned long u_long;
 typedef struct listaDinamicaEncadeada LinkedList;
 
-// aloca espaço de memória para manipulação da lista encadeada
-LinkedList *createLinkedList();
+// aloca espaço de memória para manipulação da lista encadeada, recebe o sizeof dos itens a serem armazenados
+LinkedList *createLinkedList(u_long sizeofItens);
 
 // libera todo o espaço da Lista, todos os nós
 void destroyLinkedList(LinkedList *list);
@@ -21,5 +21,8 @@ void forEachNode(LinkedList *list, void (*externFunction)(void *));
 
 // remove um nó da memória conforme o item passado e a função de comparação dos itens
 void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
+
+// retorna o tamanho os itens salvos em uma lista
+u_long getSizeofItensLinkedList(LinkedList* list);
 
 #endif
