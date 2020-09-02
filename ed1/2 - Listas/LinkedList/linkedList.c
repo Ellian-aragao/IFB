@@ -72,7 +72,7 @@ void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
 {
-  NodeLinkedList* oldFinalNode = list->finalNode;
+  NodeLinkedList *oldFinalNode = list->finalNode;
   oldFinalNode->nextNode = newFinalNode;
   newFinalNode->backNode = oldFinalNode;
   list->finalNode = newFinalNode;
