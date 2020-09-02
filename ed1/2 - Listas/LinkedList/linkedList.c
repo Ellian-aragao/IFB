@@ -1,6 +1,7 @@
 #include "linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct itemListaEncadeada NodeLinkedList;
 struct listaDinamicaEncadeada
@@ -130,35 +131,45 @@ void forEachNode(LinkedList *list, void (*externFunction)(void *))
   forEach(list, getNodeLinkedList, externFunction);
 }
 
-void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
+bool isInitialFinalNodeLinkedListRemove(LinkedList *list, NodeLinkedList *node)
 {
-  isNull(node, "Nó nulo passado para ser removido da LinkedList");
-  if (list->tam > 1)
-  {
+  bool boolean = false;
     if (list->inicialNode == node)
     {
       NodeLinkedList *nextNode = node->nextNode;
       list->inicialNode = nextNode;
       nextNode->backNode = NULL;
+    boolean = true;
     }
     else if (list->finalNode == node)
     {
       NodeLinkedList *backNode = node->backNode;
       list->finalNode = backNode;
       backNode->nextNode = NULL;
+    boolean = true;
     }
-    else
+  return boolean;
+}
+
+void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
     {
-      NodeLinkedList* backNode = node->backNode;
-      NodeLinkedList* nextNode = node->nextNode;
+  NodeLinkedList *backNode = node->backNode;
+  NodeLinkedList *nextNode = node->nextNode;
       backNode->nextNode = nextNode;
       nextNode->backNode = backNode;
     }
-  }
-  else
+
+void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
+{
+  isNull(node, "Nó nulo passado para ser removido da LinkedList");
+  if (list->tam == 1)
   {
     list->inicialNode = NULL;
     list->finalNode = NULL;
+  }
+  else if (!isInitialFinalNodeLinkedListRemove(list, node))
+  {
+    removeNodeBetweenNodesInLinkedList(node);
   }
   list->tam--;
   destroyNodeLinkedList(node);
