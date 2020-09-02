@@ -19,7 +19,6 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "Compile debuggerFile",
       "miDebuggerPath": "/usr/bin/gdb"
     }
   ]
