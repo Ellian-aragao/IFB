@@ -134,30 +134,30 @@ void forEachNode(LinkedList *list, void (*externFunction)(void *))
 bool isInitialFinalNodeLinkedListRemove(LinkedList *list, NodeLinkedList *node)
 {
   bool boolean = false;
-    if (list->inicialNode == node)
-    {
-      NodeLinkedList *nextNode = node->nextNode;
-      list->inicialNode = nextNode;
-      nextNode->backNode = NULL;
+  if (list->inicialNode == node)
+  {
+    NodeLinkedList *nextNode = node->nextNode;
+    list->inicialNode = nextNode;
+    nextNode->backNode = NULL;
     boolean = true;
-    }
-    else if (list->finalNode == node)
-    {
-      NodeLinkedList *backNode = node->backNode;
-      list->finalNode = backNode;
-      backNode->nextNode = NULL;
+  }
+  else if (list->finalNode == node)
+  {
+    NodeLinkedList *backNode = node->backNode;
+    list->finalNode = backNode;
+    backNode->nextNode = NULL;
     boolean = true;
-    }
+  }
   return boolean;
 }
 
 void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
-    {
+{
   NodeLinkedList *backNode = node->backNode;
   NodeLinkedList *nextNode = node->nextNode;
-      backNode->nextNode = nextNode;
-      nextNode->backNode = backNode;
-    }
+  backNode->nextNode = nextNode;
+  nextNode->backNode = backNode;
+}
 
 void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 {
