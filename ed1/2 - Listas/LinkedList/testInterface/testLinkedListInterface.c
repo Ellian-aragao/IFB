@@ -38,7 +38,7 @@ LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem)
 
   LinkedList *list = createLinkedList();
   int *item;
-  for (int i = minItem; i < maxItem; i++)
+  for (int i = minItem; i <= maxItem; i++)
   {
     item = malloc(sizeof(int));
     *item = i;
