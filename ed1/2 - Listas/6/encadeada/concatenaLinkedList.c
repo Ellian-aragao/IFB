@@ -1,5 +1,6 @@
 #include "../../LinkedList/linkedList.h"
 #include "concatenaLinkedList.h"
+#define NULL (void*)0
 
 LinkedList *listaConcatenada;
 
@@ -13,7 +14,7 @@ LinkedList *concatenaLinkedList(LinkedList *lista1, LinkedList *lista2)
   u_long sizeList = getSizeofItensLinkedList(lista1);
   if (!sizeList == getSizeofItensLinkedList(lista2))
   {
-    return;
+    return NULL;
   }
   listaConcatenada = createLinkedList(sizeList);
   forEachItem(lista1, appendToConcatenaLinkedList);
