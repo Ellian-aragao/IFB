@@ -147,6 +147,13 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
       list->finalNode = backNode;
       backNode->nextNode = NULL;
     }
+    else
+    {
+      NodeLinkedList* backNode = node->backNode;
+      NodeLinkedList* nextNode = node->nextNode;
+      backNode->nextNode = nextNode;
+      nextNode->backNode = backNode;
+    }
   }
   else
   {
