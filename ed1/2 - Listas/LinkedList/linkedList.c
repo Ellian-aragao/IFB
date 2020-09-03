@@ -29,7 +29,12 @@ void isNull(void *pointer, const char *str)
   }
 }
 
-u_long getSizeofItensLinkedList(LinkedList* list)
+u_long getTamLinkedList(LinkedList* list)
+{
+  return list->tam;
+}
+
+u_long getSizeofItensLinkedList(LinkedList *list)
 {
   return list->sizeofItens;
 }
