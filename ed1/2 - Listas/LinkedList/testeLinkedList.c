@@ -5,9 +5,11 @@
 
 int main()
 {
-  LinkedList *list = testCreateLinkedListWithItensInt(0,5);
+  LinkedList *list = testCreateLinkedListWithItensInt(-10, 10);
   testForEachPrintItensInt(list);
-  testRemoveItemLinkedList(list, 2);
+  testFindItemIndex(list, 10);
+  for (size_t i = 0; i < 4; i++)
+    testRemoveItemLinkedList(list, i);
   testForEachPrintItensInt(list);
   destroyLinkedList(list);
   return 0;
