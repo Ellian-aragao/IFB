@@ -204,15 +204,33 @@ void *forEachReturnIfFind(
   }
 }
 
-    if (compareItem(node->item, item))
-    {
-      removeNodeLinkedList(list, node);
+bool nodeHasItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (compareItem(node->item, item))
+  {
+    removeNodeLinkedList(list, node);
+    return true;
+  }
+  return false;
+}
+
 void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
   forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem);
 }
-    node = nextNode;
+
+bool setIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (compareItem(node->item, item))
+  {
+    u_long* indexAllocated = malloc(sizeof(u_long));
+    *indexAllocated = *index;
+    *addressToSaveArgument = indexAllocated;
+    return true;
   }
+  return false;
+}
+
 u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
   return forEachReturnIfFind(list, setIndexToReturnFunction, item, compareItem);
