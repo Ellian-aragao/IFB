@@ -34,4 +34,10 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 // remove item através do índice dado para a função
 void removeIndexLinkedList(LinkedList *list, u_long index);
 
+// remove primeiro item da lista
+void removeFistLinkedList(LinkedList* list);
+
+// remove o ultimo item da lista
+void removeLastLinkedList(LinkedList* list);
+
 #endif

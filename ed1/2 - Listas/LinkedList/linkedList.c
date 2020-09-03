@@ -241,6 +241,16 @@ void removeIndexLinkedList(LinkedList *list, u_long index)
   forEachReturnIfFind(list, indexNodeisEqualItem, &index, null);
 }
 
+void removeFistLinkedList(LinkedList* list)
+{
+  removeNodeLinkedList(list,list->inicialNode);
+}
+
+void removeLastLinkedList(LinkedList* list)
+{
+  removeNodeLinkedList(list,list->finalNode);
+}
+
 bool setIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
   if (compareItem(node->item, item))
