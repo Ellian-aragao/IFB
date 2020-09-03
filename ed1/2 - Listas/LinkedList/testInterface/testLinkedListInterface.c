@@ -24,6 +24,8 @@ void testRemoveItemLinkedList(LinkedList* list, int valueToRemove)
   }
   *item = valueToRemove;
   removeLinkedList(list, item, compareItensInt);
+  free(item);
+  item = NULL;
 }
 
 void testForEachPrintItensInt(LinkedList* list)
