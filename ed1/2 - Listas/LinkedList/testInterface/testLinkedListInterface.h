@@ -1,10 +1,6 @@
 #ifndef TESTLINKEDLISTINTERFACE_H
 #define TESTLINKEDLISTINTERFACE_H
 
-#ifdef LINKEDLIST_H
-#include "../linkedList.h"
-#endif
-
 // Cria uma LinkedList com tipo int variando do argumento minimo ao máximo
 LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem);
 
