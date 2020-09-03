@@ -184,13 +184,26 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
   destroyNodeLinkedList(node);
 }
 
-void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
+void *forEachReturnIfFind(
+    LinkedList *list,
+    bool (*returnBoolToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
+    void *item,
+    int (*compareItem)(void *, void *))
 {
   isNull(list, "Lista nula passada como argumento para remover item");
   NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
+
+    void *addressToGiveToSuperFunction = NULL;
+    if (returnBoolToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
+      return addressToGiveToSuperFunction;
+
+    node = nextNode;
+  }
+}
+
     if (compareItem(node->item, item))
     {
       removeNodeLinkedList(list, node);
