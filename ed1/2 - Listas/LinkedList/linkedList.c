@@ -29,7 +29,7 @@ void isNull(void *pointer, const char *str)
   }
 }
 
-u_long getTamLinkedList(LinkedList* list)
+u_long getTamLinkedList(LinkedList *list)
 {
   return list->tam;
 }
@@ -224,11 +224,27 @@ void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void 
   forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem);
 }
 
+bool indexNodeisEqualItem(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (*index == *(u_long *)item)
+  {
+    removeNodeLinkedList(list, node);
+    return true;
+  }
+  return false;
+}
+
+void removeIndexLinkedList(LinkedList *list, u_long index)
+{
+  int (*null)(void *, void *);
+  forEachReturnIfFind(list, indexNodeisEqualItem, &index, null);
+}
+
 bool setIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
   if (compareItem(node->item, item))
   {
-    u_long* indexAllocated = malloc(sizeof(u_long));
+    u_long *indexAllocated = malloc(sizeof(u_long));
     *indexAllocated = *index;
     *addressToSaveArgument = indexAllocated;
     return true;

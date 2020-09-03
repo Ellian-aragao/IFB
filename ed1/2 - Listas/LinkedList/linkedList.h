@@ -31,4 +31,7 @@ u_long getSizeofItensLinkedList(LinkedList *list);
 // retorna memória alocada com valor do indice procurado
 u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
 
+// remove item através do índice dado para a função
+void removeIndexLinkedList(LinkedList *list, u_long index);
+
 #endif
