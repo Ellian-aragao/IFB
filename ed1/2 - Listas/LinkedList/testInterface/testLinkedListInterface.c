@@ -40,6 +40,15 @@ void testForEachPrintItensInt(LinkedList *list)
   puts("]");
 }
 
+void testFindItemIndex(LinkedList *list, int itemToFind)
+{
+  int *item = allocIntAndSetValue(&itemToFind);
+  u_long *index = getIndexItemLinkedList(list, item, compareItensInt);
+  printf("item to find '%d', his index '%ld'\n", itemToFind, *index);
+  free(index);
+  free(item);
+}
+
 LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem)
 {
   if (minItem > maxItem)
