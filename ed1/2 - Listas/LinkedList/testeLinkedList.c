@@ -7,7 +7,7 @@ int main()
 {
   LinkedList *list = testCreateLinkedListWithItensInt(-10, 10);
   testForEachPrintItensInt(list);
-  testFindItemIndex(list, 10);
+  testFindItemIndex(list, 20);
   for (size_t i = 0; i < 4; i++)
     testRemoveItemLinkedList(list, i);
   testForEachPrintItensInt(list);
