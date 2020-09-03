@@ -1,12 +1,10 @@
 #ifndef CONCATENALINKEDLIST_H
 #define CONCATENALINKEDLIST_H
-#ifndef LINKEDLIST_H
-#include "../../LinkedList/linkedList.h"
-#endif
 
 /**
- * Recebe duas LinkedLists, verifica compatibilidade e
- * realiza concatenação retornando uma nova
+ * Recebe duas LinkedLists, lista1 e lista2, verifica compatibilidade e
+ * caso seja compatível realiza concatenação retornando uma nova
+ * caso não seja compatível retorna NULL
 */
 LinkedList *concatenaLinkedList(LinkedList *lista1, LinkedList *lista2);
 
