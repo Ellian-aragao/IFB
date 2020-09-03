@@ -44,7 +44,9 @@ void testFindItemIndex(LinkedList *list, int itemToFind)
 {
   int *item = allocIntAndSetValue(&itemToFind);
   u_long *index = getIndexItemLinkedList(list, item, compareItensInt);
-  printf("item to find '%d', his index '%ld'\n", itemToFind, *index);
+  if (index != NULL)
+    printf("item to find '%d', his index '%ld'\n", itemToFind, *index);
+
   free(index);
   free(item);
 }

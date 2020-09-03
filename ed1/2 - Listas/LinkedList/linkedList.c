@@ -207,6 +207,7 @@ void *forEachReturnIfFind(
 
     node = nextNode;
   }
+  return NULL;
 }
 
 bool nodeHasItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
