@@ -29,7 +29,7 @@ int *allocIntAndSetValue(int *value)
 void testRemoveItemLinkedList(LinkedList *list, int valueToRemove)
 {
   int *item = allocIntAndSetValue(&valueToRemove);
-  removeLinkedList(list, item, compareItensInt);
+  removeItemLinkedList(list, item, compareItensInt);
   free(item);
 }
 

@@ -219,7 +219,7 @@ bool nodeHasItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index
   return false;
 }
 
-void removeLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
+void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
   forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem);
 }
