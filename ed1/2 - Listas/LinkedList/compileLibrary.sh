@@ -1,2 +1,9 @@
 #!/bin/bash
-gcc -c linkedList.c testInterface/testLinkedListInterface.c
+cd '/home/ellian/code/faculdade/ed1/2 - Listas/LinkedList/'
+gcc -g -c linkedList.c testInterface/testLinkedListInterface.c
+
+mv 'linkedList.o' '/home/ellian/code/faculdade/ed1/2 - Listas/6/encadeada/'
+mv 'testLinkedListInterface.o' '/home/ellian/code/faculdade/ed1/2 - Listas/6/encadeada/'
+cd '/home/ellian/code/faculdade/ed1/2 - Listas/6/encadeada'
+
+gcc -g concatenaLinkedList.c testaConcatenaLinkedList.c linkedList.o testLinkedListInterface.o
