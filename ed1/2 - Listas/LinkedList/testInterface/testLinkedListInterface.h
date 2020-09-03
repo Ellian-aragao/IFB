@@ -14,4 +14,7 @@ void testRemoveItemLinkedList(LinkedList* list, int valueToRemove);
 // Exibe todos os itens da Lista criada
 void testForEachPrintItensInt(LinkedList* list);
 
+// exibe o indice de um item
+void testFindItemIndex(LinkedList *list, int itemToFind);
+
 #endif
