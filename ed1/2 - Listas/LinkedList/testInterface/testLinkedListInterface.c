@@ -25,12 +25,15 @@ int *allocIntAndSetValue(int *value)
   *item = *value;
   return item;
 }
+
+void testRemoveItemLinkedList(LinkedList *list, int valueToRemove)
+{
+  int *item = allocIntAndSetValue(&valueToRemove);
   removeLinkedList(list, item, compareItensInt);
   free(item);
-  item = NULL;
 }
 
-void testForEachPrintItensInt(LinkedList* list)
+void testForEachPrintItensInt(LinkedList *list)
 {
   putchar('[');
   forEachItem(list, printItemInt);
