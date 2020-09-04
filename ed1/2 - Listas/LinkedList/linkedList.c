@@ -237,7 +237,7 @@ void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void 
 
 bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
-  if (isEqualIndexAndItem(index,item))
+  if (isEqualIndexAndItem(index, item))
   {
     removeNodeLinkedList(list, node);
     return true;
@@ -288,13 +288,17 @@ bool setNodeToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *ind
 
 int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
 {
-  int (*null)(void *, void *);
-  NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
-  NodeLinkedList *node2 = forEachReturnIfFind(list, setNodeToReturnFunction, &index2, null);
-  if (node1 != NULL && node2 != NULL)
+  if (index1 <= list->tam && index2 <= list->tam)
   {
+    int (*null)(void *, void *);
+    NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
+    NodeLinkedList *node2 = forEachReturnIfFind(list, setNodeToReturnFunction, &index2, null);
     swapNode(node1, node2);
     return true;
   }
   return false;
+}
+
+void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
+{
 }
