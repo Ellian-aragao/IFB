@@ -7,7 +7,7 @@ void printItemInt(void *item)
   printf("%d,", *(int *)item);
 }
 
-int compareItensInt(void *item1, void *item2)
+static int compareItensInt(void *item1, void *item2)
 {
   if (*(int *)item1 == *(int *)item2)
     return 1;
@@ -28,9 +28,7 @@ int *allocIntAndSetValue(int *value)
 
 void testRemoveItemLinkedList(LinkedList *list, int valueToRemove)
 {
-  int *item = allocIntAndSetValue(&valueToRemove);
-  removeItemLinkedList(list, item, compareItensInt);
-  free(item);
+  removeItemLinkedList(list, &valueToRemove, compareItensInt);
 }
 
 void testForEachPrintItensInt(LinkedList *list)
@@ -42,34 +40,23 @@ void testForEachPrintItensInt(LinkedList *list)
 
 void testFindItemIndex(LinkedList *list, int itemToFind)
 {
-  int *item = allocIntAndSetValue(&itemToFind);
-  u_long *index = getIndexItemLinkedList(list, item, compareItensInt);
+  u_long *index = getIndexItemLinkedList(list, &itemToFind, compareItensInt);
   if (index != NULL)
     printf("item to find '%d', his index '%ld'\n", itemToFind, *index);
-  free(item);
+  else
+    puts("404 item not found");
 }
 
-LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem)
+LinkedList *testCreateLinkedListWithItensInt(int value1, int value2)
 {
-  if (minItem > maxItem)
-  {
-    perror("min e max na função testCreateLinkedListWithItensInt inválidos");
-    exit(EXIT_FAILURE);
-  }
-
   LinkedList *list = createLinkedList(sizeof(int));
-  int *item;
-  for (int i = minItem; i <= maxItem; i++)
-  {
-    item = malloc(sizeof(int));
-    if (item == NULL)
-    {
-      perror("erro na alocação do item para criar linkedlist");
-      exit(EXIT_FAILURE);
-    }
-    *item = i;
-    appendLinkedList(list, item);
-    free(item);
-  }
+  
+  if (value1 <= value2)
+    for (int i = value1; i <= value2; i++)
+      appendLinkedList(list, &i);
+  else
+    for (int i = value1; i >= value2; i--)
+      appendLinkedList(list, &i);
+
   return list;
 }
