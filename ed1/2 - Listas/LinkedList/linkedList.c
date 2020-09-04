@@ -29,6 +29,15 @@ void isNull(void *pointer, const char *str)
   }
 }
 
+int swapNode(NodeLinkedList *node1, NodeLinkedList *node2)
+{
+  void *tmp;
+  tmp = node1->item;
+  node1->item = node2->item;
+  node2->item = tmp;
+  return 1;
+}
+
 u_long getTamLinkedList(LinkedList *list)
 {
   return list->tam;
