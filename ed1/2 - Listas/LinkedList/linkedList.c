@@ -275,3 +275,26 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 {
   return forEachReturnIfFind(list, setIndexToReturnFunction, item, compareItem);
 }
+
+bool setNodeToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (isEqualIndexAndItem(index, item))
+  {
+    *addressToSaveArgument = node;
+    return true;
+  }
+  return false;
+}
+
+int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
+{
+  int (*null)(void *, void *);
+  NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
+  NodeLinkedList *node2 = forEachReturnIfFind(list, setNodeToReturnFunction, &index2, null);
+  if (node1 != NULL && node2 != NULL)
+  {
+    swapNode(node1, node2);
+    return true;
+  }
+  return false;
+}
