@@ -43,4 +43,6 @@ void removeLastLinkedList(LinkedList* list);
 // realiza a troca dos itens saltos pelo indice, retorna 1 se obter exito e 0 se falhar
 int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
 
+
+void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
 #endif
