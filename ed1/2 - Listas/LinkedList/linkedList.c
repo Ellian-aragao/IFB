@@ -225,7 +225,7 @@ void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void 
   forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem);
 }
 
-bool indexNodeisEqualItem(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
   if (*index == *(u_long *)item)
   {
@@ -238,26 +238,24 @@ bool indexNodeisEqualItem(LinkedList *list, NodeLinkedList *node, u_long *index,
 void removeIndexLinkedList(LinkedList *list, u_long index)
 {
   int (*null)(void *, void *);
-  forEachReturnIfFind(list, indexNodeisEqualItem, &index, null);
+  forEachReturnIfFind(list, indexNodeisEqualItemRemoveNode, &index, null);
 }
 
-void removeFistLinkedList(LinkedList* list)
+void removeFistLinkedList(LinkedList *list)
 {
-  removeNodeLinkedList(list,list->inicialNode);
+  removeNodeLinkedList(list, list->inicialNode);
 }
 
-void removeLastLinkedList(LinkedList* list)
+void removeLastLinkedList(LinkedList *list)
 {
-  removeNodeLinkedList(list,list->finalNode);
+  removeNodeLinkedList(list, list->finalNode);
 }
 
 bool setIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
   if (compareItem(node->item, item))
   {
-    u_long *indexAllocated = malloc(sizeof(u_long));
-    *indexAllocated = *index;
-    *addressToSaveArgument = indexAllocated;
+    *addressToSaveArgument = index;
     return true;
   }
   return false;
