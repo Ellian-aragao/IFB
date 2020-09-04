@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define isEqualIndexAndItem(index, item) *index == *(u_long *)item
+
 typedef struct itemListaEncadeada NodeLinkedList;
 struct listaDinamicaEncadeada
 {
@@ -20,7 +22,7 @@ struct itemListaEncadeada
   NodeLinkedList *nextNode;
 };
 
-void isNull(void *pointer, const char *str)
+void isNullExitFailure(void *pointer, const char *str)
 {
   if (pointer == NULL)
   {
@@ -29,13 +31,12 @@ void isNull(void *pointer, const char *str)
   }
 }
 
-int swapNode(NodeLinkedList *node1, NodeLinkedList *node2)
+void swapNode(NodeLinkedList *node1, NodeLinkedList *node2)
 {
   void *tmp;
   tmp = node1->item;
   node1->item = node2->item;
   node2->item = tmp;
-  return 1;
 }
 
 u_long getTamLinkedList(LinkedList *list)
@@ -51,7 +52,7 @@ u_long getSizeofItensLinkedList(LinkedList *list)
 LinkedList *createLinkedList(u_long sizeofItens)
 {
   LinkedList *list = malloc(sizeof(LinkedList));
-  isNull(list, "Erro na criação da LinkedList");
+  isNullExitFailure(list, "Erro na criação da LinkedList");
   list->sizeofItens = sizeofItens;
   return list;
 }
@@ -107,8 +108,8 @@ NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
   node->item = malloc(list->sizeofItens);
-  isNull(node, "Erro ao criar node ao fim da LinkedList");
-  isNull(node->item, "Erro ao criar item");
+  isNullExitFailure(node, "Erro ao criar node ao fim da LinkedList");
+  isNullExitFailure(node->item, "Erro ao criar item");
   memcpy(node->item, itemOfNode, list->sizeofItens);
   return node;
 }
@@ -184,7 +185,7 @@ void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
 
 void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 {
-  isNull(node, "Nó nulo passado para ser removido da LinkedList");
+  isNullExitFailure(node, "Nó nulo passado para ser removido da LinkedList");
   if (list->tam == 1)
   {
     list->inicialNode = NULL;
@@ -200,18 +201,18 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void *forEachReturnIfFind(
     LinkedList *list,
-    bool (*returnBoolToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
+    bool (*returnTrueToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
     void *item,
     int (*compareItem)(void *, void *))
 {
-  isNull(list, "Lista nula passada como argumento para remover item");
+  isNullExitFailure(list, "Lista nula passada como argumento para remover item");
   NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
 
     void *addressToGiveToSuperFunction = NULL;
-    if (returnBoolToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
+    if (returnTrueToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
       return addressToGiveToSuperFunction;
 
     node = nextNode;
@@ -236,7 +237,7 @@ void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void 
 
 bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
-  if (*index == *(u_long *)item)
+  if (isEqualIndexAndItem(index,item))
   {
     removeNodeLinkedList(list, node);
     return true;
