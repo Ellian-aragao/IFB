@@ -40,4 +40,7 @@ void removeFistLinkedList(LinkedList* list);
 // remove o ultimo item da lista
 void removeLastLinkedList(LinkedList* list);
 
+// realiza a troca dos itens saltos pelo indice, retorna 1 se obter exito e 0 se falhar
+int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
+
 #endif
