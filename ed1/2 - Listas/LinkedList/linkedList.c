@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define isEqualIndexAndItem(index, item) *index == *(u_long *)item
-
 typedef struct itemListaEncadeada NodeLinkedList;
 struct listaDinamicaEncadeada
 {
@@ -22,7 +20,7 @@ struct itemListaEncadeada
   NodeLinkedList *nextNode;
 };
 
-void isNullFinishApp(void *pointer, const char *str)
+void isNull(void *pointer, const char *str)
 {
   if (pointer == NULL)
   {
@@ -31,12 +29,13 @@ void isNullFinishApp(void *pointer, const char *str)
   }
 }
 
-void swapNode(NodeLinkedList *node1, NodeLinkedList *node2)
+int swapNode(NodeLinkedList *node1, NodeLinkedList *node2)
 {
   void *tmp;
   tmp = node1->item;
   node1->item = node2->item;
   node2->item = tmp;
+  return 1;
 }
 
 u_long getTamLinkedList(LinkedList *list)
@@ -52,7 +51,7 @@ u_long getSizeofItensLinkedList(LinkedList *list)
 LinkedList *createLinkedList(u_long sizeofItens)
 {
   LinkedList *list = malloc(sizeof(LinkedList));
-  isNullFinishApp(list, "Erro na criação da LinkedList");
+  isNull(list, "Erro na criação da LinkedList");
   list->sizeofItens = sizeofItens;
   return list;
 }
@@ -108,8 +107,8 @@ NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
   node->item = malloc(list->sizeofItens);
-  isNullFinishApp(node, "Erro ao criar node ao fim da LinkedList");
-  isNullFinishApp(node->item, "Erro ao criar item");
+  isNull(node, "Erro ao criar node ao fim da LinkedList");
+  isNull(node->item, "Erro ao criar item");
   memcpy(node->item, itemOfNode, list->sizeofItens);
   return node;
 }
@@ -185,7 +184,7 @@ void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
 
 void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 {
-  isNullFinishApp(node, "Nó nulo passado para ser removido da LinkedList");
+  isNull(node, "Nó nulo passado para ser removido da LinkedList");
   if (list->tam == 1)
   {
     list->inicialNode = NULL;
@@ -201,18 +200,18 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void *forEachReturnIfFind(
     LinkedList *list,
-    bool (*returnTrueToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
+    bool (*returnBoolToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
     void *item,
     int (*compareItem)(void *, void *))
 {
-  isNullFinishApp(list, "Lista nula passada como argumento para percorrer");
+  isNull(list, "Lista nula passada como argumento para remover item");
   NodeLinkedList *node = list->inicialNode;
   for (u_long i = 0; i < list->tam; i++)
   {
     NodeLinkedList *nextNode = node->nextNode;
 
     void *addressToGiveToSuperFunction = NULL;
-    if (returnTrueToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
+    if (returnBoolToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
       return addressToGiveToSuperFunction;
 
     node = nextNode;
@@ -237,7 +236,7 @@ void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void 
 
 bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
-  if (isEqualIndexAndItem(index, item))
+  if (*index == *(u_long *)item)
   {
     removeNodeLinkedList(list, node);
     return true;
@@ -275,27 +274,3 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 {
   return forEachReturnIfFind(list, setIndexToReturnFunction, item, compareItem);
 }
-
-bool setNodeToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
-{
-  if (isEqualIndexAndItem(index, item))
-  {
-    *addressToSaveArgument = node;
-    return true;
-  }
-  return false;
-}
-
-int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
-{
-  int (*null)(void *, void *);
-  NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
-  NodeLinkedList *node2 = forEachReturnIfFind(list, setNodeToReturnFunction, &index2, null);
-  if (node1 != NULL && node2 != NULL)
-  {
-    swapNode(node1, node2);
-    return true;
-  }
-  return false;
-}
-
