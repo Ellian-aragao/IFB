@@ -1,12 +1,13 @@
 #!/bin/bash
 cd '/home/ellian/code/faculdade/ed1/2 - Listas/LinkedList/'
-gcc -g linkedList.c testInterface/testLinkedListInterface.c testeLinkedList.c
-# gcc -c -g linkedList.c testInterface/testLinkedListInterface.c
+# gcc -g linkedList.c testInterface/testLinkedListInterface.c testeLinkedList.c
+gcc -c -g linkedList.c testInterface/testLinkedListInterface.c
 
-# pathTest=`/home/ellian/code/faculdade/ed1/2 - Listas/7/encadeada`
+# pathTest="/home/ellian/code/faculdade/ed1/2 - Listas/8/"
 
-# mv 'linkedList.o' `$pathTest`
-# mv 'testLinkedListInterface.o' `$pathTest`
+mv 'linkedList.o' '../8'
+mv 'testLinkedListInterface.o' '../8'
+cd '../8/'
 
-
-# gcc -g concatenaLinkedList.c testaConcatenaLinkedList.c linkedList.o testLinkedListInterface.o
+gcc -g getBiggerElementAndIndexOfLinkedList.c testegetBiggerElementAndIndexOfLinkedList.c linkedList.o testLinkedListInterface.o
+./a.out
