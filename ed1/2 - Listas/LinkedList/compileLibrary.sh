@@ -5,9 +5,9 @@ gcc -c -g linkedList.c testInterface/testLinkedListInterface.c
 
 # pathTest="/home/ellian/code/faculdade/ed1/2 - Listas/8/"
 
-mv 'linkedList.o' '../8'
-mv 'testLinkedListInterface.o' '../8'
-cd '../8/'
+mv 'linkedList.o' '../10'
+# mv 'testLinkedListInterface.o' '../8'
+cd '../10/'
 
-gcc -g getBiggerElementAndIndexOfLinkedList.c testegetBiggerElementAndIndexOfLinkedList.c linkedList.o testLinkedListInterface.o
+gcc -g getProdutoMaisBarato.c linkedList.o testegetProdutoMaisBarato.c 
 ./a.out
