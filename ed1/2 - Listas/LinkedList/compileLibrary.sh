@@ -5,9 +5,9 @@ gcc -c -g linkedList.c #testInterface/testLinkedListInterface.c
 
 # pathTest="/home/ellian/code/faculdade/ed1/2 - Listas/8/"
 
-mv 'linkedList.o' '../13'
+mv 'linkedList.o' '../14'
 # mv 'testLinkedListInterface.o' '../8'
-cd '../13/'
+cd '../14/'
 
 gcc -g linkedList.o mediaDeTodosOsNumeros.c testemediaDeTodosOsNumeros.c
 rm linkedList.o

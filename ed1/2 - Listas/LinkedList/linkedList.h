@@ -10,8 +10,9 @@ LinkedList *createLinkedList(u_long sizeofItens);
 // libera todo o espaço da Lista, todos os nós
 void destroyLinkedList(LinkedList *list);
 
-// adiciona item no final da lista, enviar ponteiro para memória alocada do tipo de dado que deseja guardar
-void appendLinkedList(LinkedList *list, void *item);
+// adiciona item no final da lista, enviar ponteiro do tipo de dado que deseja guardar
+// retorna o endereço onde o item foi salvo na lista
+void *appendLinkedList(LinkedList *list, void *item);
 
 // itera sobre todos os nós da lista passando como argumento o item guardado para função enviada
 void forEachItem(LinkedList *list, void (*externFunction)(void *));
@@ -35,10 +36,10 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 void removeIndexLinkedList(LinkedList *list, u_long index);
 
 // remove primeiro item da lista
-void removeFistLinkedList(LinkedList* list);
+void removeFistLinkedList(LinkedList *list);
 
 // remove o ultimo item da lista
-void removeLastLinkedList(LinkedList* list);
+void removeLastLinkedList(LinkedList *list);
 
 // realiza a troca dos itens pelo indice, retorna 1 se obter exito e 0 se falhar
 int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
@@ -49,6 +50,6 @@ int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
 void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
 
 // retorna um ponteiro para o elemento correspondente ao indice enviado
-void *getItemByIndex(LinkedList* list, u_long index);
+void *getItemByIndex(LinkedList *list, u_long index);
 
 #endif
