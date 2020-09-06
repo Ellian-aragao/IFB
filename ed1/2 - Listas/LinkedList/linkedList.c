@@ -16,7 +16,6 @@
     item2 = tmp;                   \
   }
 
-
 typedef struct itemListaEncadeada NodeLinkedList;
 struct listaDinamicaEncadeada
 {
@@ -204,8 +203,8 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 
 void *forEachReturnIfFind(
     LinkedList *list,
-    bool (*returnTrueToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *)),
-    void *item,
+    bool (*returnTrueToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *genericPointer, int (*compareItem)(void *, void *)),
+    void *genericItem,
     int (*compareItem)(void *, void *))
 {
   isNullExitFailure(list, "Lista nula passada como argumento para remover item");
@@ -215,7 +214,7 @@ void *forEachReturnIfFind(
     NodeLinkedList *nextNode = getNextNode(node);
 
     void *addressToGiveToSuperFunction = NULL;
-    if (returnTrueToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, item, compareItem))
+    if (returnTrueToEndSuperFunction(list, node, &i, &addressToGiveToSuperFunction, genericItem, compareItem))
       return addressToGiveToSuperFunction;
 
     node = nextNode;
@@ -252,6 +251,22 @@ void removeIndexLinkedList(LinkedList *list, u_long index)
 {
   int (*null)(void *, void *);
   forEachReturnIfFind(list, indexNodeisEqualItemRemoveNode, &index, null);
+}
+
+bool findItemFromIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (isEqualIndexAndItem(index, item))
+  {
+    *addressToSaveArgument = getItemNode(node);
+    return true;
+  }
+  return false;
+}
+
+void *getItemByIndex(LinkedList *list, u_long index)
+{
+  int (*null)(void *, void *);
+  return forEachReturnIfFind(list, findItemFromIndexToReturnFunction, &index, null);
 }
 
 void removeFistLinkedList(LinkedList *list)

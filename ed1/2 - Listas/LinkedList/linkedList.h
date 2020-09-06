@@ -48,4 +48,7 @@ int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
 // 0: quando for falsa a comparação a cima           || param1 > param2 == false
 void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
 
+// retorna um ponteiro para o elemento correspondente ao indice enviado
+void *getItemByIndex(LinkedList* list, u_long index);
+
 #endif
