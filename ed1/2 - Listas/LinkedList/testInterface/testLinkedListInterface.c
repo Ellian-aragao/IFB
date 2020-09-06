@@ -14,18 +14,6 @@ static int compareItensInt(void *item1, void *item2)
   return 0;
 }
 
-int *allocIntAndSetValue(int *value)
-{
-  int *item = malloc(sizeof(int));
-  if (item == NULL)
-  {
-    perror("Erro na alocação de memória para o item inteiro do teste da linkedList");
-    exit(EXIT_FAILURE);
-  }
-  *item = *value;
-  return item;
-}
-
 void testRemoveItemLinkedList(LinkedList *list, int valueToRemove)
 {
   removeItemLinkedList(list, &valueToRemove, compareItensInt);
