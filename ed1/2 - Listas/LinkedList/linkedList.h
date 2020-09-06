@@ -13,7 +13,7 @@ void destroyLinkedList(LinkedList *list);
 // adiciona item no final da lista, enviar ponteiro para memória alocada do tipo de dado que deseja guardar
 void appendLinkedList(LinkedList *list, void *item);
 
-// itera sobre todos os nós da lista passando como argumento para função enviada
+// itera sobre todos os nós da lista passando como argumento o item guardado para função enviada
 void forEachItem(LinkedList *list, void (*externFunction)(void *));
 
 // itera sobre todos os nós retornando um ponteiro para eles
