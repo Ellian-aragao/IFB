@@ -116,7 +116,7 @@ NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
   return node;
 }
 
-void* appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
+void *appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
 {
   NodeLinkedList *lastNode = createNodeLinkedList(list, ptrAllocatedItem);
   if (!list->tam)
@@ -307,7 +307,7 @@ bool setNodeToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *ind
 
 int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
 {
-  if (index1 <= list->tam && index2 <= list->tam)
+  if (index1 < list->tam && index2 < list->tam)
   {
     int (*null)(void *, void *);
     NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
@@ -334,4 +334,20 @@ void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
       nodej = getNextNode(nodej);
     }
   }
+}
+
+int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *))
+{
+  NodeLinkedList *nodei = list->inicialNode;
+  NodeLinkedList *nodej = getNextNode(list->inicialNode);
+  int crescenteOuDecresente = compareItens(getItemNode(nodei), getItemNode(nodej));
+  for (u_long i = 0; i < list->tam - 1; i++)
+  {
+    if (compareItens(getItemNode(nodei), getItemNode(nodej)) != crescenteOuDecresente)
+      return false;
+
+    nodei = getNextNode(nodei);
+    nodej = getNextNode(nodej);
+  }
+  return true;
 }

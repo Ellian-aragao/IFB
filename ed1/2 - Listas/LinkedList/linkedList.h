@@ -49,6 +49,12 @@ int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
 // 0: quando for falsa a comparação a cima           || param1 > param2 == false
 void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
 
+// verifica se os itens estão ordenados com base na função enviada,
+//  1: quando 1º parâmetro é maior que o 2º parâmetro || item1  >  item2
+//  0: quando forem iguais                            || item1 ==  item2
+// -1: quando 1º parâmetro é menor que o 2º parâmetro || item1  <  item2
+int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *));
+
 // retorna um ponteiro para o elemento correspondente ao indice enviado
 void *getItemByIndex(LinkedList *list, u_long index);
 
