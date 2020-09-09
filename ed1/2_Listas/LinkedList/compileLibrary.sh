@@ -21,10 +21,21 @@ move_library() {
   cd $dest
 }
 
+echo_binario_final_fail() {
+  echo -e '\n*****************************'
+  echo      '! Binário final inexistente !'
+  echo      "*****************************"
+}
+
 # executa binário padrão gerado pelo compilador gcc
 execute_binary() {
-  echo -e 'Executando exercício\n--------------------\n'
-  ./a.out
+  if [ -s "a.out" ]; then
+    echo -e 'Executando exercício\n--------------------\n'
+    ./a.out
+    rm a.out
+  else
+    echo_binario_final_fail
+  fi
 }
 
 # faz a compilação conforme parâmetro enviado como argumento
@@ -47,4 +58,3 @@ path=$1
 
 cd $pathLista/LinkedList
 fluxo_execucao $path
-rm a.out
