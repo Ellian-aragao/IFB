@@ -7,7 +7,7 @@ void printItemInt(void *item)
   printf("%d,", *(int *)item);
 }
 
-static int compareItensInt(void *item1, void *item2)
+int compareItensInt(void *item1, void *item2)
 {
   if (*(int *)item1 == *(int *)item2)
     return 1;

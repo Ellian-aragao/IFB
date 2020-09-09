@@ -320,8 +320,7 @@ int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
 
 void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
 {
-  u_long tamList = list->tam;
-  while (0 < tamList--)
+  for (u_long tamList = list->tam; 0 < tamList; tamList--)
   {
     NodeLinkedList *nodei = list->inicialNode;
     NodeLinkedList *nodej = getNextNode(list->inicialNode);
@@ -350,4 +349,20 @@ int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void
     nodej = getNextNode(nodej);
   }
   return true;
+}
+
+void removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
+{
+  NodeLinkedList *nodei = list->inicialNode;
+  for (u_long tamList = list->tam; 0 < tamList; tamList--)
+  {
+    NodeLinkedList *nodej = getNextNode(nodei);
+    for (u_long j = 1; j < tamList && nodej != NULL; j++)
+    {
+      if (compareItens(getItemNode(nodei), getItemNode(nodej)))
+        removeNodeLinkedList(list, nodej);
+      nodej = getNextNode(nodej);
+    }
+    nodei = getNextNode(nodei);
+  }
 }

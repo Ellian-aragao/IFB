@@ -58,4 +58,8 @@ int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void
 // retorna um ponteiro para o elemento correspondente ao indice enviado
 void *getItemByIndex(LinkedList *list, u_long index);
 
+// remove itens iguais na lista, com base no parametr devolvido da função
+// 1: quando os itens forem iguais
+// 0: quando os itens forem diferentes
+void removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *));
 #endif

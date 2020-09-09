@@ -32,7 +32,7 @@ execute_binary() {
   if [ -s "a.out" ]; then
     echo -e 'Executando exercício\n--------------------\n'
     ./a.out
-    rm a.out
+    # rm a.out
   else
     echo_binario_final_fail
   fi

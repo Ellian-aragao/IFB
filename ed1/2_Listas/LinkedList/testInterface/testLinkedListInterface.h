@@ -13,4 +13,6 @@ void testForEachPrintItensInt(LinkedList* list);
 // exibe o indice de um item
 void testFindItemIndex(LinkedList *list, int itemToFind);
 
+// comparador que retorna 0 se diferente e 1 se igual
+int compareItensInt(void *item1, void *item2);
 #endif
