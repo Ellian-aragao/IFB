@@ -4,6 +4,13 @@
 #define getNextNode(node) node->nextNode
 #define getItemNode(node) node->item
 #define getUlongFromVoid(index) *(u_long *)index
+#define swapNodeItem(item1, item2) \
+  {                                \
+    void *tmp;                     \
+    tmp = item1;                   \
+    item1 = item2;                 \
+    item2 = tmp;                   \
+  }
 
 typedef struct itemListaEncadeada NodeLinkedList;
 
@@ -21,14 +28,6 @@ struct itemListaEncadeada
   void *item;
   NodeLinkedList *nextNode;
 };
-
-static inline void swapNodeItem(void *item1, void *item2)
-{
-  void *tmp;
-  tmp = item1;
-  item1 = item2;
-  item2 = tmp;
-}
 
 static inline int isEqualIndexAndItem(void *indexList, void *indexToFind)
 {
