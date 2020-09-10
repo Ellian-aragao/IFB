@@ -22,7 +22,7 @@ struct itemListaEncadeada
   NodeLinkedList *nextNode;
 };
 
-static inline swapNodeItem(void *item1, void *item2)
+static inline void swapNodeItem(void *item1, void *item2)
 {
   void *tmp;
   tmp = item1;
