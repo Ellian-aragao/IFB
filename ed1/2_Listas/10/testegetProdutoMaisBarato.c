@@ -11,7 +11,7 @@ void printProduto(void *ptrProduto)
   puts(limiter);
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
   LinkedList *produtos = createLinkedList(sizeof(Produto));
   for (float i = 10; i > 0; i--)
@@ -25,11 +25,11 @@ int main(int argc, char const *argv[])
     appendLinkedList(produtos, &prod);
   }
  
-  forEachItem(produtos, printProduto);
+  forEachLinkedList(produtos, printProduto);
   Produto p;
   getProdutoMaisBarato(produtos, &p);
   puts("produto mais barato");
   printProduto(&p);
-
+  destroyLinkedList(produtos);
   return 0;
 }

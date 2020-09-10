@@ -12,6 +12,6 @@ void isEvenNumber(void *number)
 
 float mediaDeTodosOsNumeros(LinkedList* list)
 {
-  forEachItem(list, isEvenNumber);
+  forEachLinkedList(list, isEvenNumber);
   return mediaDosNumeros / getTamLinkedList(list);
 }

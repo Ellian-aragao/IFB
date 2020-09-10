@@ -59,13 +59,13 @@ void removeVertice(Poligono *p, Vertice *v)
 void printPoligono(Poligono *p)
 {
   putchar('{');
-  forEachItem(p, printVertice);
+  forEachLinkedList(p, printVertice);
   puts("}");
 }
 
 void printVerticeApontaParaQualVertice(Poligono *p)
 {
-  forEachItem(p, printVerticeNextVertice);
+  forEachLinkedList(p, printVerticeNextVertice);
   putchar('\n');
 }
 
@@ -83,7 +83,7 @@ void linkVerticesDoPoligonoForEach(void *ptr)
 
 void linkVerticesSequencialmente(Poligono *p)
 {
-  forEachItem(p, linkVerticesDoPoligonoForEach);
+  forEachLinkedList(p, linkVerticesDoPoligonoForEach);
   setProximoVertice(getItemByIndex(p, getTamLinkedList(p) - 1), getItemByIndex(p, 0));
 }
 

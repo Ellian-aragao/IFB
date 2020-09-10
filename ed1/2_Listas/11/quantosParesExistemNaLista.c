@@ -12,6 +12,6 @@ void isEvenNumber(void *number)
 
 u_long quantosParesExistemNaLista(LinkedList *list)
 {
-  forEachItem(list, isEvenNumber);
+  forEachLinkedList(list, isEvenNumber);
   return quantidadeDePares;
 }

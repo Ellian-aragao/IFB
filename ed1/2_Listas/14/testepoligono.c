@@ -1,6 +1,6 @@
 #include "poligono.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
   Poligono *p = createPoligono();
   for (float i = 0; i < 5; i++)

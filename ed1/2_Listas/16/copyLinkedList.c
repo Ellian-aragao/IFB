@@ -11,6 +11,6 @@ LinkedList *copyLinkedList(LinkedList *listToCopy)
 {
   unsigned long sizeList = getSizeofItensLinkedList(listToCopy);
   listaCopiada = createLinkedList(sizeList);
-  forEachItem(listToCopy, getItensInLinkedList);
+  forEachLinkedList(listToCopy, getItensInLinkedList);
   return listaCopiada;
 }

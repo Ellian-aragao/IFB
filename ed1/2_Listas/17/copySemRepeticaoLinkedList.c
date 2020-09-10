@@ -11,7 +11,7 @@ LinkedList *copySemRepeticaoLinkedList(LinkedList *listToCopy, int (*compare)(vo
 {
   unsigned long sizeList = getSizeofItensLinkedList(listToCopy);
   listaCopiada = createLinkedList(sizeList);
-  forEachItem(listToCopy, getItensInLinkedList);
+  forEachLinkedList(listToCopy, getItensInLinkedList);
   removeEqualsItens(listaCopiada, compare);
   return listaCopiada;
 }

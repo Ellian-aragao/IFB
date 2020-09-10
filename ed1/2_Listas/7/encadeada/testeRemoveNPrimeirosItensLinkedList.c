@@ -3,7 +3,7 @@
 #include "removeNPrimeirosItensLinkedList.h"
 #include <stdio.h>
 
-int main(int argc, char const *argv[])
+int main()
 {
   LinkedList *list = testCreateLinkedListWithItensInt(0, 10);
   testForEachPrintItensInt(list);
@@ -12,5 +12,6 @@ int main(int argc, char const *argv[])
   else
     puts("erro");
   testForEachPrintItensInt(list);
+  destroyLinkedList(list);
   return 0;
 }

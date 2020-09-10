@@ -13,6 +13,6 @@ void isEvenNumber(void *number)
 LinkedList *novaListaComTodosOsPares(LinkedList *list)
 {
   listaDosPares = createLinkedList(sizeof(u_long));
-  forEachItem(list, isEvenNumber);
+  forEachLinkedList(list, isEvenNumber);
   return listaDosPares;
 }

@@ -1,5 +1,5 @@
-#ifndef CONCATENALINKEDLIST_H
-#define CONCATENALINKEDLIST_H
+#pragma once
+#include "../../LinkedList/linkedList.h"
 
 /**
  * Recebe duas LinkedLists, lista1 e lista2, verifica compatibilidade e
@@ -7,5 +7,3 @@
  * caso não seja compatível retorna NULL
 */
 LinkedList *concatenaLinkedList(LinkedList *lista1, LinkedList *lista2);
-
-#endif

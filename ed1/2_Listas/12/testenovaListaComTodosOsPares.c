@@ -7,12 +7,15 @@ void printUlong(void *item)
   printf("%ld,", *(u_long *)item);
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
   LinkedList *listaUlong = createLinkedList(sizeof(u_long));
   for (size_t i = 0; i < 10; i++)
     appendLinkedList(listaUlong, &i);
   LinkedList *quantosInteiros = novaListaComTodosOsPares(listaUlong);
-  forEachItem(quantosInteiros, printUlong);
+  forEachLinkedList(quantosInteiros, printUlong);
+  
+  destroyLinkedList(listaUlong);
+  destroyLinkedList(quantosInteiros);
   return 0;
 }

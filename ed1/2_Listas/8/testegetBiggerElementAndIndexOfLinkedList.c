@@ -17,12 +17,9 @@ int main(int argc, char const *argv[])
   u_long index;
   void *item;
   if (getBiggerElementAndIndexOfLinkedList(list, &index, &item, compare))
-  {
     printf("index '%ld', item '%d'\n", index, *(int *)item);
-  }
   else
-  {
-    puts("encontrei");
-  }
+    puts("não encontrado");
+  destroyLinkedList(list);
   return 0;
 }

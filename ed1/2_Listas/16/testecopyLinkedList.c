@@ -8,5 +8,7 @@ int main()
              *list2 = copyLinkedList(list1);
   testForEachPrintItensInt(list1);
   testForEachPrintItensInt(list2);
+  destroyLinkedList(list1);
+  destroyLinkedList(list2);
   return 0;
 }

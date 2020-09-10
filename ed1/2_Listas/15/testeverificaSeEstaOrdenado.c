@@ -15,10 +15,11 @@ int compareItens(void *i1, void *i2)
     return 0;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
   LinkedList *listInt = testCreateLinkedListWithItensInt(0, 10);
   swapItemIndexLinkedList(listInt, 0, 9);
   puts(verificaSeEstaOrdenado(listInt, compareItens) ? "Está ordenado" : "Não está ordenado");
+  destroyLinkedList(listInt);
   return 0;
 }
