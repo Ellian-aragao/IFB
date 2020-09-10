@@ -32,9 +32,9 @@ struct itemListaEncadeada
   NodeLinkedList *nextNode;
 };
 
-void isNullExitFailure(void *pointer, const char *str)
+static inline void isNullExitFailure(void *pointer, const char *str)
 {
-  if (pointer == NULL)
+  if (!pointer)
   {
     perror(str);
     exit(EXIT_FAILURE);
