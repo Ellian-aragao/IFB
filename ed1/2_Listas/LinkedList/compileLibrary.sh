@@ -27,21 +27,40 @@ echo_binario_final_fail() {
   echo "*****************************"
 }
 
+# verifica argumento de debug
+type_execution_binary() {
+  # 1: simples em terminal
+  # 2: completa txt separado
+  # defaut: none
+  case $debugOption in
+  1)
+    valgrind \
+      ./a.out
+    ;;
+  2)
+    valgrind -s \
+      --leak-check=full \
+      --show-leak-kinds=all \
+      --track-origins=yes \
+      --verbose \
+      --log-file=valgrind-out.txt \
+      ./a.out
+    ;;
+  *)
+    ./a.out
+    ;;
+  esac
+}
+
 # executa binário padrão gerado pelo compilador gcc
 execute_binary() {
+  # verifica se existe o binário
   if [ -s "a.out" ]; then
     echo -e 'Executando exercício\n--------------------\n'
-    valgrind -s \
-         --leak-check=full \
-         --show-leak-kinds=all \
-         --track-origins=yes \
-         --verbose \
-         --log-file=valgrind-out.txt \
-    ./a.out
-       
-    # valgrind \
-    # ./a.out
-    rm a.out
+    type_execution_binary
+    if [ -z $dontDeletBinary ]; then
+      rm a.out
+    fi
   else
     echo_binario_final_fail
   fi
@@ -68,9 +87,11 @@ fluxo_execucao() {
   execute_binary
 }
 
-compileFlags='-g -W -Wall -Wextra -Wshadow '
+compileFlags='-g -W -Wall -Wextra -Wshadow -Werror'
 pathLista=~/code/faculdade/ed1/2_Listas/
 path=$1
+debugOption=$2
+dontDeletBinary=$3
 
 cd $pathLista/LinkedList
-fluxo_execucao $path
+fluxo_execucao $path $debugOption
