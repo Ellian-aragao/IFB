@@ -28,7 +28,7 @@ u_long removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(voi
 u_long getTamLinkedList(LinkedList *list);
 
 // retorna o tamanho os itens salvos em uma lista
-u_long getSizeofItensLinkedList(LinkedList *list);
+size_t getSizeofItensLinkedList(LinkedList *list);
 
 // retorna memória alocada com valor do indice procurado, se não encontrado retorna NULL
 u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));

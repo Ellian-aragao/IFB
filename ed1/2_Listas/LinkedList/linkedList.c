@@ -18,7 +18,7 @@ struct listaDinamicaEncadeada
 {
   NodeLinkedList *inicialNode;
   NodeLinkedList *finalNode;
-  u_long sizeofItens;
+  size_t sizeofItens;
   u_long tam;
 };
 
@@ -212,7 +212,7 @@ u_long getTamLinkedList(LinkedList *list)
   return list->tam;
 }
 
-u_long getSizeofItensLinkedList(LinkedList *list)
+size_t getSizeofItensLinkedList(LinkedList *list)
 {
   return list->sizeofItens;
 }
