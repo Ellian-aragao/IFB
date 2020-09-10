@@ -324,7 +324,7 @@ void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
   {
     NodeLinkedList *nodei = list->inicialNode;
     NodeLinkedList *nodej = getNextNode(list->inicialNode);
-    for (u_long j = 0; j < tamList; j++)
+    for (u_long j = 1; j < tamList; j++)
     {
       if (compareItens(getItemNode(nodei), getItemNode(nodej)))
         swapNodeItem(getItemNode(nodei), getItemNode(nodej));
