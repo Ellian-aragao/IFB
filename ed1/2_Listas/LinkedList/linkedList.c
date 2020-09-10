@@ -354,17 +354,15 @@ bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
 {
   if (list)
   {
-    NodeLinkedList *nodei = list->inicialNode;
-    for (u_long tamList = list->tam; 0 < tamList; tamList--)
+    for (u_long i = 0; i < list->tam; i++)
     {
-      NodeLinkedList *nodej = getNextNode(nodei);
-      for (u_long j = 1; j < tamList && nodej != NULL; j++)
+      void *itemI = getItemByIndex(list, i);
+      for (u_long j = i + 1; j < list->tam; j++)
       {
-        if (compareItens(getItemNode(nodei), getItemNode(nodej)))
-          removeNodeLinkedList(list, nodej);
-        nodej = getNextNode(nodej);
+        void *itemJ = getItemByIndex(list, j);
+        if (compareItens(itemI, itemJ))
+          removeIndexLinkedList(list, j--);
       }
-      nodei = getNextNode(nodei);
     }
     return true;
   }
