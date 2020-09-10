@@ -1,27 +1,28 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
 typedef unsigned long u_long;
 typedef struct listaDinamicaEncadeada LinkedList;
 
 // aloca espaço de memória para manipulação da lista encadeada, recebe o sizeof dos itens a serem armazenados
-LinkedList *createLinkedList(u_long sizeofItens);
+LinkedList *createLinkedList(size_t sizeofItens);
 
 // libera todo o espaço da Lista, todos os nós
-void destroyLinkedList(LinkedList *list);
+int destroyLinkedList(LinkedList *list);
 
-// adiciona item no final da lista, enviar ponteiro do tipo de dado que deseja guardar
-// retorna o endereço onde o item foi salvo na lista
+// adiciona item no final da lista, enviar ponteiro para o dado que deseja guardar
+// retorna o endereço onde o item foi salvo na lista caso a lista não seja nula
 void *appendLinkedList(LinkedList *list, void *item);
 
 // itera sobre todos os nós da lista passando como argumento o item guardado para função enviada
-void forEachItem(LinkedList *list, void (*externFunction)(void *));
-
-// itera sobre todos os nós retornando um ponteiro para eles
-void forEachNode(LinkedList *list, void (*externFunction)(void *));
+void forEachLinkedList(LinkedList *list, void (*externFunction)(void *));
 
 // remove um nó da memória conforme o item passado e a função de comparação dos itens
-void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
+u_long removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
 
 // retorna o tamanho da
 u_long getTamLinkedList(LinkedList *list);
@@ -33,7 +34,7 @@ u_long getSizeofItensLinkedList(LinkedList *list);
 u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
 
 // remove item através do índice dado para a função
-void removeIndexLinkedList(LinkedList *list, u_long index);
+bool removeIndexLinkedList(LinkedList *list, u_long index);
 
 // remove primeiro item da lista
 void removeFistLinkedList(LinkedList *list);
@@ -42,18 +43,18 @@ void removeFistLinkedList(LinkedList *list);
 void removeLastLinkedList(LinkedList *list);
 
 // realiza a troca dos itens pelo indice, retorna 1 se obter exito e 0 se falhar
-int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
+bool swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);
 
 // realiza a ordenação da lista com base no função passada como parâmetro
 // 1: quando 1º parâmetro é maior que o 2º parâmetro || param1 > param2 == true
 // 0: quando for falsa a comparação a cima           || param1 > param2 == false
-void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
+bool sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *));
 
 // verifica se os itens estão ordenados com base na função enviada,
 //  1: quando 1º parâmetro é maior que o 2º parâmetro || item1  >  item2
 //  0: quando forem iguais                            || item1 ==  item2
 // -1: quando 1º parâmetro é menor que o 2º parâmetro || item1  <  item2
-int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *));
+bool isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *));
 
 // retorna um ponteiro para o elemento correspondente ao indice enviado
 void *getItemByIndex(LinkedList *list, u_long index);
@@ -61,5 +62,4 @@ void *getItemByIndex(LinkedList *list, u_long index);
 // remove itens iguais na lista, com base no parametr devolvido da função
 // 1: quando os itens forem iguais
 // 0: quando os itens forem diferentes
-void removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *));
-#endif
+bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *));

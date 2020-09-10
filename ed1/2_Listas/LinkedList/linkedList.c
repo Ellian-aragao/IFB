@@ -1,22 +1,12 @@
 #include "linkedList.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
 
 #define getBackNode(node) node->backNode
 #define getNextNode(node) node->nextNode
 #define getItemNode(node) node->item
-#define isEqualIndexAndItem(index, item) *index == *(u_long *)item
-#define swapNodeItem(item1, item2) \
-  {                                \
-    void *tmp;                     \
-    tmp = item1;                   \
-    item1 = item2;                 \
-    item2 = tmp;                   \
-  }
+#define getUlongFromVoid(index) *(u_long *)index
 
 typedef struct itemListaEncadeada NodeLinkedList;
+
 struct listaDinamicaEncadeada
 {
   NodeLinkedList *inicialNode;
@@ -32,6 +22,19 @@ struct itemListaEncadeada
   NodeLinkedList *nextNode;
 };
 
+static inline swapNodeItem(void *item1, void *item2)
+{
+  void *tmp;
+  tmp = item1;
+  item1 = item2;
+  item2 = tmp;
+}
+
+static inline int isEqualIndexAndItem(void *indexList, void *indexToFind)
+{
+  return getUlongFromVoid(indexList) == getUlongFromVoid(indexToFind);
+}
+
 static inline void isNullExitFailure(void *pointer, const char *str)
 {
   if (!pointer)
@@ -41,25 +44,7 @@ static inline void isNullExitFailure(void *pointer, const char *str)
   }
 }
 
-u_long getTamLinkedList(LinkedList *list)
-{
-  return list->tam;
-}
-
-u_long getSizeofItensLinkedList(LinkedList *list)
-{
-  return list->sizeofItens;
-}
-
-LinkedList *createLinkedList(u_long sizeofItens)
-{
-  LinkedList *list = malloc(sizeof(LinkedList));
-  isNullExitFailure(list, "Erro na criação da LinkedList");
-  list->sizeofItens = sizeofItens;
-  return list;
-}
-
-void destroyNodeLinkedList(NodeLinkedList *node)
+static inline void destroyNodeLinkedList(NodeLinkedList *node)
 {
   free(node->item);
   free(node);
@@ -69,27 +54,7 @@ void destroyNodeLinkedList(NodeLinkedList *node)
   node = NULL;
 }
 
-void destroyLinkedList(LinkedList *list)
-{
-  if (list->tam > 0)
-  {
-    NodeLinkedList *node = list->inicialNode;
-    while (list->tam--)
-    {
-      void *nextNode = getNextNode(node);
-      destroyNodeLinkedList(node);
-      node = nextNode;
-    }
-    if (node != NULL)
-    {
-      free(node);
-    }
-  }
-  free(list);
-  list = NULL;
-}
-
-void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
+static inline void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
 {
   list->inicialNode = node;
   list->finalNode = node;
@@ -98,7 +63,7 @@ void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
   node->nextNode = NULL;
 }
 
-void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
+static inline void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
 {
   NodeLinkedList *oldFinalNode = list->finalNode;
   oldFinalNode->nextNode = newFinalNode;
@@ -106,7 +71,7 @@ void setNewItemNodeLinkedList(LinkedList *list, NodeLinkedList *newFinalNode)
   list->finalNode = newFinalNode;
 }
 
-NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
+static inline NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
 {
   NodeLinkedList *node = malloc(sizeof(NodeLinkedList));
   node->item = malloc(list->sizeofItens);
@@ -116,49 +81,7 @@ NodeLinkedList *createNodeLinkedList(LinkedList *list, void *itemOfNode)
   return node;
 }
 
-void *appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
-{
-  NodeLinkedList *lastNode = createNodeLinkedList(list, ptrAllocatedItem);
-  if (!list->tam)
-    addPrimaryNodeItemLinkedList(list, lastNode);
-  else
-    setNewItemNodeLinkedList(list, lastNode);
-  list->tam++;
-  return getItemNode(lastNode);
-}
-
-void *getNodeLinkedList(NodeLinkedList *node)
-{
-  return node;
-}
-
-void *getItemNodeLinkedList(NodeLinkedList *node)
-{
-  return node->item;
-}
-
-void forEach(LinkedList *list, void *(*returnSomething)(NodeLinkedList *), void (*externFunction)(void *))
-{
-  NodeLinkedList *node = list->inicialNode;
-  for (u_long i = 0; i < list->tam; i++)
-  {
-    NodeLinkedList *nextNode = getNextNode(node);
-    externFunction(returnSomething(node));
-    node = nextNode;
-  }
-}
-
-void forEachItem(LinkedList *list, void (*externFunction)(void *))
-{
-  forEach(list, getItemNodeLinkedList, externFunction);
-}
-
-void forEachNode(LinkedList *list, void (*externFunction)(void *))
-{
-  forEach(list, getNodeLinkedList, externFunction);
-}
-
-bool isInitialFinalNodeLinkedListRemove(LinkedList *list, NodeLinkedList *node)
+static inline bool isInitialOrFinalNodeInLinkedListRemove(LinkedList *list, NodeLinkedList *node)
 {
   bool boolean = false;
   if (list->inicialNode == node)
@@ -178,7 +101,7 @@ bool isInitialFinalNodeLinkedListRemove(LinkedList *list, NodeLinkedList *node)
   return boolean;
 }
 
-void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
+static inline void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
 {
   NodeLinkedList *backNode = getBackNode(node);
   NodeLinkedList *nextNode = getNextNode(node);
@@ -186,7 +109,7 @@ void removeNodeBetweenNodesInLinkedList(NodeLinkedList *node)
   nextNode->backNode = backNode;
 }
 
-void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
+static void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
 {
   isNullExitFailure(node, "Nó nulo passado para ser removido da LinkedList");
   if (list->tam == 1)
@@ -194,7 +117,7 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
     list->inicialNode = NULL;
     list->finalNode = NULL;
   }
-  else if (!isInitialFinalNodeLinkedListRemove(list, node))
+  else if (!isInitialOrFinalNodeInLinkedListRemove(list, node))
   {
     removeNodeBetweenNodesInLinkedList(node);
   }
@@ -202,11 +125,21 @@ void removeNodeLinkedList(LinkedList *list, NodeLinkedList *node)
   destroyNodeLinkedList(node);
 }
 
-void *forEachReturnIfFind(
+static inline bool nodeHasItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (compareItem(getItemNode(node), item))
+  {
+    removeNodeLinkedList(list, node);
+    *addressToSaveArgument = index;
+    return true;
+  }
+  return false;
+}
+
+static void *forEachReturnIfFind(
     LinkedList *list,
     bool (*returnTrueToEndSuperFunction)(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *genericPointer, int (*compareItem)(void *, void *)),
-    void *genericItem,
-    int (*compareItem)(void *, void *))
+    void *genericItem, int (*compareItem)(void *, void *))
 {
   isNullExitFailure(list, "Lista nula passada como argumento para remover item");
   NodeLinkedList *node = list->inicialNode;
@@ -223,40 +156,41 @@ void *forEachReturnIfFind(
   return NULL;
 }
 
-bool nodeHasItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+static void *forEachReturnIfFindWithoutLinkedList(
+    LinkedList *list,
+    bool (*returnTrueToEndSuperFunction)(NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *genericPointer, int (*compareItem)(void *, void *)),
+    void *genericItem, int (*compareItem)(void *, void *))
 {
-  if (compareItem(getItemNode(node), item))
+  isNullExitFailure(list, "Lista nula passada como argumento para remover item");
+  NodeLinkedList *node = list->inicialNode;
+  for (u_long i = 0; i < list->tam; i++)
+  {
+    NodeLinkedList *nextNode = getNextNode(node);
+
+    void *addressToGiveToSuperFunction = NULL;
+    if (returnTrueToEndSuperFunction(node, &i, &addressToGiveToSuperFunction, genericItem, compareItem))
+      return addressToGiveToSuperFunction;
+
+    node = nextNode;
+  }
+  return NULL;
+}
+
+static inline bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareIndexAndItem)(void *, void *))
+{
+  bool findItem = false;
+  if (compareIndexAndItem(index, item))
   {
     removeNodeLinkedList(list, node);
-    return true;
+    findItem = true;
+    *addressToSaveArgument = &findItem;
   }
-  return false;
+  return findItem;
 }
 
-void removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
+static inline bool findItemFromIndexToReturnFunction(NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareIndexAndItem)(void *, void *))
 {
-  forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem);
-}
-
-bool indexNodeisEqualItemRemoveNode(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
-{
-  if (isEqualIndexAndItem(index, item))
-  {
-    removeNodeLinkedList(list, node);
-    return true;
-  }
-  return false;
-}
-
-void removeIndexLinkedList(LinkedList *list, u_long index)
-{
-  int (*null)(void *, void *);
-  forEachReturnIfFind(list, indexNodeisEqualItemRemoveNode, &index, null);
-}
-
-bool findItemFromIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
-{
-  if (isEqualIndexAndItem(index, item))
+  if (compareIndexAndItem(index, item))
   {
     *addressToSaveArgument = getItemNode(node);
     return true;
@@ -264,10 +198,91 @@ bool findItemFromIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u
   return false;
 }
 
+static inline bool setIndexToReturnFunction(NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
+{
+  if (compareItem(getItemNode(node), item))
+  {
+    *addressToSaveArgument = index;
+    return true;
+  }
+  return false;
+}
+
+u_long getTamLinkedList(LinkedList *list)
+{
+  return list->tam;
+}
+
+u_long getSizeofItensLinkedList(LinkedList *list)
+{
+  return list->sizeofItens;
+}
+
+LinkedList *createLinkedList(size_t sizeofItens)
+{
+  LinkedList *list = malloc(sizeof(LinkedList));
+  isNullExitFailure(list, "Erro na criação da LinkedList");
+  list->sizeofItens = sizeofItens;
+  return list;
+}
+
+int destroyLinkedList(LinkedList *list)
+{
+  if (list)
+  {
+    if (list->tam > 0)
+      for (NodeLinkedList *node = list->inicialNode; list->tam > 0; list->tam--)
+      {
+        void *nextNode = getNextNode(node);
+        destroyNodeLinkedList(node);
+        node = nextNode;
+      }
+    free(list);
+    list = NULL;
+    return true;
+  }
+  return false;
+}
+
+void *appendLinkedList(LinkedList *list, void *ptrAllocatedItem)
+{
+  if (list)
+  {
+    NodeLinkedList *lastNode = createNodeLinkedList(list, ptrAllocatedItem);
+    if (!list->tam)
+      addPrimaryNodeItemLinkedList(list, lastNode);
+    else
+      setNewItemNodeLinkedList(list, lastNode);
+    list->tam++;
+    return getItemNode(lastNode);
+  }
+  return NULL;
+}
+
+void forEachLinkedList(LinkedList *list, void (*externFunction)(void *))
+{
+  NodeLinkedList *node = list->inicialNode;
+  for (u_long i = 0; i < list->tam; i++)
+  {
+    NodeLinkedList *nextNode = getNextNode(node);
+    externFunction(getItemNode(node));
+    node = nextNode;
+  }
+}
+
+u_long removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
+{
+  return getUlongFromVoid(forEachReturnIfFind(list, nodeHasItemRemoveNode, item, compareItem));
+}
+
+bool removeIndexLinkedList(LinkedList *list, u_long index)
+{
+  return (bool *)forEachReturnIfFind(list, indexNodeisEqualItemRemoveNode, &index, isEqualIndexAndItem);
+}
+
 void *getItemByIndex(LinkedList *list, u_long index)
 {
-  int (*null)(void *, void *);
-  return forEachReturnIfFind(list, findItemFromIndexToReturnFunction, &index, null);
+  return forEachReturnIfFindWithoutLinkedList(list, findItemFromIndexToReturnFunction, &index, isEqualIndexAndItem);
 }
 
 void removeFistLinkedList(LinkedList *list)
@@ -280,62 +295,46 @@ void removeLastLinkedList(LinkedList *list)
   removeNodeLinkedList(list, list->finalNode);
 }
 
-bool setIndexToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
-{
-  if (compareItem(getItemNode(node), item))
-  {
-    *addressToSaveArgument = index;
-    return true;
-  }
-  return false;
-}
-
 u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *))
 {
-  return forEachReturnIfFind(list, setIndexToReturnFunction, item, compareItem);
+  return forEachReturnIfFindWithoutLinkedList(list, setIndexToReturnFunction, item, compareItem);
 }
 
-bool setNodeToReturnFunction(LinkedList *list, NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
-{
-  if (isEqualIndexAndItem(index, item))
-  {
-    *addressToSaveArgument = node;
-    return true;
-  }
-  return false;
-}
-
-int swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
+bool swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
 {
   if (index1 < list->tam && index2 < list->tam)
   {
-    int (*null)(void *, void *);
-    NodeLinkedList *node1 = forEachReturnIfFind(list, setNodeToReturnFunction, &index1, null);
-    NodeLinkedList *node2 = forEachReturnIfFind(list, setNodeToReturnFunction, &index2, null);
+    NodeLinkedList *node1 = getItemByIndex(list, index1);
+    NodeLinkedList *node2 = getItemByIndex(list, index2);
     swapNodeItem(getItemNode(node1), getItemNode(node2));
     return true;
   }
   return false;
 }
 
-void sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
+bool sortLinkedList(LinkedList *list, int (*compareItens)(void *, void *))
 {
-  for (u_long tamList = list->tam; 0 < tamList; tamList--)
+  if (list)
   {
-    NodeLinkedList *nodei = list->inicialNode;
-    NodeLinkedList *nodej = getNextNode(list->inicialNode);
-    for (u_long j = 1; j < tamList; j++)
+    for (u_long tamList = list->tam; 0 < tamList; tamList--)
     {
-      if (compareItens(getItemNode(nodei), getItemNode(nodej)))
-        swapNodeItem(getItemNode(nodei), getItemNode(nodej));
+      NodeLinkedList *nodei = list->inicialNode;
+      NodeLinkedList *nodej = getNextNode(list->inicialNode);
+      for (u_long j = 1; j < tamList; j++)
+      {
+        if (compareItens(getItemNode(nodei), getItemNode(nodej)))
+          swapNodeItem(getItemNode(nodei), getItemNode(nodej));
 
-      nodei = getNextNode(nodei);
-      nodej = getNextNode(nodej);
+        nodei = getNextNode(nodei);
+        nodej = getNextNode(nodej);
+      }
     }
+    return true;
   }
+  return false;
 }
 
-int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *))
+bool isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void *))
 {
   NodeLinkedList *nodei = list->inicialNode;
   NodeLinkedList *nodej = getNextNode(list->inicialNode);
@@ -351,18 +350,23 @@ int isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, void
   return true;
 }
 
-void removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
+bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
 {
-  NodeLinkedList *nodei = list->inicialNode;
-  for (u_long tamList = list->tam; 0 < tamList; tamList--)
+  if (list)
   {
-    NodeLinkedList *nodej = getNextNode(nodei);
-    for (u_long j = 1; j < tamList && nodej != NULL; j++)
+    NodeLinkedList *nodei = list->inicialNode;
+    for (u_long tamList = list->tam; 0 < tamList; tamList--)
     {
-      if (compareItens(getItemNode(nodei), getItemNode(nodej)))
-        removeNodeLinkedList(list, nodej);
-      nodej = getNextNode(nodej);
+      NodeLinkedList *nodej = getNextNode(nodei);
+      for (u_long j = 1; j < tamList && nodej != NULL; j++)
+      {
+        if (compareItens(getItemNode(nodei), getItemNode(nodej)))
+          removeNodeLinkedList(list, nodej);
+        nodej = getNextNode(nodej);
+      }
+      nodei = getNextNode(nodei);
     }
-    nodei = getNextNode(nodei);
+    return true;
   }
+  return false;
 }

@@ -22,7 +22,7 @@ void testRemoveItemLinkedList(LinkedList *list, int valueToRemove)
 void testForEachPrintItensInt(LinkedList *list)
 {
   putchar('[');
-  forEachItem(list, printItemInt);
+  forEachLinkedList(list, printItemInt);
   puts("]");
 }
 

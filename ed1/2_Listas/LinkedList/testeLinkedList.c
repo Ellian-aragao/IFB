@@ -3,7 +3,7 @@
 #include "linkedList.h"
 #include "testInterface/testLinkedListInterface.h"
 
-int compareItensInt(void *item1, void *item2)
+int compareItensInt1Major(void *item1, void *item2)
 {
   if (*(int *)item1 > *(int *)item2)
     return 1;
@@ -16,7 +16,7 @@ int main()
   testForEachPrintItensInt(list);
   // swapItemIndexLinkedList(list, 0, 1);
   // testFindItemIndex(list, 10);
-  sortLinkedList(list, compareItensInt);
+  sortLinkedList(list, compareItensInt1Major);
   // for (size_t i = 0; i < 4; i++)
   //   testRemoveItemLinkedList(list, i);
   testForEachPrintItensInt(list);
