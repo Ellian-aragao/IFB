@@ -36,11 +36,17 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 // remove item através do índice dado para a função
 bool removeIndexLinkedList(LinkedList *list, u_long index);
 
+// retorna um ponteiro para o primeiro item da lista
+void *getFistItemLinkedList(LinkedList *list);
+
+// retorna um ponteiro para o ultimo item da lista
+void *getLastItemLinkedList(LinkedList *list);
+
 // remove primeiro item da lista
-void removeFistLinkedList(LinkedList *list);
+void removeFistItemLinkedList(LinkedList *list);
 
 // remove o ultimo item da lista
-void removeLastLinkedList(LinkedList *list);
+void removeLastItemLinkedList(LinkedList *list);
 
 // realiza a troca dos itens pelo indice, retorna 1 se obter exito e 0 se falhar
 bool swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2);

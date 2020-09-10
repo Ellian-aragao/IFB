@@ -284,12 +284,22 @@ void *getItemByIndex(LinkedList *list, u_long index)
   return forEachReturnIfFindWithoutLinkedList(list, findItemFromIndexToReturnFunction, &index, isEqualIndexAndItem);
 }
 
-void removeFistLinkedList(LinkedList *list)
+void *getFistItemLinkedList(LinkedList *list)
+{
+  return getItemNode(list->inicialNode);
+}
+
+void *getLastItemLinkedList(LinkedList *list)
+{
+  return getItemNode(list->finalNode);
+}
+
+void removeFistItemLinkedList(LinkedList *list)
 {
   removeNodeLinkedList(list, list->inicialNode);
 }
 
-void removeLastLinkedList(LinkedList *list)
+void removeLastItemLinkedList(LinkedList *list)
 {
   removeNodeLinkedList(list, list->finalNode);
 }
