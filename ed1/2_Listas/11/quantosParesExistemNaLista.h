@@ -1,6 +1,4 @@
-#ifndef QUANTOSPARESEXISTEMNALISTA_H
-#define QUANTOSPARESEXISTEMNALISTA_H
+#pragma once
+#include "../LinkedList/linkedList.h"
 
 u_long quantosParesExistemNaLista(LinkedList *list);
-
-#endif

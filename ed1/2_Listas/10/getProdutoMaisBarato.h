@@ -1,5 +1,5 @@
-#ifndef GETPRODUTOMAISBARATO_H
-#define GETPRODUTOMAISBARATO_H
+#pragma once
+#include "../LinkedList/linkedList.h"
 
 typedef struct produtoQuestao10
 {
@@ -10,5 +10,3 @@ typedef struct produtoQuestao10
 } Produto;
 
 int getProdutoMaisBarato(LinkedList *list, Produto *produto);
-
-#endif

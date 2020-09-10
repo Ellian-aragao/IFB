@@ -1,4 +1,3 @@
-#include "../LinkedList/linkedList.h"
 #include "getProdutoMaisBarato.h"
 
 #define getValorProduto(produto) (*(Produto *)produto).valor

@@ -1,6 +1,5 @@
-#ifndef MEDIADETODOSOSNUMEROS_H
-#define MEDIADETODOSOSNUMEROS_H
+#pragma once
+#include "../LinkedList/linkedList.h"
+
 
 float mediaDeTodosOsNumeros(LinkedList* list);
-
-#endif

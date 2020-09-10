@@ -1,6 +1,4 @@
-#include "../LinkedList/linkedList.h"
 #include "poligono.h"
-#include <stdio.h>
 
 #define voidToVerticeX(ptr) ((*(Vertice *)ptr).x)
 #define voidToVerticeY(ptr) ((*(Vertice *)ptr).y)

@@ -1,4 +1,3 @@
-#include "../LinkedList/linkedList.h"
 #include "quantosParesExistemNaLista.h"
 
 #define getModTwoU_longFromVoidPtr(number) !(*(u_long *)number % 2)

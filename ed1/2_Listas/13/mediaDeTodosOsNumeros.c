@@ -1,4 +1,3 @@
-#include "../LinkedList/linkedList.h"
 #include "mediaDeTodosOsNumeros.h"
 
 #define getNumberFromVoid(number) *(u_long *)number

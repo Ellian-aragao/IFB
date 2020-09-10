@@ -1,9 +1,7 @@
-#ifndef LINKEDLIST_H
+#pragma once
 #include "../LinkedList/linkedList.h"
-#endif
+#include <stdio.h>
 
-#ifndef POLIGONO_H
-#define POLIGONO_H
 
 typedef LinkedList Poligono;
 typedef struct vertice Vertice;
@@ -34,5 +32,3 @@ void linkVerticesSequencialmente(Poligono *p);
 void printVerticeApontaParaQualVertice(Poligono *p);
 // acessa o vertice através do indice
 Vertice *getVerticeByIndex(Poligono *p, u_long index);
-
-#endif

@@ -1,4 +1,3 @@
-#include "../LinkedList/linkedList.h"
 #include "swapItem.h"
 
 int swapItem(LinkedList *list, u_long index1, u_long index2)

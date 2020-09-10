@@ -1,4 +1,3 @@
-#include "../../LinkedList/linkedList.h"
 #include "removeNPrimeirosItensLinkedList.h"
 
 int removeNPrimeirosItensLinkedList(LinkedList *list, unsigned long quantidadeDeItensParaRemover)

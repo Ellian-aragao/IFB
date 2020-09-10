@@ -1,4 +1,3 @@
-#include "../LinkedList/linkedList.h"
 #include "getBiggerElementAndIndexOfLinkedList.h"
 
 int getBiggerElementAndIndexOfLinkedList(LinkedList *list, u_long *index, void **itemFromNode, int (*compare)(void *, void *))
