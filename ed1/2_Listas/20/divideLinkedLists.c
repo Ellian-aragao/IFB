@@ -35,13 +35,8 @@ LinkedList *divideLinkedListByNProblematic(LinkedList *list, u_long n)
     LinkedList *list2 = createLinkedList(getSizeofItensLinkedList(list));
     for (u_long i = getTamLinkedList(list); i > n; i--)
     {
-      size_t tamItem = getSizeofItensLinkedList(list);
-      void *dest = malloc(tamItem);
-      void *src = getLastItemLinkedList(list);
-      memcpy(dest, src, tamItem);
-      appendLinkedList(list2, dest);
+      appendLinkedList(list2, getLastItemLinkedList(list));
       removeLastItemLinkedList(list);
-      free(dest);
     }
     return list2;
   }
