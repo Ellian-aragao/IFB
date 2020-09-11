@@ -3,9 +3,9 @@
 
 int main()
 {
-  LinkedList *list1 = testCreateLinkedListWithItensInt(0, 20);
+  LinkedList *list1 = testCreateLinkedListWithItensInt(0, 5);
   testForEachPrintItensInt(list1);
-  LinkedList *dividida = divideLinkedListByN(list1, 9);
+  LinkedList *dividida = divideLinkedListByNProblematic(list1, 2);
   testForEachPrintItensInt(list1);
   testForEachPrintItensInt(dividida);
   destroyLinkedList(list1);
