@@ -47,10 +47,6 @@ static inline void destroyNodeLinkedList(NodeLinkedList *node)
 {
   free(node->item);
   free(node);
-  node->backNode = NULL;
-  node->item = NULL;
-  node->nextNode = NULL;
-  node = NULL;
 }
 
 static inline void addPrimaryNodeItemLinkedList(LinkedList *list, NodeLinkedList *node)
