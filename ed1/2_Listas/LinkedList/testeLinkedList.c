@@ -12,14 +12,12 @@ int compareItensInt1Major(void *item1, void *item2)
 
 int main()
 {
-  LinkedList *list = testCreateLinkedListWithItensInt(10, 0);
+  LinkedList *list = testCreateLinkedListWithItensInt(0, 9),
+             *list2 = testCreateLinkedListWithItensInt(0, 9);
   testForEachPrintItensInt(list);
-  // swapItemIndexLinkedList(list, 0, 1);
-  // testFindItemIndex(list, 10);
-  sortLinkedList(list, compareItensInt1Major);
-  // for (size_t i = 0; i < 4; i++)
-  //   testRemoveItemLinkedList(list, i);
-  testForEachPrintItensInt(list);
+  testForEachPrintItensInt(list2);
+  puts(isEqualLinkedLists(list, list2) ? "igual" : "diferente");
   destroyLinkedList(list);
+  destroyLinkedList(list2);
   return 0;
 }
