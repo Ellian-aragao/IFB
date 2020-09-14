@@ -376,6 +376,20 @@ bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
   }
   return value;
 }
+
+bool isEqualLinkedLists(LinkedList *list1, LinkedList *list2)
+{
+  if (list1 && list2 && (list1->sizeofItens == list2->sizeofItens) && (list1->tam == list2->tam))
+  {
+    NodeLinkedList *nodeList1 = list1->inicialNode;
+    NodeLinkedList *nodeList2 = list2->inicialNode;
+    for (u_long i = 0; i < list1->tam; i++)
+    {
+      if (memcmp(getItemNode(nodeList1), getItemNode(nodeList2), list1->sizeofItens))
+        return false;
+      nodeList1 = getNextNode(nodeList1);
+      nodeList2 = getNextNode(nodeList2);
+    }
     return true;
   }
   return false;
