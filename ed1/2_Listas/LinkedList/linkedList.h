@@ -69,3 +69,6 @@ void *getItemByIndex(LinkedList *list, u_long index);
 // 1: quando os itens forem iguais
 // 0: quando os itens forem diferentes
 bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *));
+
+// retorna true se os itens salvos são iguais, retorna false se são diferentes
+bool isEqualLinkedLists(LinkedList *list1, LinkedList *list2);
