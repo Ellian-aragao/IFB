@@ -1,0 +1,1 @@
+exercício proposto é a implementação do exercício 6, encontra-se na pasta 6 da pasta 2_listas
