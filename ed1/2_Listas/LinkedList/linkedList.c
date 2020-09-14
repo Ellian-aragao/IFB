@@ -221,7 +221,7 @@ LinkedList *createLinkedList(size_t sizeofItens)
   return list;
 }
 
-int destroyLinkedList(LinkedList *list)
+bool destroyLinkedList(LinkedList *list)
 {
   if (list)
   {

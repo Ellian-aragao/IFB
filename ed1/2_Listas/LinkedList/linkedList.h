@@ -12,7 +12,7 @@ typedef struct listaDinamicaEncadeada LinkedList;
 LinkedList *createLinkedList(size_t sizeofItens);
 
 // libera todo o espaço da Lista, todos os nós
-int destroyLinkedList(LinkedList *list);
+bool destroyLinkedList(LinkedList *list);
 
 // adiciona item no final da lista, enviar ponteiro para o dado que deseja guardar
 // retorna o endereço onde o item foi salvo na lista caso a lista não seja nula
