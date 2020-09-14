@@ -1,5 +1,23 @@
 #include "divideLinkedLists.h"
 
+LinkedList *divideLinkedListByN(LinkedList *list, u_long n)
+{
+  if (list)
+  {
+    LinkedList *list2 = createLinkedList(getSizeofItensLinkedList(list));
+    for (u_long i = getTamLinkedList(list); i > n; i--)
+    {
+      appendLinkedList(list2, getLastItemLinkedList(list));
+      removeLastItemLinkedList(list);
+    }
+    return list2;
+  }
+  return NULL;
+}
+
+/*
+// implementação gambiarra pré-resolução do problema que era decorrido da função a cima
+
 LinkedList *global;
 u_long indexNumber = 0;
 u_long n_da_funcao;
@@ -27,18 +45,4 @@ LinkedList *divideLinkedListByN(LinkedList *list, const u_long n)
   }
   return NULL;
 }
-
-LinkedList *divideLinkedListByNProblematic(LinkedList *list, u_long n)
-{
-  if (list)
-  {
-    LinkedList *list2 = createLinkedList(getSizeofItensLinkedList(list));
-    for (u_long i = getTamLinkedList(list); i > n; i--)
-    {
-      appendLinkedList(list2, getLastItemLinkedList(list));
-      removeLastItemLinkedList(list);
-    }
-    return list2;
-  }
-  return NULL;
-}
+*/
