@@ -357,6 +357,7 @@ bool isItensInLinkedListSorted(LinkedList *list, int (*compareItens)(void *, voi
 
 bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
 {
+  bool value = false;
   if (list)
   {
     for (u_long i = 0; i < list->tam; i++)
@@ -366,9 +367,15 @@ bool removeEqualsItens(LinkedList *list, int (*compareItens)(void *, void *))
       {
         void *itemJ = getItemByIndex(list, j);
         if (compareItens(itemI, itemJ))
+        {
           removeIndexLinkedList(list, j--);
+          value = true;
+        }
       }
     }
+  }
+  return value;
+}
     return true;
   }
   return false;
