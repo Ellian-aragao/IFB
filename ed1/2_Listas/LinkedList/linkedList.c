@@ -193,6 +193,16 @@ static inline bool findItemFromIndexToReturnFunction(NodeLinkedList *node, u_lon
   return false;
 }
 
+static inline bool findNodeFromIndexToReturnFunction(NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareIndexAndItem)(void *, void *))
+{
+  if (compareIndexAndItem(index, item))
+  {
+    *addressToSaveArgument = node;
+    return true;
+  }
+  return false;
+}
+
 static inline bool setIndexToReturnFunction(NodeLinkedList *node, u_long *index, void **addressToSaveArgument, void *item, int (*compareItem)(void *, void *))
 {
   if (compareItem(getItemNode(node), item))
@@ -201,6 +211,11 @@ static inline bool setIndexToReturnFunction(NodeLinkedList *node, u_long *index,
     return true;
   }
   return false;
+}
+
+static inline NodeLinkedList *getNodeByIndex(LinkedList *list, u_long index)
+{
+  return forEachReturnIfFindWithoutLinkedList(list, findNodeFromIndexToReturnFunction, &index, isEqualIndexAndItem);
 }
 
 u_long getTamLinkedList(LinkedList *list)
@@ -307,10 +322,10 @@ u_long *getIndexItemLinkedList(LinkedList *list, void *item, int (*compareItem)(
 
 bool swapItemIndexLinkedList(LinkedList *list, u_long index1, u_long index2)
 {
-  if (index1 < list->tam && index2 < list->tam)
+  if (index1 != index2 && index1 < list->tam && index2 < list->tam)
   {
-    NodeLinkedList *node1 = getItemByIndex(list, index1);
-    NodeLinkedList *node2 = getItemByIndex(list, index2);
+    NodeLinkedList *node1 = getNodeByIndex(list, index1);
+    NodeLinkedList *node2 = getNodeByIndex(list, index2);
     swapNodeItem(getItemNode(node1), getItemNode(node2));
     return true;
   }
