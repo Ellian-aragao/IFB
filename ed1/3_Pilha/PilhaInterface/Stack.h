@@ -1,17 +1,14 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include "../../2_Listas/LinkedList/linkedList.h"
 
-typedef struct listaDinamicaEncadeada Stack;
+typedef LinkedList Stack;
 
 // aloca espaço de memória para manipulação da lista encadeada, recebe o sizeof dos itens a serem armazenados
 Stack *createStack(size_t sizeofItens);
 
 // libera todo o espaço da Lista, todos os nós
-int destroyStack(Stack *stack);
+bool destroyStack(Stack *stack);
 
 // adiciona item no final da lista, enviar ponteiro para o dado que deseja guardar
 // retorna o endereço onde o item foi salvo na lista caso a lista não seja nula
