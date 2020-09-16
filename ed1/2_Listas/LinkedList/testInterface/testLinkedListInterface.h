@@ -1,5 +1,8 @@
-#ifndef TESTLINKEDLISTINTERFACE_H
-#define TESTLINKEDLISTINTERFACE_H
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "../linkedList.h"
 
 // Cria uma LinkedList com tipo int variando do argumento minimo ao máximo
 LinkedList *testCreateLinkedListWithItensInt(int minItem, int maxItem);
@@ -15,4 +18,3 @@ void testFindItemIndex(LinkedList *list, int itemToFind);
 
 // comparador que retorna 0 se diferente e 1 se igual
 int compareItensInt(void *item1, void *item2);
-#endif

@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "../linkedList.h"
+#include "testLinkedListInterface.h"
 
 void printItemInt(void *item)
 {
