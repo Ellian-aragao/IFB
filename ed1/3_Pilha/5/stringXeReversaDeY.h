@@ -1,5 +1,5 @@
 #pragma once
 
-#include "../../2_Listas/LinkedList/linkedList.h"
+#include "../PilhaInterface/Stack.h"
 
-bool stringXeReversaDeY(const char *x, const char *y);
+bool stringXeReversaDeY(char *x, const char *y);

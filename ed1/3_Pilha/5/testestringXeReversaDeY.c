@@ -2,8 +2,8 @@
 
 int main()
 {
-  char str1[] = "abc",
-       str2[] = "cba",
+  char str1[] = "macaco",
+       str2[] = "ocacam",
        strPrint[11];
   if (stringXeReversaDeY(str1, str2))
     strcpy(strPrint, "É reversa");
