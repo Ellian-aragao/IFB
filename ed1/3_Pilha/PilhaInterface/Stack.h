@@ -4,24 +4,28 @@
 
 typedef LinkedList Stack;
 
-// aloca espaço de memória para manipulação da lista encadeada, recebe o sizeof dos itens a serem armazenados
+// aloca espaço de memória para manipulação da lista encadeada
+// recebe o sizeof dos itens a serem armazenados
 Stack *createStack(size_t sizeofItens);
 
-// libera todo o espaço da Lista, todos os nós
+// libera memória da pilha
 bool destroyStack(Stack *stack);
 
-// adiciona item no final da lista, enviar ponteiro para o dado que deseja guardar
-// retorna o endereço onde o item foi salvo na lista caso a lista não seja nula
+// adiciona item na pilha
+// retorna o endereço onde o item foi salvo na pilha
 void *pushStack(Stack *stack, void *item);
 
-// retorna o tamanho da
+// retorna o tamanho da pilha
 u_long getTamStack(Stack *stack);
 
-// retorna o tamanho os itens salvos em uma lista
+// retorna o tamanho dos itens salvos em uma pilha
 size_t getSizeofItensOfStack(Stack *stack);
 
-// retorna um ponteiro para o ultimo item da lista
+// retorna o ponteiro para o item da pilha
 void *getItemStack(Stack *stack);
 
-// remove o ultimo item da lista
+// remove item da pilha
 void popStack(Stack *stack);
+
+// remove item da pilha retornando uma copia do item armazenado
+void *getPopStack(Stack *stack);

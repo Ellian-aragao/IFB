@@ -34,3 +34,17 @@ void popStack(Stack *stack)
 {
   removeLastItemLinkedList(stack);
 }
+
+void *getPopStack(Stack *stack)
+{
+  size_t sizeItem = getSizeofItensOfStack(stack);
+  void *item = malloc(sizeItem);
+  if (!item)
+  {
+    perror("Erro na alocação do espaço de memória do item");
+    exit(EXIT_FAILURE);
+  }
+  memcpy(item, getItemStack(stack), sizeItem);
+  popStack(stack);
+  return item;
+}
