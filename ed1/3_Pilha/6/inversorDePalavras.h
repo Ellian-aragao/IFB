@@ -2,4 +2,4 @@
 
 #include "../PilhaInterface/Stack.h"
 
-bool inversorDePalavras(const char *x);
+void inversorDePalavras(const char *x);

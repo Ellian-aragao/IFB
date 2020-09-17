@@ -34,7 +34,7 @@ static inline size_t findStrDot(const char *str)
   return i;
 }
 
-bool inversorDePalavras(const char *x)
+void inversorDePalavras(const char *x)
 {
   const size_t strLength = strlen(x);
   char inversaStr[strLength], strToCopy[strLength];
@@ -44,5 +44,4 @@ bool inversorDePalavras(const char *x)
   invertePalavra(inversaStr, strToCopy);
   inversaStr[strLength] = '\0';
   puts(inversaStr);
-  return false;
 }
