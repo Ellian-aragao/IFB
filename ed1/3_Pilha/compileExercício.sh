@@ -1,24 +1,9 @@
 #!/bin/bash
 
-#faz a compilação da biblioteca
-compile_library() {
-  echo 'Compilando biblioteca LinkedList'
-  gcc -c $compileFlags -Wextra linkedList.c testInterface/testLinkedListInterface.c
-}
-
 # gera binário final utilizando o teste do exercício e a interface dele com a biblioteca
 compile_exercicio() {
-  echo 'Compilando binário final'
-  gcc $compileFlags $(ls *.c *.o)
-  rm $(ls *.o)
-}
-
-# move os arquivos da biblioteca para pasta destino
-move_library() {
-  dest=$1
-  mv linkedList.o $dest
-  mv testLinkedListInterface.o $dest
-  cd $dest
+  echo 'Compilando binário final: '$pathStack
+  gcc $compileFlags $(ls $pathDoProgramaPraCompilar/*.c *.o)
 }
 
 echo_binario_final_fail() {
@@ -72,26 +57,20 @@ fluxo_execucao() {
   if [ -z $1 ]; then
     echo 'não foi enviado path'
     exit
-
-  # vefifica se a path não é da biblioteca LinkedList
-  elif [ "$1" != "LinkedList" ] && [ "$1" != "LinkedList/" ]; then
-    compile_library
-    move_library $pathLista$1
-
-  # se é da bilbioteca faz a compilação da API de teste
-  else
-    gcc -c $compileFlags testInterface/testLinkedListInterface.c
   fi
 
   compile_exercicio
   execute_binary
 }
 
+# variáveis globais para programa
 compileFlags='-g -W -Wall -Wextra -Wshadow -Werror'
-pathLista=~/code/faculdade/ed1/2_Listas/
-path=$1
+pathStack=~/code/faculdade/ed1/3_Pilha/
+
+# variáveis enviadas pelo usuário
+pathDoProgramaPraCompilar=$1
 debugOption=$2
 dontDeletBinary=$3
 
-cd $pathLista/LinkedList
-fluxo_execucao $path $debugOption
+cd $pathStack
+fluxo_execucao $pathDoProgramaPraCompilar $debugOption
