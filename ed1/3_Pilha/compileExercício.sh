@@ -1,5 +1,14 @@
 #!/bin/bash
 
+compile_library() {
+  if [ ! -s  "linkedList.o" ]; then
+    gcc -c $compileFlags ../2_Listas/LinkedList/linkedList.c
+  fi
+  if [ ! -s  "Stack.o" ]; then
+    gcc -c $compileFlags ./PilhaInterface/Stack.c
+  fi
+}
+
 # gera binário final utilizando o teste do exercício e a interface dele com a biblioteca
 compile_exercicio() {
   echo 'Compilando binário final: '$pathStack
@@ -59,6 +68,7 @@ fluxo_execucao() {
     exit
   fi
 
+  compile_library
   compile_exercicio
   execute_binary
 }
