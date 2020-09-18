@@ -51,36 +51,3 @@ void invertStack(Stack *s1)
   pushVectorInStack(vetorItens, s1, &tamStack);
   freeVectorOfPointers(vetorItens, &tamStack);
 }
-
-void printItemInt(void *item)
-{
-  printf("%d,", *(int *)item);
-}
-void testForEachPrintItensInt(LinkedList *list)
-{
-  putchar('[');
-  forEachLinkedList(list, printItemInt);
-  puts("]");
-}
-int main()
-{
-  Stack *s1 = createStack(4),
-        *s2 = createStack(4);
-  for (int i = 0; i < 5; i++)
-  {
-    pushStack(s1, &i);
-    pushStack(s2, &i);
-  }
-  
-  testForEachPrintItensInt(s1);
-  // testForEachPrintItensInt(s2);
-
-  invertStack(s1);
-
-  testForEachPrintItensInt(s1);
-  // testForEachPrintItensInt(s2); 
-
-  destroyStack(s1);
-  destroyStack(s2);
-  return 0;
-}
