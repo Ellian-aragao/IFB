@@ -1,0 +1,1 @@
+projeto enviado como linkedList, dentro do diretório PilhaInterface, possui um LinkedList o qual é uma lista duplamente encadeada com nó mestre

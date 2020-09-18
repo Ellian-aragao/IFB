@@ -1,0 +1,7 @@
+i(10), i(20), r(30), i(45), i(21), r, r
+{ 10 + 20 }, { -30 },{ +45 +21 }, { -1 -1 }
+{ +30 }, { -30 }, { +66 }, { -2 }
+{ +96 }, { -32 }
+{ +64 }
+
+64 intens, sendo os ultimos itens adicionados, (a partir da 4 operação pra frente, menos os ultimos 2 itens)

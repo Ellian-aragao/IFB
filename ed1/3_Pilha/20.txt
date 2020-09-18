@@ -1,0 +1,1 @@
+a pilha em questão, possui funcionamento o qual depende apenas da referência do item passado e o tamanho deste elemento em bytes, (sizeof)

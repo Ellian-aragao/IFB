@@ -1,0 +1,4 @@
+inicialmente criaria a interface da pilha e da fila, derivadas da LinkedList, desta forma,
+criada as interfaces, bastaria obter a quantidade de valores que devem ser armazenados na pilha
+atingindo a quantidade desejada, salvar este nó na fila, na hora de remover, fazer a verificação
+de quando a pilha está vazia, e então fazer a remoção da fila

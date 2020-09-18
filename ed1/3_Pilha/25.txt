@@ -1,0 +1,5 @@
+repetição do exercicio 22:
+
+void *getPopStack(Stack *stack);
+
+a função acima, declarada no diretório PilhaInterface, produz o resultado desejado no exercício
