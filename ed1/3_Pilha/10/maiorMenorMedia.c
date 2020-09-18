@@ -20,14 +20,3 @@ MAIORMENORMEDIA getMinMaxMedia(Stack *s)
   MAIORMENORMEDIA a = {min, max, media / nItens};
   return a;
 }
-
-int main()
-{
-  Stack *s = createStack(4);
-  for (int i = 0; i < 10; i++)
-    pushStack(s, &i);
-  MAIORMENORMEDIA a = getMinMaxMedia(s);
-  printf("min: %d\nmax: %d\nmedia: %f\n", a.menor, a.maior, a.media);
-  destroyLinkedList(s);
-  return 0;
-}
