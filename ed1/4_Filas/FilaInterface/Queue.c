@@ -34,3 +34,22 @@ void removeQueue(Queue *queue)
 {
   removeFistItemLinkedList(queue);
 }
+
+Queue *copyQueue(Queue *queue)
+{
+  Queue *copySrc = createQueue(getSizeofItensOfQueue(queue));
+  while (getTamQueue(queue))
+  {
+    addQueue(copySrc, getItemQueue(queue));
+    removeQueue(queue);
+  }
+
+  for (u_long numItens = getTamQueue(copySrc); numItens; numItens--)
+  {
+    void *item = getItemQueue(copySrc);
+    addQueue(copySrc, item);
+    addQueue(queue, item);
+    removeQueue(copySrc);
+  }
+  return copySrc;
+}

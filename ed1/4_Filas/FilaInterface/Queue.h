@@ -26,3 +26,6 @@ void *getItemQueue(Queue *queue);
 
 // remove item da fila
 void removeQueue(Queue *queue);
+
+// devolve um ponteiro para uma cópia do ponteiro enviado
+Queue *copyQueue(Queue *queue);
