@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# script para compilação automática e execução dos exercícios
+# 1ºarg: (obrigatório) executar e enviar path relativa ao shell do programa a compilar
+# 2ºarg: modo de execução do escript, fora utilizado valgrind para analise de memória
+# 3ºarg: um caracter qualquer para indicar que não deseja deletar o binário final pós execução
+
+
 compile_library() {
   if [ ! -s  "linkedList.o" ]; then
     gcc -c $compileFlags ../2_Listas/LinkedList/linkedList.c
@@ -15,6 +21,7 @@ compile_exercicio() {
   gcc $compileFlags $(ls $pathDoProgramaPraCompilar/*.c *.o)
 }
 
+# mostra erro na compilação do programa
 echo_binario_final_fail() {
   echo -e '\n*****************************'
   echo '! Binário final inexistente !'

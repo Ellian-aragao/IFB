@@ -1,0 +1,5 @@
+utiliza-se a estrutura de pilha e sempre que tiver inserção fazer uma inserção na pilha,
+quando houver remoções fazer estas na pilha também, verificando quantidade de itens salvos nela
+quando tendo remoção sendo que a pilha possui-se tamanho 0, esta retorna um erro.
+o algoritmo citado fora implementado no exercício 8, o qual aplica-se com a mesma lógica mas
+exemplo diferente

@@ -1,0 +1,2 @@
+serve para funções recursivas de compiladores, mecanismos de desfazer,
+sistema de navegação de paginas web, analise lexografica, dentre outras
