@@ -5,19 +5,18 @@
 # 2ºarg: modo de execução do escript, fora utilizado valgrind para analise de memória
 # 3ºarg: um caracter qualquer para indicar que não deseja deletar o binário final pós execução
 
-
 compile_library() {
-  if [ ! -s  "linkedList.o" ]; then
+  if [ ! -s "linkedList.o" ]; then
     gcc -c $compileFlags ../2_Listas/LinkedList/linkedList.c
   fi
-  if [ ! -s  "Stack.o" ]; then
-    gcc -c $compileFlags ./PilhaInterface/Stack.c
+  if [ ! -s "Queue.o" ]; then
+    gcc -c $compileFlags ./FilaInterface/Queue.c
   fi
 }
 
 # gera binário final utilizando o teste do exercício e a interface dele com a biblioteca
 compile_exercicio() {
-  echo 'Compilando binário final: '$pathStack
+  echo 'Compilando binário final: '$path
   gcc $compileFlags $(ls $pathDoProgramaPraCompilar/*.c *.o)
 }
 
@@ -85,12 +84,12 @@ fluxo_execucao() {
 
 # variáveis globais para programa
 compileFlags='-g -W -Wall -Wextra -Wshadow -Werror'
-pathStack=~/code/faculdade/ed1/3_Pilha/
+path=~/code/faculdade/ed1/4_Filas/
 
 # variáveis enviadas pelo usuário
 pathDoProgramaPraCompilar=$1
 debugOption=$2
 dontDeletBinary=$3
 
-cd $pathStack
+cd $path
 fluxo_execucao $pathDoProgramaPraCompilar $debugOption

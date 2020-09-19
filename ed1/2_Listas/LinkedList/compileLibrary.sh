@@ -72,7 +72,10 @@ fluxo_execucao() {
   if [ -z $1 ]; then
     echo 'não foi enviado path'
     exit
-
+  elif [ ! -d $1 ]; then
+    echo 'diretório enviado não existe'
+    exit
+    
   # vefifica se a path não é da biblioteca LinkedList
   elif [ "$1" != "LinkedList" ] && [ "$1" != "LinkedList/" ]; then
     compile_library
