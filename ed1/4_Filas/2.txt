@@ -1,0 +1,3 @@
+toda situação a qual deseja-se manter ordem dos dados recebidos além de um tratamento destes dados de modo conforme requisição.
+digamos que temos o buffer do sistema de rede, os dados vão chegando e sendo armazenados para serem consumidos conforme entraram, no caso sem escalonamento algum,
+exemplo diferente por exemplo do escalonamento de processos feitos por um SO para execução destes, que normalmente utilizam algoritmos mais sofisticados
