@@ -1,0 +1,1 @@
+a diferença está na hora da adição a qual, toda vez que adiciona pega a estrutura e aponta o final para o início, assim compondo a estrutura circular desejada
