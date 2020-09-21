@@ -2,4 +2,4 @@
 
 #include "../FilaInterface/Queue.h"
 
-void inverteFila(Queue* queue);
+void reverso(Queue* queue);

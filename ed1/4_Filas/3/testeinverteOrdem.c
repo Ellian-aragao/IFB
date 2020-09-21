@@ -12,7 +12,7 @@ int main()
     addQueue(q, &i);
   forEachLinkedList(q, print);
   putchar('\n');
-  inverteFila(q);
+  reverso(q);
   forEachLinkedList(q, print);
   destroyQueue(q);
   return 0;

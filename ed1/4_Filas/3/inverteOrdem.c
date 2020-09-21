@@ -1,6 +1,6 @@
 #include "inverteOrdem.h"
 
-void inverteFila(Queue *queue)
+void reverso(Queue *queue)
 {
   LinkedList *lista = copyQueue(queue);
   while (getTamQueue(queue))
