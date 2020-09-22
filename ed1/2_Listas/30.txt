@@ -1,0 +1,1 @@
+a função de verificação isEqualLinkedLists, realiza o pedido no exercício

@@ -24,7 +24,7 @@ void forEachLinkedList(LinkedList *list, void (*externFunction)(void *));
 // remove um nó da memória conforme o item passado e a função de comparação dos itens
 u_long removeItemLinkedList(LinkedList *list, void *item, int (*compareItem)(void *, void *));
 
-// retorna o tamanho da
+// retorna o tamanho da lista
 u_long getTamLinkedList(LinkedList *list);
 
 // retorna o tamanho os itens salvos em uma lista
