@@ -1,0 +1,7 @@
+a key é utiliza o hash conforme a expressão baixo:
+
+key % TAM_TABLE
+
+operação simples a qual resulta uma grande facilidade em keys resultarem
+no mesmo index, resultando em colisão, sendo boa prática reduzir os erros através
+de utilizar-se tabelas de tamanhos primos

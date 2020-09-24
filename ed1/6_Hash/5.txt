@@ -1,0 +1,2 @@
+uma colisão é um conjunto de keys que através do hash resultam em um mesmo index da tabela
+o que reduz eficácia da estrutura, sendo necessário o tratamento do mesmo

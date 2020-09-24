@@ -1,0 +1,3 @@
+a vantagem do endereçamento aberto é a dependência da resposta do código ser variante
+exclusiva do tamanho da tabela, sendo O(n), n sendo tamanho da tabela. Entretanto o
+problema é justamente esta limitação, não há como salvar valores para além do máximo da tabela.

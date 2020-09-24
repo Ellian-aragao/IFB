@@ -1,0 +1,4 @@
+trata-se do que outras linguagens chamam de dicionário, o qual possuem uma key que representa um valor, sendo esta key única, a key através de um algoritmo de hash
+gera-se um índice do qual é utilizado para fazer a consulta na tabela, sendo esta tabela muitas vezes nada menos que um vetor que guarda endereços(referências) para
+a posição do objeto de consulta, o qual muda de acordo com a implementação da tabela e seu tratamento de colisões, sendo possível ter em si o endereço do item valor
+ou um apontamento para outra estrutura, uma linkedList que armazena os valores que são referenciados para key através do hash.

@@ -1,0 +1,7 @@
+poís o problema que ele encontra trata-se de obter aniversários(keys) diferentes para um universo limitado do qual probabilisticamente só é possível quando
+seu número de pessoas(n) seja menor que o tamanho do universo(conjunto) que se procura.
+matematicamente significa:
+
+1 - (365! / (365^n * (365 - n)!))
+
+o exemplo é comparável com a questão do hash pois justamente busca-se evitar colisões.

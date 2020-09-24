@@ -1,0 +1,2 @@
+apesar do custo computacional, o espalhamento dos termos é mais efetivo, 
+sendo comparativamente melhor que outras abordagens de sondagem

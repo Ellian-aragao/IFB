@@ -1,0 +1,11 @@
+existem 2 metodologias principáis para lidar com as colisões, tratando se de 
+manter os dados na tabela adotando politica de um endereço(index) "incerto"
+o qual dependendo da implementação adota-se a utilização do próximo index livre,
+ou a quadrática do index, ou até mesmo recalcular o hash, variando de acordo com
+a politica decidida.
+
+a outra metodologia que adota politica do endereçamento fechado trás a utilização
+de outras estruturas para armazenamento dos dados, ou seja, a key gera o valor e este valor
+será armazenado no index indicado, entretanto haverá o custo de buscar em outra estrutura,
+usualmente sendo uma linkedList, visto sua maleabilidade de inserção e remoção, e disponibilidade
+de alocação de dados.
