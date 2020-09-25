@@ -1,0 +1,2 @@
+árvore nada mais é que uma modelagem específica de grafo,
+o qual parte de um nó principal e vai ramificando-se em diversos galhos até as folhas
