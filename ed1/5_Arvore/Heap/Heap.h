@@ -19,6 +19,10 @@ bool isEmptyHeap(Heap *heap);
 
 bool hasItemHeap(Heap *heap, void *item, int (*comparador)(void *, void *));
 
+u_long tamHeap(Heap *heap);
+u_long tamHeapWithoutLeaves(Heap *heap);
+u_long tamHeapLeaves(Heap *heap);
+
 // // remove um nó da memória conforme o item passado e a função de comparação dos itens
 // u_long removeItemHeap(Heap *heap, void *item, int (*compareItem)(void *, void *));
 

@@ -59,3 +59,22 @@ bool hasItemHeap(Heap *heap, void *item, int (*comparador)(void *, void *))
     return comparador(heap->data, item) ? hasItemHeap(heap->left, item, comparador) : hasItemHeap(heap->right, item, comparador);
   return false;
 }
+
+u_long tamHeap(Heap *heap)
+{
+  if (heap)
+    return 1 + tamHeap(heap->left) + tamHeap(heap->right);
+  return 0;
+}
+
+u_long tamHeapLeaves(Heap *heap)
+{
+  if (heap)
+    return heap->left && heap->right ? tamHeapLeaves(heap->left) + tamHeapLeaves(heap->right) : (heap->left ? tamHeapLeaves(heap->left) : (heap->right ? tamHeapLeaves(heap->right) : 1));
+  return 0;
+}
+
+u_long tamHeapWithoutLeaves(Heap *heap)
+{
+  return tamHeap(heap) - tamHeapLeaves(heap);
+}

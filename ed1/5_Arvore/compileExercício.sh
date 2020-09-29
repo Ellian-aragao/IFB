@@ -6,12 +6,12 @@
 # 3ºarg: um caracter qualquer para indicar que não deseja deletar o binário final pós execução
 
 compile_library() {
-  if [ ! -s "linkedList.o" ]; then
-    gcc -c $compileFlags ../2_Listas/LinkedList/linkedList.c
-  fi
-  if [ ! -s "Queue.o" ]; then
-    gcc -c $compileFlags ./FilaInterface/Queue.c
-  fi
+  # if [ ! -s "linkedList.o" ]; then
+  #   gcc -c $compileFlags ../2_Listas/LinkedList/linkedList.c
+  # fi
+  # if [ ! -s "Heap.o" ]; then
+    gcc -c $compileFlags ./Heap/Heap.c
+  # fi
 }
 
 # gera binário final utilizando o teste do exercício e a interface dele com a biblioteca
@@ -84,7 +84,7 @@ fluxo_execucao() {
 
 # variáveis globais para programa
 compileFlags='-g -W -Wall -Wextra -Wshadow -Werror'
-path=~/code/faculdade/ed1/4_Filas/
+path=~/code/faculdade/ed1/5_Arvore
 
 # variáveis enviadas pelo usuário
 pathDoProgramaPraCompilar=$1
