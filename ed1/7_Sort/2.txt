@@ -1,0 +1,1 @@
+dado um vetor, caso não ordenado, exige-se a comparação de todos seus termos para encontra o menor valor, o que não ocorre caso esteja ordenado, acendente ou descendente, o custo de localizar é baixíssimo

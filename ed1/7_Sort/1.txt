@@ -1,0 +1,1 @@
+É o processo de ordenar os elementos pertencente a uma estrutura de dados em ordem ascendente ou descendentes.
