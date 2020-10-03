@@ -1,0 +1,17 @@
+posto que nos melhores casos os 2 algoritmos alcançam O(1)
+-----------------------------------------------------------------------
+* casos medianos:
+
+busca binária    => O(log(n))
+busca sequencial => O(n/2)
+
+temos que no caso mediano, a busca binária já é mais eficiente.
+-----------------------------------------------------------------------
+* pior caso:
+
+busca binária    => O(log(n))
+busca sequencial => O(n)
+
+temos que no pior caso, há uma grande desvantagem na busca sequencial.
+-----------------------------------------------------------------------
+deste modo, a busca sequencial em qualquer quesito é desvantajosa.
