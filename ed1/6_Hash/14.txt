@@ -1,0 +1,19 @@
+''' python
+
+def hash(key):
+  return (2 * key + 5) % 11
+
+keys = [12,44,13,88,23,94,11,39,20,16,5]
+for key in keys:
+  print(hash(key))
+'''
+7, 5, 9, 5, 7, 6, 5, 6, 1, 4, 4
+
+teria-se a seguinte estrutura
+
+1
+4, 4
+5, 5, 5
+6, 6
+7, 7
+9

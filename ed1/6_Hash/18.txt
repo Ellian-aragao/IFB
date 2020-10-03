@@ -1,0 +1,5 @@
+primeiro conjunto
+[F, T, E, W, I, D, S]
+
+ultimo conjunto
+[E, F, T, W, I, D, S]

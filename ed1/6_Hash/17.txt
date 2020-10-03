@@ -1,0 +1,12 @@
+Z = 0
+I = 3
+K = 5         
+L = 6
+C = 7
+W = 7
+Y = 9
+
+a partir deste ponto passa-se a ter conflitos
+E = 9 -> proxima posição livre = 1      
+O = 9 -> proxima posição livre = 2    
+P = 0 -> proxima posição livre = 4

@@ -1,0 +1,3 @@
+quando utilizada a lista encadeada para tratar colisões, basta encontrar o item, percorrendo a lista,
+e remove-lo. já no caso de endereçamento aberto, supondo ter acesso aos itens que sofreram a sondagem,
+deve-se buscar estes e sobrescrever o item removido, agindo de modo recursivo para os próximos

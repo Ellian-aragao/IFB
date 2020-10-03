@@ -1,0 +1,1 @@
+a razão de existirem 2 senhas que resultam no mesmo hash existir evidência tratamento de colisão, portanto não sendo possível
