@@ -1,0 +1,26 @@
+----------------------------- Bubble sort  -----------------------------------
+estável, que tem O(n²) comparações em qualquer caso, tendo trocas de O(n) a O(n²)
+
+----------------------------- Selection sort ---------------------------------
+estável, que tem O(n²) comparações em qualquer caso, entretanto de todos é o que
+possúi menor número de trocas, sendo assim mais eficiente neste caso e como tratado
+no artigo, ideal para se lidar com memórias que se desgastam e perdem desempenho 
+conforme é escrito nelas, EEPROM e FLASH.
+
+----------------------------- Insetion sort  ---------------------------------
+estável, tem O(n - 1) comparações em todos os casos, já em trocas é tão custoso
+quanto Bubble sort, mas é muito útil para pequenos conjuntos de dados.
+
+----------------------------- Merge sort -------------------------------------
+estável, tem O(n log(n)) comparações e trocas em todos os casos, problemático em
+estrutura já ordenada, já que sua atuação advém da recursividade.
+
+----------------------------- Quick sort -------------------------------------
+não-estável, O(n log(n)) melhor caso e caso médio no quesito comparação e trocas,
+O(n²) pior caso (ordenado decrescente) em comparação e trocas, possúi alto custo
+computacional, porém detém um dos menores tempos de processamento
+
+----------------------------- Shell sort  ---------------------------------
+estável, é um refinamento do Selection Sort, e possúi o melhor desempenho de todos
+mesmo número de comparação em todos os casos, numero de trocas estável entre organizados
+decrescente e aleatóriamente
