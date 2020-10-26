@@ -1,6 +1,5 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include "sort.h"
+
 #define getAddrres(vector, position, size) ((vector) + (position) * (size))
 
 static inline void *createTmpPointer(size_t *size)
@@ -50,7 +49,7 @@ void insertionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int 
 
 void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
-  memcpy(getAddrres(vector,tamVector - 1, SizeValuesVector), item, SizeValuesVector);
+  memcpy(getAddrres(vector, tamVector - 1, SizeValuesVector), item, SizeValuesVector);
   insertionSort(vector, tamVector, SizeValuesVector, comparator);
 }
 
