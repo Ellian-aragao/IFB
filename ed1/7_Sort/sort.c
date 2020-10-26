@@ -53,6 +53,37 @@ void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeVa
   insertionSort(vector, tamVector, SizeValuesVector, comparator);
 }
 
+static inline void quicksortRecursive(void *vector, u_long init, u_long final, size_t *SizeValuesVector, int (*comparator)(void *, void *))
+{
+  void *tmp = createTmpPointer(SizeValuesVector);
+  void *pivo = createTmpPointer(SizeValuesVector);
+  memcpy(pivo, getAddrres(vector, (init + final) / 2, *SizeValuesVector), *SizeValuesVector);
+  u_long i = init;
+  u_long j = final - 1;
+  while (i <= j)
+  {
+    while (comparator(pivo, getAddrres(vector, i, *SizeValuesVector)) && i < final)
+      i++;
+    while (comparator(getAddrres(vector, j, *SizeValuesVector), pivo) && j > init)
+      j--;
+    if (i <= j)
+    {
+      swap(getAddrres(vector, i, *SizeValuesVector), getAddrres(vector, j, *SizeValuesVector), tmp, SizeValuesVector);
+      i++;
+      j--;
+    }
+  }
+  if (j > init)
+    quicksortRecursive(vector, init, j + 1, SizeValuesVector, comparator);
+  if (i < final)
+    quicksortRecursive(vector, i, final, SizeValuesVector, comparator);
+}
+
+void quickSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+{
+  quicksortRecursive(vector, 0, tamVector - 1, &SizeValuesVector, comparator);
+}
+
 void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
   void *tmp = createTmpPointer(&SizeValuesVector);
