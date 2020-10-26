@@ -35,6 +35,24 @@ void bubbleSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*c
   free(tmp);
 }
 
+void insertionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+{
+  int i, key, j;
+  void *tmp = createTmpPointer(&SizeValuesVector);
+  for (i = 1; i < tamVector; i++)
+  {
+    memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
+    j = i - 1;
+    while (j >= 0 && comparator(getAddrres(vector, j, SizeValuesVector), tmp))
+    {
+      memcpy(getAddrres(vector, j + 1, SizeValuesVector), getAddrres(vector, j, SizeValuesVector), SizeValuesVector);
+      j--;
+    }
+    memcpy(getAddrres(vector, j + 1, SizeValuesVector), tmp, SizeValuesVector);
+  }
+  free(tmp);
+}
+
 #define voidToType(ptr) (*(int *)ptr)
 int compare(void *i1, void *i2)
 {
@@ -51,7 +69,7 @@ int main(int argc, char const *argv[])
     printf(strPrint, vector[i]);
   putchar('\n');
 
-  bubbleSort(vector, tam, sizeof(vector[0]), compare);
+  insertionSort(vector, tam, sizeof(vector[0]), compare);
 
   for (size_t i = 0; i < tam; i++)
     printf(strPrint, vector[i]);
