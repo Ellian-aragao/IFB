@@ -53,6 +53,21 @@ void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeVa
   insertionSort(vector, tamVector, SizeValuesVector, comparator);
 }
 
+void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+{
+  void *tmp = createTmpPointer(&SizeValuesVector);
+  for (u_long min, i = 0; i < tamVector - 1; i++)
+  {
+    min = i;
+    for (u_long j = i + 1; j < tamVector; j++)
+      if (comparator(getAddrres(vector, min, SizeValuesVector), getAddrres(vector, j, SizeValuesVector)))
+        min = j;
+
+    if (memcmp(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), SizeValuesVector))
+      swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), tmp, &SizeValuesVector);
+  }
+  free(tmp);
+}
 #ifndef LIB
   #include <stdio.h>
   #define voidToType(ptr) (*(int *)ptr)
