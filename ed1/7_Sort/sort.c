@@ -53,28 +53,31 @@ void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeVa
   insertionSort(vector, tamVector, SizeValuesVector, comparator);
 }
 
-#define voidToType(ptr) (*(int *)ptr)
-int compare(void *i1, void *i2)
-{
-  return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
-}
+#ifndef LIB
+  #include <stdio.h>
+  #define voidToType(ptr) (*(int *)ptr)
+  int compare(void *i1, void *i2)
+  {
+    return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
+  }
 
-int main(int argc, char const *argv[])
-{
-  int vector[12] = {19, 1234, 58, 34, 17, 68, 345, 63, 234, 67, 38};
-  const int tam = sizeof(vector) / sizeof(vector[0]);
-  const char strPrint[] = "%d, ";
+  int main(int argc, char const *argv[])
+  {
+    int vector[12] = {19, 1234, 58, 34, 17, 68, 345, 63, 234, 67, 38};
+    const int tam = sizeof(vector) / sizeof(vector[0]);
+    const char strPrint[] = "%d, ";
 
-  for (size_t i = 0; i < tam; i++)
-    printf(strPrint, vector[i]);
-  putchar('\n');
+    for (size_t i = 0; i < tam; i++)
+      printf(strPrint, vector[i]);
+    putchar('\n');
 
-  // insertionSort(vector, 11, sizeof(vector[0]), compare);
-  int item = 65;
-  insertionSortItem(vector, tam, &item, sizeof(vector[0]), compare);
+    // insertionSort(vector, 11, sizeof(vector[0]), compare);
+    int item = 65;
+    insertionSortItem(vector, tam, &item, sizeof(vector[0]), compare);
 
-  for (size_t i = 0; i < tam; i++)
-    printf(strPrint, vector[i]);
-  putchar('\n');
-  return 0;
-}
+    for (size_t i = 0; i < tam; i++)
+      printf(strPrint, vector[i]);
+    putchar('\n');
+    return 0;
+  }
+#endif
