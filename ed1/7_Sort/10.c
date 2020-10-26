@@ -33,6 +33,7 @@ static inline void quicksortRecursive(int *vector, int init, int final)
   if (i < final)
     quicksortRecursive(vector, i, final);
 }
+
 void quickSort(int *vector, int tamVector)
 {
   quicksortRecursive(vector, 0, tamVector);
