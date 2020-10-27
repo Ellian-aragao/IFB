@@ -53,7 +53,7 @@ void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeVa
   insertionSort(vector, tamVector, SizeValuesVector, comparator);
 }
 
-static inline void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t *SizeValuesVector, int (*comparator)(void *, void *), void *tmp, void *pivo)
+static void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t *SizeValuesVector, int (*comparator)(void *, void *), void *tmp, void *pivo)
 {
   memcpy(pivo, getAddrres(vector, (*init + *final) / 2, *SizeValuesVector), *SizeValuesVector);
   u_long i = *init;
@@ -101,6 +101,32 @@ void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int 
       swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), tmp, &SizeValuesVector);
   }
   free(tmp);
+}
+
+void shellSort(int *vet, int size)
+{
+  int i, j, value;
+
+  int h = 1;
+  while (h < size)
+  {
+    h = 3 * h + 1;
+  }
+  while (h > 0)
+  {
+    for (i = h; i < size; i++)
+    {
+      value = vet[i];
+      j = i;
+      while (j > h - 1 && value <= vet[j - h])
+      {
+        vet[j] = vet[j - h];
+        j = j - h;
+      }
+      vet[j] = value;
+    }
+    h = h / 3;
+  }
 }
 
 #ifndef LIB
