@@ -103,17 +103,29 @@ void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int 
   free(tmp);
 }
 
-void shellSort(int *vet, int size)
+void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
-  int i, j, value;
+  const u_long NUMERO_MAGICO = 3;
+  void *tmp = createTmpPointer(&SizeValuesVector);
 
-  int h = 1;
-  while (h < size)
-  {
-    h = 3 * h + 1;
-  }
+  u_long h = 1;
+  while (h < tamVector)
+    h = NUMERO_MAGICO * h + 1;
+
   while (h > 0)
   {
+    for (u_long j, i = h; i < tamVector; i++)
+    {
+      memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
+      for (j = i; j > h - 1 && comparator(tmp, getAddrres(vector, j - h, SizeValuesVector)); j -= h)
+        memcpy(getAddrres(vector, j, SizeValuesVector), getAddrres(vector, j - h, SizeValuesVector), SizeValuesVector);
+      memcpy(getAddrres(vector, j, SizeValuesVector), tmp, SizeValuesVector);
+    }
+    h /= NUMERO_MAGICO;
+  }
+  free(tmp);
+}
+
     for (i = h; i < size; i++)
     {
       value = vet[i];
