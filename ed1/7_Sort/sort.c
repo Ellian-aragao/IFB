@@ -73,6 +73,8 @@ static inline void quicksortRecursive(void *vector, u_long init, u_long final, s
       j--;
     }
   }
+  free(tmp);
+  free(pivo);
   if (j > init)
     quicksortRecursive(vector, init, j + 1, SizeValuesVector, comparator);
   if (i < final)
