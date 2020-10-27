@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 #define getAddrres(vector, position, size) ((vector) + (position) * (size))
 
@@ -126,23 +127,53 @@ void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
   free(tmp);
 }
 
-    for (i = h; i < size; i++)
+static inline void mergeVectors(void *vector, u_long *init, u_long *mid, u_long *end, void *tmpV, size_t *SizeValuesVector, int (*comparator)(void *, void *))
+{
+  u_long left = *init;
+  u_long right = *mid;
+  for (u_long i = *init; i < *end; ++i)
+  {
+    if ((left < *mid) && ((right >= *end) || comparator(getAddrres(vector, left, *SizeValuesVector), getAddrres(vector, right, *SizeValuesVector))))
     {
-      value = vet[i];
-      j = i;
-      while (j > h - 1 && value <= vet[j - h])
-      {
-        vet[j] = vet[j - h];
-        j = j - h;
-      }
-      vet[j] = value;
+      memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, left, *SizeValuesVector), *SizeValuesVector);
+      left++;
     }
-    h = h / 3;
+    else
+    {
+      memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, right, *SizeValuesVector), *SizeValuesVector);
+      right++;
+    }
+  }
+
+  for (size_t i = 0; i < *end; i++)
+    printf("%d, ", *(int *)getAddrres(tmpV, i, *SizeValuesVector));
+  putchar('\n');
+
+  for (u_long i = *init; i < *end; ++i)
+    memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, i, *SizeValuesVector), *SizeValuesVector);
+}
+
+static void mergeSortRecursive(void *vector, u_long *init, u_long *end, void *tmpV, size_t *SizeValuesVector, int (*comparator)(void *, void *))
+{ // passar referência pode ser causa de erro
+  if ((*end - *init) >= 2)
+  {
+    u_long mid = ((*init + *end) / 2);
+    mergeSortRecursive(vector, init, &mid, tmpV, SizeValuesVector, comparator);
+    mergeSortRecursive(vector, &mid, end, tmpV, SizeValuesVector, comparator);
+    mergeVectors(vector, init, &mid, end, tmpV, SizeValuesVector, comparator);
   }
 }
 
+void mergeSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+{
+  size_t var = SizeValuesVector * tamVector;
+  void *tmp = createTmpPointer(&var);
+  var = 0;
+  mergeSortRecursive(vector, &var, &tamVector, tmp, &SizeValuesVector, comparator);
+}
+
 #ifndef LIB
-#include <stdio.h>
+
 #define voidToType(ptr) (*(int *)ptr)
 int compare(void *i1, void *i2)
 {
@@ -159,7 +190,7 @@ int main(int argc, char const *argv[])
     printf(strPrint, vector[i]);
   putchar('\n');
 
-  quickSort(vector, tam, sizeof(vector[0]), compare);
+  mergeSort(vector, tam, sizeof(vector[0]), compare);
 
   for (size_t i = 0; i < tam; i++)
     printf(strPrint, vector[i]);
