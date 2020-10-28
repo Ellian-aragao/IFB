@@ -1,0 +1,4 @@
+a remoção, a qual necessita de rearranjo da arvore são aqueles que causam uma diferença de altura 2 entre as folhas da arvore, deste modo exigindo rearranjo
+
+baseado na questão 5, adicionar os seguintes valores
+a remoção de quase qualquer valor que não seja folha e nem tenha só um filho, desestabiliza a arvore, tal como 28

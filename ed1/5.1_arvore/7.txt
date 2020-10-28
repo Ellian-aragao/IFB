@@ -1,0 +1,9 @@
+todo qualquer valor que esteja na extremidade, sendo o valor o menor, ou maior, valor da arvore,
+internamente podendo ser valores que são farão um crescimento de um ramo diferenciando em 2 o tamanho relativo a altura em outras folhas
+
+baseado na questão 5, adicionar os seguintes valores
+{
+  (13,...,20),
+  (33,...,35),
+  (51,...,infinito)
+}

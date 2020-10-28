@@ -1,0 +1,1 @@
+os custos de busca torna-se muito menor quando comparado em uma arvore binária de busca, além de ter um custo razoável em inserções e remoções. sendo extremamente eficiente
