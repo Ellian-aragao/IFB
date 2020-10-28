@@ -127,11 +127,11 @@ void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
   free(tmp);
 }
 
-static inline void mergeVectors(void *vector, u_long *init, u_long *mid, u_long *end, void *tmpV, size_t *SizeValuesVector, int (*comparator)(void *, void *))
+static inline void mergeVectors(void *vector, const u_long *init, const u_long *mid, const u_long *end, void *tmpV, const size_t *SizeValuesVector, int (*comparator)(void *, void *))
 {
   u_long left = *init;
   u_long right = *mid;
-  for (u_long i = *init; i < *end; ++i)
+  for (u_long i = *init; i < *end; i++)
   {
     if ((left < *mid) && ((right >= *end) || comparator(getAddrres(vector, left, *SizeValuesVector), getAddrres(vector, right, *SizeValuesVector))))
     {
@@ -144,27 +144,22 @@ static inline void mergeVectors(void *vector, u_long *init, u_long *mid, u_long 
       right++;
     }
   }
-
-  for (size_t i = 0; i < *end; i++)
-    printf("%d, ", *(int *)getAddrres(tmpV, i, *SizeValuesVector));
-  putchar('\n');
-
   for (u_long i = *init; i < *end; ++i)
-    memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, i, *SizeValuesVector), *SizeValuesVector);
+    memcpy(getAddrres(vector, i, *SizeValuesVector), getAddrres(tmpV, i, *SizeValuesVector), *SizeValuesVector);
 }
 
-static void mergeSortRecursive(void *vector, u_long *init, u_long *end, void *tmpV, size_t *SizeValuesVector, int (*comparator)(void *, void *))
-{ // passar referência pode ser causa de erro
+static void mergeSortRecursive(void *vector, const u_long *init, const u_long *end, void *tmpV, const size_t *SizeValuesVector, int (*comparator)(void *, void *))
+{
   if ((*end - *init) >= 2)
   {
-    u_long mid = ((*init + *end) / 2);
+    const u_long mid = ((*init + *end) / 2);
     mergeSortRecursive(vector, init, &mid, tmpV, SizeValuesVector, comparator);
     mergeSortRecursive(vector, &mid, end, tmpV, SizeValuesVector, comparator);
     mergeVectors(vector, init, &mid, end, tmpV, SizeValuesVector, comparator);
   }
 }
 
-void mergeSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+void mergeSort(void *vector, const u_long tamVector, const size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
   size_t var = SizeValuesVector * tamVector;
   void *tmp = createTmpPointer(&var);
@@ -173,11 +168,10 @@ void mergeSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
 }
 
 #ifndef LIB
-
 #define voidToType(ptr) (*(int *)ptr)
 int compare(void *i1, void *i2)
 {
-  return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
+  return (voidToType(i1) < voidToType(i2)) ? 1 : 0;
 }
 
 int main(int argc, char const *argv[])
