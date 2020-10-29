@@ -234,7 +234,47 @@ void countingSort(int *vector, const u_long tamVector, const u_long maxItemVecto
 
   free(bucketV);
 }
-  return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
+
+#define tam_bucket 10
+#define num_bucket 10
+#define max 10
+typedef struct
+{
+  int qtd;
+  int valores[tam_bucket];
+} Bucket;
+
+void bucketSort(int *vector, const u_long tamVector)
+{
+
+  int maior, menor;
+  for (u_long i = 0, menor = maior = vector[i]; i < tamVector; i++)
+  {
+    if (vector[i] > maior)
+      maior = vector[i];
+    if (vector[i] < menor)
+      menor = vector[i];
+  }
+
+  size_t nBuckets = ((maior - menor) / tam_bucket + 1);
+  Bucket *bucket = calloc(nBuckets, sizeof(Bucket));
+  if (!bucket)
+    exit(EXIT_FAILURE);
+
+  for (u_long i = 0; i < tamVector; i++)
+  {
+    int pos = (vector[i] - menor) / tam_bucket;
+    bucket[pos].valores[bucket[pos].qtd] = vector[i];
+    bucket[pos].qtd++;
+  }
+
+  for (u_long i = 0, pos = 0; i < num_bucket; i++)
+  {
+    quickSort(bucket[i].valores, bucket[i].qtd, sizeof(int), compareInteger);
+    for (u_long j = 0; j < bucket[i].qtd; j++, pos++)
+      vector[pos] = bucket[i].valores[j];
+  }
+  free(bucket);
 }
 
 int main(int argc, char const *argv[])
