@@ -3,6 +3,19 @@
 
 #define getAddrres(vector, position, size) ((vector) + ((position) * (size)))
 
+static inline void printVector(const int *vector, const int tamVector)
+{
+  putchar('[');
+  for (int i = 0; i < tamVector; i++)
+    printf(i == tamVector - 1 ? "%d" : "%d, ", vector[i]);
+  puts("]");
+}
+
+static int compareInteger(void *i1, void *i2)
+{
+  return (*(int *)i1 > *(int *)i2) ? 1 : 0;
+}
+
 static inline void *createTmpPointer(size_t *size)
 {
   void *tmp = malloc(*size);
