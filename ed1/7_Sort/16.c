@@ -25,8 +25,9 @@ void printAlgSort(char *strPrint, void (*sortAlg)(void *, u_long, size_t, int (*
   int vectorCopy[tamVector];
   memcpy(vectorCopy, vector, tamVector * sizeItem);
   puts(strPrint);
+  // printVector("%d, ", vectorCopy, tamVector);
   sortAlg(vectorCopy, tamVector, sizeItem, comparadorVector);
-  printVector("%d, ", vectorCopy, tamVector);
+  // printVector("%d, ", vectorCopy, tamVector);
 }
 
 void printAllAlgSort(int *vector, u_long tamVector, size_t sizeItem)
@@ -62,8 +63,10 @@ int main()
 
   for (u_long i = 0, lengthVector = sizeof(vector) / sizeof(*vector); i < lengthVector; i++)
   {
-    printf("\n|**************************************| vector '%c' |**************************************|\n", i + 'A');
+    printf("\n|**************************************| vector '%c' |**************************************|\n", (char)i + 'A');
+    printVector("%d, ", vector[i], tamVectors[i]);
     printAllAlgSort(vector[i], tamVectors[i], sizeof(int));
+    printVector("%d, ", vector[i], tamVectors[i]);
   }
 
   return 0;
