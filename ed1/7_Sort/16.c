@@ -1,8 +1,11 @@
 /*********************************************************************
- * para compilar, utilize os flags:
+ * para compilar, utilize os flags, sendo obrigatória sómente -lib:
  * - LIB: para não compilar a main implementada no sort.c
  * - DEBUG: exibir no console cada parte do algoritmo sendo exacutada
- * gcc sort.c 16.c -DLIB -DDEBUG
+ * - STATISTICS: exibe quantidade de comparações e cópias nos vetores
+ * 
+ * exemplo com debug e statistics:
+ * gcc sort.c 16.c -DLIB -DDEBUG -DSTATISTICS
 **********************************************************************/
 
 #include "sort.h"
