@@ -1,3 +1,5 @@
+// não está funcionando conforme pedido na questão
+
 #include "sort.h"
 #include <stdio.h>
 
