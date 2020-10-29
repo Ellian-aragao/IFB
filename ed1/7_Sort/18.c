@@ -1,3 +1,8 @@
+/*********************************************************************
+ * para compilar, utilize os flags:
+ * - LIB: para não compilar a main implementada no sort.c
+ * gcc sort.c 18.c -DLIB
+**********************************************************************/
 #include "sort.h"
 #include <stdio.h>
 

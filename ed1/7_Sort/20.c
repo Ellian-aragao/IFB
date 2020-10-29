@@ -1,3 +1,9 @@
+/*********************************************************************
+ * para compilar, utilize os flags:
+ * - LIB: para não compilar a main implementada no sort.c
+ * gcc sort.c 20.c -DLIB
+**********************************************************************/
+
 // copy paste do exercício 18, fazendo mudança no parâmetro utilizado no comparador, invertendo o sinal e removendo proteção contra espaços
 #include "sort.h"
 #include <stdio.h>

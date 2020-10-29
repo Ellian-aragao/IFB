@@ -1,3 +1,10 @@
+/*********************************************************************
+ * para compilar, utilize os flags:
+ * - LIB: para não compilar a main implementada no sort.c
+ * - DEBUG: exibir no console cada parte do algoritmo sendo exacutada
+ * gcc sort.c 12.c -DLIB -DDEBUG
+**********************************************************************/
+
 #include "sort.h"
 #include <stdio.h>
 
