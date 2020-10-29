@@ -389,6 +389,7 @@ END_HEAP_FUNCTION:
   #ifdef STATISTICS
     printf("\nHeapSort\n * comps: %ld\n * swaps: %ld\n\n", comparations, swaps);
   #endif
+  return;
 }
 
 void countingSort(int *vector, const u_long tamVector, const u_long maxItemVector)
