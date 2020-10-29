@@ -219,10 +219,21 @@ void heapSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*com
   }
 }
 
-#ifndef LIB
-#define voidToType(ptr) (*(int *)ptr)
-int compare(void *i1, void *i2)
+void countingSort(int *vector, const u_long tamVector, const u_long maxItemVector)
 {
+  int *bucketV = calloc(maxItemVector, sizeof(int));
+  if (!bucketV)
+    exit(EXIT_FAILURE);
+
+  for (int i = 0; i < tamVector; i++)
+    bucketV[vector[i]]++;
+
+  for (int i = 0, j = 0; j < maxItemVector; j++)
+    while (bucketV[j]--)
+      vector[i++] = j;
+
+  free(bucketV);
+}
   return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
 }
 
