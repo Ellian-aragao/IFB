@@ -1,6 +1,10 @@
 #include "sort.h"
 #include <stdio.h>
 
+#ifdef STATISTICS
+u_long comparations = 0;
+u_long swaps = 0;
+#endif
 
 #define getAddrres(vector, position, size) ((vector) + ((position) * (size)))
 
@@ -21,7 +25,10 @@ static inline void *createTmpPointer(size_t *size)
 {
   void *tmp = malloc(*size);
   if (!tmp)
+  {
+    perror("Erro na alocação do ptr temporário");
     exit(EXIT_FAILURE);
+  }
   return tmp;
 }
 
@@ -35,14 +42,24 @@ static inline void swap(void *item1, void *item2, void *tmp, size_t *size)
 void bubbleSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
   u_long boolean = 1;
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
   void *tmp = createTmpPointer(&SizeValuesVector);
   while (boolean != 0)
   {
     u_long i;
     for (boolean = 0, i = 0; i < tamVector - 1; i++)
     {
+#ifdef STATISTICS
+      comparations++;
+#endif
       if (comparator(getAddrres(vector, i + 1, SizeValuesVector), getAddrres(vector, i, SizeValuesVector)))
       {
+#ifdef STATISTICS
+        swaps++;
+#endif
         swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, i + 1, SizeValuesVector), tmp, &SizeValuesVector);
         boolean = i;
       }
@@ -53,22 +70,44 @@ void bubbleSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*c
     tamVector--;
   }
   free(tmp);
+#ifdef STATISTICS
+  printf("\nBubbleSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 void insertionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
   void *tmp = createTmpPointer(&SizeValuesVector);
   for (long j, i = 1; i < tamVector; i++)
   {
 #ifdef DEBUG
     printVector(vector, i + 1);
 #endif
+#ifdef STATISTICS
+    comparations++;
+    swaps++;
+#endif
     memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
     for (j = i - 1; j >= 0 && comparator(tmp, getAddrres(vector, j, SizeValuesVector)); j--)
+#ifdef STATISTICS
+    {
+      swaps++;
+#endif
       memcpy(getAddrres(vector, j + 1, SizeValuesVector), getAddrres(vector, j, SizeValuesVector), SizeValuesVector);
+#ifdef STATISTICS
+    }
+    swaps++;
+#endif
     memcpy(getAddrres(vector, j + 1, SizeValuesVector), tmp, SizeValuesVector);
   }
   free(tmp);
+#ifdef STATISTICS
+  printf("\nInsertionSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 void insertionSortItem(void *vector, u_long tamVector, void *item, size_t SizeValuesVector, int (*comparator)(void *, void *))
@@ -85,11 +124,27 @@ static void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t
   while (i <= j)
   {
     while (comparator(getAddrres(vector, i, *SizeValuesVector), pivo) && i < *final)
+    {
+#ifdef STATISTICS
+      comparations++;
+#endif
       i++;
+    }
     while (comparator(pivo, getAddrres(vector, j, *SizeValuesVector)) && j > *init)
+    {
+#ifdef STATISTICS
+      comparations++;
+#endif
       j--;
+    }
+#ifdef STATISTICS
+    comparations += 2;
+#endif
     if (i <= j)
     {
+#ifdef STATISTICS
+      swaps++;
+#endif
       swap(getAddrres(vector, i, *SizeValuesVector), getAddrres(vector, j, *SizeValuesVector), tmp, SizeValuesVector);
       i++;
       j--;
@@ -106,34 +161,64 @@ static void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t
 
 void quickSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
+
   void *tmp = createTmpPointer(&SizeValuesVector);
   void *pivo = createTmpPointer(&SizeValuesVector);
   u_long init = 0;
   quicksortRecursive(vector, &init, &tamVector, &SizeValuesVector, comparator, tmp, pivo);
   free(tmp);
   free(pivo);
+
+#ifdef STATISTICS
+  printf("\nQuickSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
   void *tmp = createTmpPointer(&SizeValuesVector);
   for (u_long min, i = 0; i < tamVector - 1; i++)
   {
     min = i;
     for (u_long j = i + 1; j < tamVector; j++)
+    {
+#ifdef STATISTICS
+      comparations++;
+#endif
       if (comparator(getAddrres(vector, j, SizeValuesVector), getAddrres(vector, min, SizeValuesVector)))
         min = j;
+    }
 #ifdef DEBUG
     printVector(vector, min + 1);
 #endif
     if (memcmp(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), SizeValuesVector))
+    {
+#ifdef STATISTICS
+      swaps++;
+#endif
       swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), tmp, &SizeValuesVector);
+    }
   }
   free(tmp);
+#ifdef STATISTICS
+  printf("\nSelectionSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
   const u_long NUMERO_MAGICO = 3;
   void *tmp = createTmpPointer(&SizeValuesVector);
 
@@ -145,9 +230,20 @@ void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
   {
     for (u_long j, i = h; i < tamVector; i++)
     {
+
       memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
       for (j = i; j > h - 1 && comparator(tmp, getAddrres(vector, j - h, SizeValuesVector)); j -= h)
+      {
+#ifdef STATISTICS
+        comparations++;
+#endif
         memcpy(getAddrres(vector, j, SizeValuesVector), getAddrres(vector, j - h, SizeValuesVector), SizeValuesVector);
+      }
+#ifdef STATISTICS
+      comparations++;
+      swaps++;
+#endif
+
       memcpy(getAddrres(vector, j, SizeValuesVector), tmp, SizeValuesVector);
     }
     h /= NUMERO_MAGICO;
@@ -156,6 +252,9 @@ void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
 #endif
   }
   free(tmp);
+#ifdef STATISTICS
+  printf("\nShellSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 static inline void mergeVectors(void *vector, const u_long *init, const u_long *mid, const u_long *end, void *tmpV, const size_t *SizeValuesVector, int (*comparator)(void *, void *))
@@ -164,19 +263,33 @@ static inline void mergeVectors(void *vector, const u_long *init, const u_long *
   u_long right = *mid;
   for (u_long i = *init; i < *end; i++)
   {
+#ifdef STATISTICS
+    comparations++;
+#endif
     if ((left < *mid) && ((right >= *end) || comparator(getAddrres(vector, left, *SizeValuesVector), getAddrres(vector, right, *SizeValuesVector))))
     {
+#ifdef STATISTICS
+      swaps++;
+#endif
       memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, left, *SizeValuesVector), *SizeValuesVector);
       left++;
     }
     else
     {
+#ifdef STATISTICS
+      swaps++;
+#endif
       memcpy(getAddrres(tmpV, i, *SizeValuesVector), getAddrres(vector, right, *SizeValuesVector), *SizeValuesVector);
       right++;
     }
   }
   for (u_long i = *init; i < *end; ++i)
+  {
+#ifdef STATISTICS
+    swaps++;
+#endif
     memcpy(getAddrres(vector, i, *SizeValuesVector), getAddrres(tmpV, i, *SizeValuesVector), *SizeValuesVector);
+  }
 #ifdef DEBUG
   printVector(vector, *end);
 #endif
@@ -193,45 +306,73 @@ static void mergeSortRecursive(void *vector, const u_long *init, const u_long *e
   }
 }
 
-void mergeSort(void *vector, const u_long tamVector, const size_t SizeValuesVector, int (*comparator)(void *, void *))
+void mergeSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+#ifdef STATISTICS
+  comparations = 0;
+  swaps = 0;
+#endif
+
   size_t var = SizeValuesVector * tamVector;
   void *tmp = createTmpPointer(&var);
   var = 0;
   mergeSortRecursive(vector, &var, &tamVector, tmp, &SizeValuesVector, comparator);
+#ifdef STATISTICS
+  printf("\nMergeSort\n * comps: %ld\n * swaps: %ld\n", comparations, swaps);
+#endif
 }
 
 void heapSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
+  #ifdef STATISTICS
+    comparations = 0;
+    swaps = 0;
+  #endif
+  
   void *tmp = createTmpPointer(&SizeValuesVector);
   u_long i = tamVector / 2;
   while (1)
   {
+  
     if (i > 0)
     {
       i--;
       memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
+      #ifdef STATISTICS
+            swaps++;
+      #endif
     }
     else
     {
       tamVector--;
+      
       if (tamVector <= 0)
-        return;
+        goto END_HEAP_FUNCTION;
+
+      #ifdef STATISTICS
+            swaps += 2;
+      #endif
       memcpy(tmp, getAddrres(vector, tamVector, SizeValuesVector), SizeValuesVector);
       memcpy(getAddrres(vector, tamVector, SizeValuesVector), getAddrres(vector, 0, SizeValuesVector), SizeValuesVector);
     }
-#ifdef DEBUG
-    printVector(vector, tamVector);
-#endif
+    #ifdef DEBUG
+        printVector(vector, tamVector);
+    #endif
 
     u_long root = i;
     u_long node = i * 2 + 1;
     while (node < tamVector)
     {
+      #ifdef STATISTICS
+            comparations += 2;
+      #endif
       if ((node + 1 < tamVector) && comparator(getAddrres(vector, node, SizeValuesVector), getAddrres(vector, node + 1, SizeValuesVector)))
         node++;
       if (comparator(tmp, getAddrres(vector, node, SizeValuesVector)))
       {
+        #ifdef STATISTICS
+                swaps++;
+        #endif
         memcpy(getAddrres(vector, root, SizeValuesVector), getAddrres(vector, node, SizeValuesVector), SizeValuesVector);
         root = node;
         node = root * 2 + 1;
@@ -239,8 +380,15 @@ void heapSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*com
       else
         break;
     }
+    #ifdef STATISTICS
+        swaps++;
+    #endif
     memcpy(getAddrres(vector, root, SizeValuesVector), tmp, SizeValuesVector);
   }
+END_HEAP_FUNCTION:
+  #ifdef STATISTICS
+    printf("\nHeapSort\n * comps: %ld\n * swaps: %ld\n\n", comparations, swaps);
+  #endif
 }
 
 void countingSort(int *vector, const u_long tamVector, const u_long maxItemVector)
@@ -302,7 +450,6 @@ void bucketSort(int *vector, const u_long tamVector)
 }
 
 #ifndef LIB
-#include <stdio.h>
 int main()
 {
   int vector[] = {19, 1234, 58, 34, 17, 68, 345, 63, 234, 67, 38};
