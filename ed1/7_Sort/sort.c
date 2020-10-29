@@ -1,7 +1,7 @@
 #include "sort.h"
 #include <stdio.h>
 
-#define getAddrres(vector, position, size) ((vector) + (position) * (size))
+#define getAddrres(vector, position, size) ((vector) + ((position) * (size)))
 
 static inline void *createTmpPointer(size_t *size)
 {
@@ -167,11 +167,50 @@ void mergeSort(void *vector, const u_long tamVector, const size_t SizeValuesVect
   mergeSortRecursive(vector, &var, &tamVector, tmp, &SizeValuesVector, comparator);
 }
 
+void heapSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
+{
+  void *tmp = createTmpPointer(&SizeValuesVector);
+  u_long i = tamVector / 2;
+  while (1)
+  {
+    if (i > 0)
+    {
+      i--;
+      memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
+    }
+    else
+    {
+      tamVector--;
+      if (tamVector <= 0)
+        return;
+      memcpy(tmp, getAddrres(vector, tamVector, SizeValuesVector), SizeValuesVector);
+      memcpy(getAddrres(vector, tamVector, SizeValuesVector), getAddrres(vector, 0, SizeValuesVector), SizeValuesVector);
+    }
+
+    u_long root = i;
+    u_long node = i * 2 + 1;
+    while (node < tamVector)
+    {
+      if ((node + 1 < tamVector) && comparator(getAddrres(vector,node + 1,SizeValuesVector), getAddrres(vector, node, SizeValuesVector)))
+        node++;
+      if (comparator(getAddrres(vector, node, SizeValuesVector), tmp))
+      {
+        memcpy(getAddrres(vector, root, SizeValuesVector), getAddrres(vector, node, SizeValuesVector), SizeValuesVector);
+        root = node;
+        node = root * 2 + 1;
+      }
+      else
+        break;
+    }
+    memcpy(getAddrres(vector, root, SizeValuesVector), tmp, SizeValuesVector);
+  }
+}
+
 #ifndef LIB
 #define voidToType(ptr) (*(int *)ptr)
 int compare(void *i1, void *i2)
 {
-  return (voidToType(i1) < voidToType(i2)) ? 1 : 0;
+  return (voidToType(i1) > voidToType(i2)) ? 1 : 0;
 }
 
 int main(int argc, char const *argv[])
@@ -184,7 +223,7 @@ int main(int argc, char const *argv[])
     printf(strPrint, vector[i]);
   putchar('\n');
 
-  mergeSort(vector, tam, sizeof(vector[0]), compare);
+  heapSort(vector, tam, sizeof(vector[0]), compare);
 
   for (size_t i = 0; i < tam; i++)
     printf(strPrint, vector[i]);
