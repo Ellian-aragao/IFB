@@ -277,21 +277,18 @@ void bucketSort(int *vector, const u_long tamVector)
   free(bucket);
 }
 
-int main(int argc, char const *argv[])
+#ifndef LIB
+#include <stdio.h>
+int main()
 {
-  int vector[12] = {19, 1234, 58, 34, 17, 68, 345, 63, 234, 67, 38};
+  int vector[] = {19, 1234, 58, 34, 17, 68, 345, 63, 234, 67, 38};
   const int tam = sizeof(vector) / sizeof(vector[0]);
-  const char strPrint[] = "%d, ";
 
-  for (size_t i = 0; i < tam; i++)
-    printf(strPrint, vector[i]);
-  putchar('\n');
+  printVector(vector, tam);
 
-  heapSort(vector, tam, sizeof(vector[0]), compare);
+  heapSort(vector, tam, sizeof(vector[0]), compareInteger);
 
-  for (size_t i = 0; i < tam; i++)
-    printf(strPrint, vector[i]);
-  putchar('\n');
+  printVector(vector, tam);
   return 0;
 }
 #endif
