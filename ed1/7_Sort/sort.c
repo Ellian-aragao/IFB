@@ -1,6 +1,10 @@
 #include "sort.h"
 #include <stdio.h>
 
+#ifdef DEBUG
+#include <time.h>
+#endif
+
 #define getAddrres(vector, position, size) ((vector) + ((position) * (size)))
 
 static inline void printVector(const int *vector, const int tamVector)
@@ -33,16 +37,22 @@ static inline void swap(void *item1, void *item2, void *tmp, size_t *size)
 
 void bubbleSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*comparator)(void *, void *))
 {
-  u_long i, next = 1;
+  u_long boolean = 1;
   void *tmp = createTmpPointer(&SizeValuesVector);
-  while (next != 0)
+  while (boolean != 0)
   {
-    for (next = 0, i = 0; i < tamVector - 1; i++)
-      if (comparator(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, i + 1, SizeValuesVector)))
+    u_long i;
+    for (boolean = 0, i = 0; i < tamVector - 1; i++)
+    {
+      if (comparator(getAddrres(vector, i + 1, SizeValuesVector), getAddrres(vector, i, SizeValuesVector)))
       {
         swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, i + 1, SizeValuesVector), tmp, &SizeValuesVector);
-        next = i;
+        boolean = i;
       }
+    }
+#ifdef DEBUG
+    printVector(vector, tamVector);
+#endif
     tamVector--;
   }
   free(tmp);
@@ -53,8 +63,11 @@ void insertionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int 
   void *tmp = createTmpPointer(&SizeValuesVector);
   for (long j, i = 1; i < tamVector; i++)
   {
+#ifdef DEBUG
+    printVector(vector, i + 1);
+#endif
     memcpy(tmp, getAddrres(vector, i, SizeValuesVector), SizeValuesVector);
-    for (j = i - 1; j >= 0 && comparator(getAddrres(vector, j, SizeValuesVector), tmp); j--)
+    for (j = i - 1; j >= 0 && comparator(tmp, getAddrres(vector, j, SizeValuesVector)); j--)
       memcpy(getAddrres(vector, j + 1, SizeValuesVector), getAddrres(vector, j, SizeValuesVector), SizeValuesVector);
     memcpy(getAddrres(vector, j + 1, SizeValuesVector), tmp, SizeValuesVector);
   }
@@ -74,9 +87,9 @@ static void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t
   u_long j = *final - 1;
   while (i <= j)
   {
-    while (comparator(pivo, getAddrres(vector, i, *SizeValuesVector)) && i < *final)
+    while (comparator(getAddrres(vector, i, *SizeValuesVector), pivo) && i < *final)
       i++;
-    while (comparator(getAddrres(vector, j, *SizeValuesVector), pivo) && j > *init)
+    while (comparator(pivo, getAddrres(vector, j, *SizeValuesVector)) && j > *init)
       j--;
     if (i <= j)
     {
@@ -85,6 +98,9 @@ static void quicksortRecursive(void *vector, u_long *init, u_long *final, size_t
       j--;
     }
   }
+#ifdef DEBUG
+  printVector(vector, *final);
+#endif
   if (j++ > *init)
     quicksortRecursive(vector, init, &j, SizeValuesVector, comparator, tmp, pivo);
   if (i < *final)
@@ -108,9 +124,11 @@ void selectionSort(void *vector, u_long tamVector, size_t SizeValuesVector, int 
   {
     min = i;
     for (u_long j = i + 1; j < tamVector; j++)
-      if (comparator(getAddrres(vector, min, SizeValuesVector), getAddrres(vector, j, SizeValuesVector)))
+      if (comparator(getAddrres(vector, j, SizeValuesVector), getAddrres(vector, min, SizeValuesVector)))
         min = j;
-
+#ifdef DEBUG
+    printVector(vector, min + 1);
+#endif
     if (memcmp(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), SizeValuesVector))
       swap(getAddrres(vector, i, SizeValuesVector), getAddrres(vector, min, SizeValuesVector), tmp, &SizeValuesVector);
   }
@@ -136,6 +154,9 @@ void shellSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*co
       memcpy(getAddrres(vector, j, SizeValuesVector), tmp, SizeValuesVector);
     }
     h /= NUMERO_MAGICO;
+#ifdef DEBUG
+    printVector(vector, tamVector);
+#endif
   }
   free(tmp);
 }
@@ -159,6 +180,9 @@ static inline void mergeVectors(void *vector, const u_long *init, const u_long *
   }
   for (u_long i = *init; i < *end; ++i)
     memcpy(getAddrres(vector, i, *SizeValuesVector), getAddrres(tmpV, i, *SizeValuesVector), *SizeValuesVector);
+#ifdef DEBUG
+  printVector(vector, *end);
+#endif
 }
 
 static void mergeSortRecursive(void *vector, const u_long *init, const u_long *end, void *tmpV, const size_t *SizeValuesVector, int (*comparator)(void *, void *))
@@ -166,8 +190,18 @@ static void mergeSortRecursive(void *vector, const u_long *init, const u_long *e
   if ((*end - *init) >= 2)
   {
     const u_long mid = ((*init + *end) / 2);
+#ifdef DEBUG
+    time_t timer;
+    struct tm y2k = {0};
+    time(&timer);
+#endif
     mergeSortRecursive(vector, init, &mid, tmpV, SizeValuesVector, comparator);
+#ifdef DEBUG
+    difftime(timer,mktime)
+    time(&timer);
+#endif
     mergeSortRecursive(vector, &mid, end, tmpV, SizeValuesVector, comparator);
+
     mergeVectors(vector, init, &mid, end, tmpV, SizeValuesVector, comparator);
   }
 }
@@ -199,14 +233,17 @@ void heapSort(void *vector, u_long tamVector, size_t SizeValuesVector, int (*com
       memcpy(tmp, getAddrres(vector, tamVector, SizeValuesVector), SizeValuesVector);
       memcpy(getAddrres(vector, tamVector, SizeValuesVector), getAddrres(vector, 0, SizeValuesVector), SizeValuesVector);
     }
+#ifdef DEBUG
+    printVector(vector, tamVector);
+#endif
 
     u_long root = i;
     u_long node = i * 2 + 1;
     while (node < tamVector)
     {
-      if ((node + 1 < tamVector) && comparator(getAddrres(vector,node + 1,SizeValuesVector), getAddrres(vector, node, SizeValuesVector)))
+      if ((node + 1 < tamVector) && comparator(getAddrres(vector, node, SizeValuesVector), getAddrres(vector, node + 1, SizeValuesVector)))
         node++;
-      if (comparator(getAddrres(vector, node, SizeValuesVector), tmp))
+      if (comparator(tmp, getAddrres(vector, node, SizeValuesVector)))
       {
         memcpy(getAddrres(vector, root, SizeValuesVector), getAddrres(vector, node, SizeValuesVector), SizeValuesVector);
         root = node;
