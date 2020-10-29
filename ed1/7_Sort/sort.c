@@ -1,9 +1,6 @@
 #include "sort.h"
 #include <stdio.h>
 
-#ifdef DEBUG
-#include <time.h>
-#endif
 
 #define getAddrres(vector, position, size) ((vector) + ((position) * (size)))
 
@@ -190,18 +187,8 @@ static void mergeSortRecursive(void *vector, const u_long *init, const u_long *e
   if ((*end - *init) >= 2)
   {
     const u_long mid = ((*init + *end) / 2);
-#ifdef DEBUG
-    time_t timer;
-    struct tm y2k = {0};
-    time(&timer);
-#endif
     mergeSortRecursive(vector, init, &mid, tmpV, SizeValuesVector, comparator);
-#ifdef DEBUG
-    difftime(timer,mktime)
-    time(&timer);
-#endif
     mergeSortRecursive(vector, &mid, end, tmpV, SizeValuesVector, comparator);
-
     mergeVectors(vector, init, &mid, end, tmpV, SizeValuesVector, comparator);
   }
 }
