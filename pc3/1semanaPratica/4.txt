@@ -1,0 +1,2 @@
+Vector é thread-safe e seu crescimento quanto atingido o limíte é de 100% seu tamanho
+Arraylist não é thread-safe e seu crescimento é de 50%

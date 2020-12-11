@@ -1,0 +1,2 @@
+hashTable é thread safe, não armazena nulos
+hashmap não é thread safe e armazena nulos
