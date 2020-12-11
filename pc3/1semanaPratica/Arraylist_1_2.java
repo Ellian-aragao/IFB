@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,12 +10,7 @@ public class Arraylist_1_2 {
   }
 
   public static List<String> exercicio1() {
-    List<String> array = new ArrayList<>();
-    array.add("vermelho");
-    array.add("verde");
-    array.add("azul");
-    array.add("marrom");
-    array.add("amarelo");
+    List<String> array = new ArrayList<>(Arrays.asList("vermelho", "verde", "azul", "marrom", "amarelo"));
     array.forEach((cor) -> System.out.println(cor));
     return array;
   }
