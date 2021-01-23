@@ -1,2 +1,0 @@
-a arvore AVL tem critérios de balanceamento que reduzem a complexidade da busca,
-visto que a ABB tem O(n) no pior caso, AVL tem O(log n), devido seu balanceamento

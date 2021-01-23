@@ -1,1 +1,0 @@
-implementada na 1.c => verifica_avl

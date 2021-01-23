@@ -1,1 +1,0 @@
-significa que ela não será mutável, deste modo, uma vez criada alocará sempre aquela quantidade de memória utilizada para tal, não existindo nenhuma maleabilidade quanto o conjunto de dados a serem salvos no final

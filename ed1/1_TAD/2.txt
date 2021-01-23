@@ -1,1 +1,0 @@
-adicionar contexto e facilitar acesso aos dados, de modo que para acesso a determinado conjunto, uma só estrutura possui tudo que é necessário

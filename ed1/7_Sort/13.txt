@@ -1,4 +1,0 @@
-não pois a projeção de crecimento de um algoritmo 
-                      'n ^ (3 / 2)'
-é maior que um 
-                      'n * log(n)'

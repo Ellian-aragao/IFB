@@ -1,2 +1,0 @@
-uma forma de minimizar a utilização de keys que resultam em um mesmo índice
-através do tratamento com aritmética modular.

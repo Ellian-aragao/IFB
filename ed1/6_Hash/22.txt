@@ -1,1 +1,0 @@
-sim pois bastaria fazer a construção da função hash inversa

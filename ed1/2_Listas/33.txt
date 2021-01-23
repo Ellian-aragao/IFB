@@ -1,2 +1,0 @@
-função sort a qual recebe um comparador que retorna 1 para quando o item anterior é maior e 0 quando não
-já implementada na bilbioteca

@@ -1,2 +1,0 @@
-dependendo do caso o qual se envolve, é util em sistemas de navegação entre paginas de programas,
-algortimos de backtraking, gerenciamento de memória, parsing de expressões

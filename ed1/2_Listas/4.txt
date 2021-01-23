@@ -1,1 +1,0 @@
-facilidade de remoção de itens, tanto como adição de itens. a desvantagem é a necessidade de percorrer a lista para encontrar determinado item

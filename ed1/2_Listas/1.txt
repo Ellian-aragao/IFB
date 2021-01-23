@@ -1,1 +1,0 @@
-significa que faz-se uma alocação de itens iguais em posições seguidas da memória , tal como 0x0, 0x1, 0x2... Diferentemente de casos que armazena dados em diferentes posições não com tamanhos diversos.

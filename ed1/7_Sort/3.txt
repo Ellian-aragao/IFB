@@ -1,2 +1,0 @@
-casos de ordenação como verificação de itens em questão de um item comparativo como ID, valor, analise lexográfica
-problemas essencialmente matemáticos, mas não exclusivos, na análise de dados

@@ -1,1 +1,0 @@
-endereçamento fechado e não existência de colisões, teoricamente definida como hash perfeito

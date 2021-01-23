@@ -1,1 +1,0 @@
-função implementada na library

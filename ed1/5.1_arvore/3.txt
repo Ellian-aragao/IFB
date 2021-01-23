@@ -1,1 +1,0 @@
-é uma arvore binária com balanceamento, fazendo com que todos os nós fiquem mais distribuídos possível, deste modo facilitando a busca

@@ -1,2 +1,0 @@
-exercicio 29 implementa a estratégia recursiva, e a biblioteca possui a "implementação" não recursiva
-da contagem do número de elementos

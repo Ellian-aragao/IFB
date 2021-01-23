@@ -1,5 +1,0 @@
-a) teremos 'n' colisões
-
-b) teremos 'n/2' colisões
-
-c) teremos, para n > 5, 'n-5' colisões
