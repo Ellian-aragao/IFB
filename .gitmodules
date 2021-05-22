@@ -10,3 +10,6 @@
 [submodule "IFB-BD1"]
 	path = IFB-BD1
 	url = git@github.com:Ellian-aragao/IFB-BD1.git
+[submodule "IFB-EDA"]
+	path = IFB-EDA
+	url = git@github.com:Ellian-aragao/IFB-EDA.git
