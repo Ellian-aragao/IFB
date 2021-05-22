@@ -1,9 +1,6 @@
 [submodule "IFB-CN"]
 	path = IFB-CN
 	url = git@github.com:Ellian-aragao/IFB-CN.git
-[submodule "IFB-ED1"]
-	path = IFB-ED1
-	url = git@github.com:Ellian-aragao/IFB-ED1.git
 [submodule "IFB-PC1"]
 	path = IFB-PC1
 	url = git@github.com:Ellian-aragao/IFB-PC1.git
