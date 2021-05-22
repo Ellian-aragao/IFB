@@ -10,3 +10,6 @@
 [submodule "IFB-APC"]
 	path = IFB-APC
 	url = git@github.com:Ellian-aragao/IFB-APC.git
+[submodule "IFB-BD1"]
+	path = IFB-BD1
+	url = git@github.com:Ellian-aragao/IFB-BD1.git
